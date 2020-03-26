@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B8F242CFB3D00180242 /* AppDelegate.swift */; };
 		01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B91242CFB3D00180242 /* SceneDelegate.swift */; };
-		01B38B94242CFB3D00180242 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B93242CFB3D00180242 /* ViewController.swift */; };
+		01B38B94242CFB3D00180242 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B93242CFB3D00180242 /* MainVC.swift */; };
 		01B38B97242CFB3D00180242 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01B38B95242CFB3D00180242 /* Main.storyboard */; };
 		01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B98242CFB3D00180242 /* Revamp.xcdatamodeld */; };
 		01B38B9C242CFB3E00180242 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01B38B9B242CFB3E00180242 /* Assets.xcassets */; };
@@ -39,7 +39,7 @@
 		01B38B8C242CFB3D00180242 /* Revamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B38B8F242CFB3D00180242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01B38B91242CFB3D00180242 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		01B38B93242CFB3D00180242 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		01B38B93242CFB3D00180242 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		01B38B96242CFB3D00180242 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01B38B99242CFB3D00180242 /* Revamp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Revamp.xcdatamodel; sourceTree = "<group>"; };
 		01B38B9B242CFB3E00180242 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,14 +101,12 @@
 		01B38B8E242CFB3D00180242 /* Revamp */ = {
 			isa = PBXGroup;
 			children = (
-				01B38B8F242CFB3D00180242 /* AppDelegate.swift */,
-				01B38B91242CFB3D00180242 /* SceneDelegate.swift */,
-				01B38B93242CFB3D00180242 /* ViewController.swift */,
-				01B38B95242CFB3D00180242 /* Main.storyboard */,
+				01B38BC6242CFCA200180242 /* Storyboards */,
 				01B38B9B242CFB3E00180242 /* Assets.xcassets */,
-				01B38B9D242CFB3E00180242 /* LaunchScreen.storyboard */,
-				01B38BA0242CFB3E00180242 /* Info.plist */,
-				01B38B98242CFB3D00180242 /* Revamp.xcdatamodeld */,
+				01B38BC5242CFC8D00180242 /* View */,
+				01B38BC4242CFC8400180242 /* Controllers */,
+				01B38BC3242CFC7D00180242 /* Model */,
+				01B38BC2242CFC6F00180242 /* Supporting Files */,
 			);
 			path = Revamp;
 			sourceTree = "<group>";
@@ -129,6 +127,48 @@
 				01B38BB6242CFB3E00180242 /* Info.plist */,
 			);
 			path = RevampUITests;
+			sourceTree = "<group>";
+		};
+		01B38BC2242CFC6F00180242 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				01B38B8F242CFB3D00180242 /* AppDelegate.swift */,
+				01B38B91242CFB3D00180242 /* SceneDelegate.swift */,
+				01B38BA0242CFB3E00180242 /* Info.plist */,
+				01B38B98242CFB3D00180242 /* Revamp.xcdatamodeld */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01B38BC3242CFC7D00180242 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		01B38BC4242CFC8400180242 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				01B38B93242CFB3D00180242 /* MainVC.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		01B38BC5242CFC8D00180242 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		01B38BC6242CFCA200180242 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				01B38B9D242CFB3E00180242 /* LaunchScreen.storyboard */,
+				01B38B95242CFB3D00180242 /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01B38B94242CFB3D00180242 /* ViewController.swift in Sources */,
+				01B38B94242CFB3D00180242 /* MainVC.swift in Sources */,
 				01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
 				01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */,
@@ -441,6 +481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				INFOPLIST_FILE = Revamp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,6 +500,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				INFOPLIST_FILE = Revamp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
