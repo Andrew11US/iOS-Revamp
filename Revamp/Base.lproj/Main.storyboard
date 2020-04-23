@@ -22,16 +22,22 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-zS-vdm">
                                         <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="30"/>
                                         <state key="normal" title="Open"/>
+                                        <connections>
+                                            <action selector="openBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KJS-62-1YL"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
                                         <rect key="frame" x="114.33333333333334" y="0.0" width="106.33333333333334" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-M7-ldT">
-                                        <rect key="frame" x="228.66666666666663" y="0.0" width="106.33333333333334" height="30"/>
+                                        <rect key="frame" x="228.66666666666666" y="0.0" width="106.33333333333334" height="30"/>
                                         <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QtW-mj-QBf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -47,6 +53,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="nameLbl" destination="G7H-aD-r72" id="LzW-mN-puG"/>
+                        <outlet property="openBtn" destination="qiQ-zS-vdm" id="shh-pN-91z"/>
+                        <outlet property="saveBtn" destination="oe2-M7-ldT" id="8bi-Nm-cQe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

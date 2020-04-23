@@ -10,6 +10,10 @@ import UIKit
 
 class MainVC: UIViewController {
     
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var openBtn: UIButton!
+    @IBOutlet weak var saveBtn: UIButton!
+    
     var imageScrollView: ImageScrollView!
 
     override func viewDidLoad() {
@@ -26,6 +30,12 @@ class MainVC: UIViewController {
         let image = UIImage(named: "IMG_7033")
         
         self.imageScrollView.set(image: image!)
+    }
+    
+    @IBAction func openBtnTapped(_ sender: UIButton) {
+    }
+    
+    @IBAction func saveBtnTapped(_ sender: UIButton) {
     }
     
     func setupImageScrollView() {
