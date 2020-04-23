@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		012953F32452196C0067082D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012953F22452196C0067082D /* opencv2.framework */; };
 		012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012953F6245219E90067082D /* OpenCVWrapper.mm */; };
+		012953F924522FDE0067082D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012953F824522FDE0067082D /* ImageScrollView.swift */; };
 		01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B8F242CFB3D00180242 /* AppDelegate.swift */; };
 		01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B91242CFB3D00180242 /* SceneDelegate.swift */; };
 		01B38B94242CFB3D00180242 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B93242CFB3D00180242 /* MainVC.swift */; };
@@ -42,6 +43,7 @@
 		012953F4245219E80067082D /* Revamp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Revamp-Bridging-Header.h"; sourceTree = "<group>"; };
 		012953F5245219E90067082D /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		012953F6245219E90067082D /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		012953F824522FDE0067082D /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		01B38B8C242CFB3D00180242 /* Revamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B38B8F242CFB3D00180242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01B38B91242CFB3D00180242 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		01B38BC5242CFC8D00180242 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				012953F824522FDE0067082D /* ImageScrollView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				01B38B94242CFB3D00180242 /* MainVC.swift in Sources */,
 				012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */,
 				01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */,
+				012953F924522FDE0067082D /* ImageScrollView.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
 				01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */,
 			);
@@ -501,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -528,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
