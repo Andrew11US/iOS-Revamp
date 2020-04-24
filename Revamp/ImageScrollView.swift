@@ -5,16 +5,20 @@
 
 import UIKit
 
+// MARK: - UIScrollView extension class to hold UIImageView
 class ImageScrollView: UIScrollView, UIScrollViewDelegate {
 
+    // MARK: - Image to operate with
     var baseImage: UIImageView!
     
+    // Tap Gesture recognizer
     lazy var zoomingTap: UITapGestureRecognizer = {
         let zoomingTap = UITapGestureRecognizer(target: self, action: #selector(handleZoomingTap))
         zoomingTap.numberOfTapsRequired = 2
         return zoomingTap
     }()
     
+    // MARK: - UIScrollView initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,10 +28,12 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         self.decelerationRate = UIScrollView.DecelerationRate.fast
     }
     
+    // MARK: - Requires instances to have init, throws error instead
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Sets base image and adds it to superview
     func set(image: UIImage) {
         
         baseImage?.removeFromSuperview()
@@ -41,7 +47,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
     func configurateFor(imageSize: CGSize) {
         self.contentSize = imageSize
         
-        setCurrentMaxAndMinZoomScale()
+        setZoomScale()
         self.zoomScale = self.minimumZoomScale
         
         self.baseImage.addGestureRecognizer(self.zoomingTap)
@@ -49,13 +55,14 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
 
     }
     
+    // MARK: - forces layout updates on a view
     override func layoutSubviews() {
         super.layoutSubviews()
         
         self.centerImage()
     }
     
-    func setCurrentMaxAndMinZoomScale() {
+    func setZoomScale() {
         let boundsSize = self.bounds.size
         let imageSize = baseImage.bounds.size
         
@@ -97,7 +104,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         baseImage.frame = frameToCenter
     }
     
-    // gesture
+    // Tap Gesture handler
     @objc func handleZoomingTap(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
         self.zoom(point: location, animated: true)
@@ -130,8 +137,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         return zoomRect
     }
     
-    // MARK: - UIScrollViewDelegate
-    
+    // MARK: - UIScrollViewDelegate methods
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.baseImage
     }
