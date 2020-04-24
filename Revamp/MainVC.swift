@@ -35,6 +35,8 @@ class MainVC: UIViewController {
     
     @IBAction func saveBtnTapped(_ sender: UIButton) {
         self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
+//        print(imageScrollView.baseImage.image?.histogram()?.red)
+//        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 500, height: 500))!)
     }
     
     func setupImageScrollView() {
