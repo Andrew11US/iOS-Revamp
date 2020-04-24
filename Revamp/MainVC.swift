@@ -25,13 +25,16 @@ class MainVC: UIViewController {
     }
     
     @IBAction func openBtnTapped(_ sender: UIButton) {
+        if imageScrollView != nil {
+            imageScrollView.removeFromSuperview()
+        }
         setupImageScrollView()
         let image = UIImage(named: "IMG_7033")
         self.imageScrollView.set(image: image!)
     }
     
     @IBAction func saveBtnTapped(_ sender: UIButton) {
-        
+        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
     }
     
     func setupImageScrollView() {

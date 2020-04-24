@@ -7,12 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+// MARK: - Objective-C Wrapper for OpenCV library to operate with Swift
+// Header file is used for declarations
 @interface OpenCVWrapper : NSObject
 
+// Shows OpenCV version
 + (NSString *)openCVVersion;
+// Makes image grayscale
++ (UIImage *)makeGray:(UIImage *) image;
 
 @end
 
