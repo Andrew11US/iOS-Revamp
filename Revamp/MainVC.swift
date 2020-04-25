@@ -13,7 +13,6 @@ import SPPermissions
 
 class MainVC: UIViewController {
     
-    
     // MARK: - IBOutlets
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var openBtn: UIButton!
@@ -42,7 +41,6 @@ class MainVC: UIViewController {
 //        print(OpenCVWrapper.openCVVersion())
         setHistoryCollectionView()
         imagePicker = ImagePicker(presentationController: self, delegate: self)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,24 +49,18 @@ class MainVC: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
             self.requestPermissions()
         }
-        
     }
     
+    //MARK: - IBActions
     @IBAction func openBtnTapped(_ sender: UIButton) {
-        if imageScrollView != nil {
-            imageScrollView.removeFromSuperview()
+        if imageScrollView == nil {
+            imagePicker.present(from: sender)
+        } else {
+            presentCloseAlert()
         }
-        setupImageScrollView()
-        let image = UIImage(named: "t1")
-        self.imageScrollView.set(image: image!)
     }
     
     @IBAction func shareBtnTapped(_ sender: UIButton) {
-        //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
-        
-        //        drawHistogram(image: imageScrollView.baseImage.image)
-//        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 3, height: 3))!)
-        //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
         let items = [imageScrollView.baseImage.image!]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activityController, animated: true)
@@ -104,6 +96,7 @@ class MainVC: UIViewController {
         }
     }
     
+    // MARK: - ImageScrollView setup
     func setupImageScrollView() {
         imageScrollView = ImageScrollView(frame: view.bounds)
         view.addSubview(imageScrollView)
@@ -116,6 +109,7 @@ class MainVC: UIViewController {
         imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     }
     
+    // MARK: - Draw Histogram
     private func drawHistogram(image: UIImage?) {
         guard let histogram = image?.histogram() else { return }
         
@@ -169,12 +163,33 @@ class MainVC: UIViewController {
         histogramView.legend.enabled = false
     }
     
-    // History Collection View setup for CenteredCollectionView
+    // MARK: - History Collection View setup for CenteredCollectionView
     func setHistoryCollectionView() {
         historyCollectionViewFlowLayout = (historyCollectionView.collectionViewLayout as! CenteredCollectionViewFlowLayout)
         historyCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         historyCollectionViewFlowLayout.itemSize = CGSize(width: 250, height: 200)
         historyCollectionViewFlowLayout.minimumLineSpacing = 30
+    }
+    
+    // MARK: - Close action AlertController
+    public func presentCloseAlert() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        alertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { alert in
+            self.imageScrollView.removeFromSuperview()
+            self.imageScrollView = nil
+            self.openBtn.setTitle("Open", for: .normal)
+            self.openLibraryLbl.isHidden = false
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.sourceView = openBtn
+            alertController.popoverPresentationController?.sourceRect = openBtn.bounds
+            alertController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
+        }
+
+        self.present(alertController, animated: true)
     }
     
     // MARK: - Request authrizations
@@ -252,6 +267,7 @@ extension MainVC: ImagePickerDelegate {
             setupImageScrollView()
             self.imageScrollView.set(image: img)
             self.openLibraryLbl.isHidden = true
+            self.openBtn.setTitle("Close", for: .normal)
         } else {
             print("User did cancel")
         }
