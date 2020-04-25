@@ -17,6 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double Tap to Open Library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hky-zj-Na8">
+                                <rect key="frame" x="0.0" y="94" width="375" height="614"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ahZ-7I-3Zh" appends="YES" id="Mxe-jI-Y6l"/>
+                                </connections>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SWq-up-bbK">
                                 <rect key="frame" x="20" y="44" width="335" height="30"/>
                                 <subviews>
@@ -29,7 +39,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
                                         <rect key="frame" x="114.33333333333334" y="0.0" width="106.33333333333334" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -56,10 +66,10 @@
                                 <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="myt-a2-EJq">
-                                        <rect key="frame" x="0.0" y="5" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="5" width="375" height="390"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R0V-FJ-9MH">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdjustmentCell" rowHeight="70" id="sGa-0V-Qe2" customClass="AdjustmentCell" customModule="Revamp" customModuleProvider="target">
@@ -103,19 +113,6 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="D1a-wU-tBF"/>
                                                 </connections>
                                             </tableView>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLL-qS-wCa">
-                                                <rect key="frame" x="0.0" y="50" width="375" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="eVz-ly-g97"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Apply">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="applyBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OPe-Kx-ng6"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -124,7 +121,7 @@
                                     <constraint firstAttribute="trailing" secondItem="myt-a2-EJq" secondAttribute="trailing" id="1UG-RR-SFu"/>
                                     <constraint firstItem="myt-a2-EJq" firstAttribute="top" secondItem="BLj-cY-Vfv" secondAttribute="top" constant="5" id="2b4-IO-tiK"/>
                                     <constraint firstItem="myt-a2-EJq" firstAttribute="leading" secondItem="BLj-cY-Vfv" secondAttribute="leading" id="Ct3-RB-kr7"/>
-                                    <constraint firstAttribute="bottom" secondItem="myt-a2-EJq" secondAttribute="bottom" id="gD8-tE-2K9"/>
+                                    <constraint firstAttribute="bottom" secondItem="myt-a2-EJq" secondAttribute="bottom" constant="5" id="gD8-tE-2K9"/>
                                     <constraint firstAttribute="height" id="xW9-gZ-uyE"/>
                                 </constraints>
                             </view>
@@ -235,11 +232,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hky-zj-Na8" secondAttribute="trailing" id="2db-L1-yEc"/>
                             <constraint firstItem="SWq-up-bbK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5sc-uF-FE1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ubf-eh-UpR" secondAttribute="trailing" id="8RP-DB-pOJ"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="top" secondItem="BLj-cY-Vfv" secondAttribute="bottom" id="APl-R7-dNA"/>
                             <constraint firstAttribute="trailing" secondItem="BLj-cY-Vfv" secondAttribute="trailing" id="AjA-87-AG1"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bic-70-0QR"/>
+                            <constraint firstItem="hky-zj-Na8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M2y-WO-NJd"/>
+                            <constraint firstItem="16Y-YD-xcS" firstAttribute="top" secondItem="hky-zj-Na8" secondAttribute="bottom" constant="20" id="Mtl-nD-eEQ"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="P4h-FV-2LN"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="PqT-Hw-dca"/>
                             <constraint firstItem="ubf-eh-UpR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RA0-lb-t1P"/>
@@ -250,6 +250,7 @@
                             <constraint firstItem="SWq-up-bbK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="epS-8K-cmP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SWq-up-bbK" secondAttribute="trailing" constant="20" id="jPN-kb-g2B"/>
                             <constraint firstItem="yC0-kw-Evz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qZj-6p-6mG"/>
+                            <constraint firstItem="hky-zj-Na8" firstAttribute="top" secondItem="SWq-up-bbK" secondAttribute="bottom" constant="20" id="qqY-6Q-Vx8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -263,10 +264,16 @@
                         <outlet property="historyViewHeight" destination="izG-dC-Hxt" id="75Z-CI-IXQ"/>
                         <outlet property="nameLbl" destination="G7H-aD-r72" id="LzW-mN-puG"/>
                         <outlet property="openBtn" destination="qiQ-zS-vdm" id="shh-pN-91z"/>
+                        <outlet property="openLibraryLbl" destination="hky-zj-Na8" id="85e-NG-5Pe"/>
                         <outlet property="shareBtn" destination="Wqf-si-wBz" id="9Tt-st-1pi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ahZ-7I-3Zh">
+                    <connections>
+                        <action selector="openLibraryTapped:" destination="BYZ-38-t0r" id="fB4-1V-HJX"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="113.79310344827587"/>
         </scene>

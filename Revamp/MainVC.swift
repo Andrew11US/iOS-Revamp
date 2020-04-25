@@ -18,6 +18,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var openBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
+    @IBOutlet weak var openLibraryLbl: UILabel!
     @IBOutlet weak var histogramView: LineChartView!
     @IBOutlet weak var adjustmentsTableView: UITableView!
     @IBOutlet weak var adjustmentView: UIView!
@@ -27,17 +28,21 @@ class MainVC: UIViewController {
     @IBOutlet weak var historyCollectionView: UICollectionView!
     
     //MARK: - Variables
-    private var permissions: [SPPermission] = [.camera, .photoLibrary]
+    private var imagePicker: ImagePicker!
     private var imageScrollView: ImageScrollView!
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
+    private var permissions: [SPPermission] = [.camera, .photoLibrary]
+    
     private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
     private var historyImages: [HistoryImage] = [HistoryImage(name: "first", image: UIImage(named: "t1")!), HistoryImage(name: "s", image: UIImage(named: "t2")!), HistoryImage(name: "3", image: UIImage(named: "t3")!)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        print(OpenCVWrapper.openCVVersion())
+//        print(OpenCVWrapper.openCVVersion())
         setHistoryCollectionView()
+        imagePicker = ImagePicker(presentationController: self, delegate: self)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,8 +74,8 @@ class MainVC: UIViewController {
         present(activityController, animated: true)
     }
     
-    @IBAction func applyBtnTapped(_ sender: UIButton) {
-        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+    @IBAction func openLibraryTapped(_ sender: UIButton) {
+        imagePicker.present(from: sender)
     }
     
     @IBAction func historyBtnTapped(_ sender: UIButton) {
@@ -189,7 +194,7 @@ class MainVC: UIViewController {
     
 }
 
-// MARK: - UITableView deledate and dataSource
+// MARK: - UITableView delegate and dataSource
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -219,7 +224,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - UICenteredCollectionView deledate and dataSource
+// MARK: - UICenteredCollectionView delegate and dataSource
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -239,3 +244,17 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
     }
 }
+
+// MARK: - UIImagePickerController deledate
+extension MainVC: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        if let img = image {
+            setupImageScrollView()
+            self.imageScrollView.set(image: img)
+            self.openLibraryLbl.isHidden = true
+        } else {
+            print("User did cancel")
+        }
+    }
+}
+
