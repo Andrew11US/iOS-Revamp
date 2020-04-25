@@ -32,7 +32,9 @@ class MainVC: UIViewController {
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     
-    private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
+    private var adjustments: [Adjustment] = [Adjustment(name: "gray", action: ProcessingManager.makeGrayscale(image:))]
+//    private var actions: [String: (UIImage)->(UIImage)] = ["gray": ProcessingManager.makeGrayscale(image:)]
+
     private var historyImages: [HistoryImage] = [HistoryImage(name: "first", image: UIImage(named: "t1")!), HistoryImage(name: "s", image: UIImage(named: "t2")!), HistoryImage(name: "3", image: UIImage(named: "t3")!)]
     
     override func viewDidLoad() {
@@ -41,6 +43,7 @@ class MainVC: UIViewController {
 //        print(OpenCVWrapper.openCVVersion())
         setHistoryCollectionView()
         imagePicker = ImagePicker(presentationController: self, delegate: self)
+//        actions["gray"] = makeGrayscale(image:)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -175,11 +178,13 @@ class MainVC: UIViewController {
     public func presentCloseAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        alertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { alert in
+        alertController.addAction(UIAlertAction(title: "Close", style: .destructive, handler: { alert in
             self.imageScrollView.removeFromSuperview()
             self.imageScrollView = nil
             self.openBtn.setTitle("Open", for: .normal)
             self.openLibraryLbl.isHidden = false
+            self.historyImages.removeAll()
+            self.historyCollectionView.reloadData()
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
@@ -207,6 +212,10 @@ class MainVC: UIViewController {
         }
     }
     
+    @objc func makeGrayscale(image: UIImage) -> UIImage {
+        print("Performed")
+        return OpenCVWrapper.makeGray(image)
+    }
 }
 
 // MARK: - UITableView delegate and dataSource
@@ -226,6 +235,10 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row])
         self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        let img: UIImage = adjustments[indexPath.row].action(imageScrollView.baseImage.image!)
+        imageScrollView.set(image: img)
+        historyImages.append(HistoryImage(name: adjustments[indexPath.row].name, image: img))
+        historyCollectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -248,6 +261,10 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return historyImages.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        imageScrollView.set(image: historyImages[indexPath.row].image)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as? HistoryCell {
             
@@ -268,6 +285,8 @@ extension MainVC: ImagePickerDelegate {
             self.imageScrollView.set(image: img)
             self.openLibraryLbl.isHidden = true
             self.openBtn.setTitle("Close", for: .normal)
+            historyImages.append(HistoryImage(name: "Original Image", image: img))
+            historyCollectionView.reloadData()
         } else {
             print("User did cancel")
         }
