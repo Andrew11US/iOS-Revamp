@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01130E64245471D800C2ACCC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E63245471D800C2ACCC /* UIViewController+Extension.swift */; };
+		01130E662454743700C2ACCC /* AdjustmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E652454743700C2ACCC /* AdjustmentCell.swift */; };
+		01130E6824547B4600C2ACCC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E6724547B4600C2ACCC /* Constants.swift */; };
 		012953F32452196C0067082D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012953F22452196C0067082D /* opencv2.framework */; };
 		012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012953F6245219E90067082D /* OpenCVWrapper.mm */; };
 		012953F924522FDE0067082D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012953F824522FDE0067082D /* ImageScrollView.swift */; };
@@ -45,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01130E63245471D800C2ACCC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		01130E652454743700C2ACCC /* AdjustmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustmentCell.swift; sourceTree = "<group>"; };
+		01130E6724547B4600C2ACCC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		012953F22452196C0067082D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		012953F4245219E80067082D /* Revamp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Revamp-Bridging-Header.h"; sourceTree = "<group>"; };
 		012953F5245219E90067082D /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
@@ -188,6 +194,7 @@
 				012953F5245219E90067082D /* OpenCVWrapper.h */,
 				012953F6245219E90067082D /* OpenCVWrapper.mm */,
 				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
+				01130E6724547B4600C2ACCC /* Constants.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -206,6 +213,8 @@
 				012953F824522FDE0067082D /* ImageScrollView.swift */,
 				0178DCD024537A220084984D /* UIImage+Extension.swift */,
 				0178DCD2245388540084984D /* UIColor+Extension.swift */,
+				01130E63245471D800C2ACCC /* UIViewController+Extension.swift */,
+				01130E652454743700C2ACCC /* AdjustmentCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -229,7 +238,6 @@
 				F198542781A1CA526384124E /* Pods-RevampTests.debug.xcconfig */,
 				6C8F2AA2B6B0972FC5A2DD2A /* Pods-RevampTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -484,6 +492,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01130E64245471D800C2ACCC /* UIViewController+Extension.swift in Sources */,
+				01130E6824547B4600C2ACCC /* Constants.swift in Sources */,
 				01B38B94242CFB3D00180242 /* MainVC.swift in Sources */,
 				0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */,
 				012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */,
@@ -491,6 +501,7 @@
 				012953F924522FDE0067082D /* ImageScrollView.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
 				01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */,
+				01130E662454743700C2ACCC /* AdjustmentCell.swift in Sources */,
 				0178DCD3245388540084984D /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,7 +678,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,7 +706,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

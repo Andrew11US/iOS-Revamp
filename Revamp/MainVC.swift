@@ -16,6 +16,11 @@ class MainVC: UIViewController {
     @IBOutlet weak var openBtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var histogramView: LineChartView!
+    @IBOutlet weak var adjustmentsTableView: UITableView!
+    @IBOutlet weak var adjustmentView: UIView!
+    @IBOutlet weak var adjustmentViewHeightConstraint: NSLayoutConstraint!
+    
+    private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
     
     //MARK: - Variables
     var imageScrollView: ImageScrollView!
@@ -31,16 +36,28 @@ class MainVC: UIViewController {
             imageScrollView.removeFromSuperview()
         }
         setupImageScrollView()
-        let image = UIImage(named: "t1")
+        let image = UIImage(named: "t2")
         self.imageScrollView.set(image: image!)
     }
     
     @IBAction func saveBtnTapped(_ sender: UIButton) {
 //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
         
-        drawHistogram(image: imageScrollView.baseImage.image)
-//        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 3, height: 3))!)
+//        drawHistogram(image: imageScrollView.baseImage.image)
+        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 3, height: 3))!)
 //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
+    }
+    
+    @IBAction func applyBtnTapped(_ sender: UIButton) {
+        self.animate(view: adjustmentView, constraint: adjustmentViewHeightConstraint, to: 0)
+    }
+    
+    @IBAction func adjustmentsBtnTapped(_ sender: UIButton) {
+        if adjustmentViewHeightConstraint.constant > 0 {
+            self.animate(view: adjustmentView, constraint: adjustmentViewHeightConstraint, to: 0)
+        } else {
+            self.animate(view: adjustmentView, constraint: adjustmentViewHeightConstraint, to: 500)
+        }
     }
     
     func setupImageScrollView() {
@@ -108,5 +125,35 @@ class MainVC: UIViewController {
         histogramView.legend.enabled = false
     }
 
+}
+
+// MARK: - UITableView deledate and dataSource
+extension MainVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return adjustments.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected: ", adjustments[indexPath.row])
+        self.animate(view: adjustmentView, constraint: adjustmentViewHeightConstraint, to: 0)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "AdjustmentCell", for: indexPath) as? AdjustmentCell {
+            
+            cell.configureCell(adjustment: adjustments[indexPath.row])
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
 }
 

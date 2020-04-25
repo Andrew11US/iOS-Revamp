@@ -29,8 +29,9 @@ extension UIImage {
         let greenPtr = UnsafeMutablePointer<vImagePixelCount>(mutating: green)
         let bluePtr = UnsafeMutablePointer<vImagePixelCount>(mutating: blue)
         
-        let ARGB: [UnsafeMutablePointer<vImagePixelCount>?] = [redPtr, greenPtr, bluePtr, alphaPtr]
-        let histogram = UnsafeMutablePointer<UnsafeMutablePointer<vImagePixelCount>?>(mutating: ARGB)
+        // ARBG vImage function takes channel order RBG+A
+        let RGBA: [UnsafeMutablePointer<vImagePixelCount>?] = [redPtr, greenPtr, bluePtr, alphaPtr]
+        let histogram = UnsafeMutablePointer<UnsafeMutablePointer<vImagePixelCount>?>(mutating: RGBA)
         
         vImageHistogramCalculation_ARGB8888(&imageBuffer, histogram, UInt32(kvImageNoFlags))
         
@@ -47,32 +48,27 @@ extension UIImage {
 
         guard let imageRef = self.cgImage else { return nil }
         guard let imageProvider = imageRef.dataProvider else { return nil }
+        guard let pixelBuffer = malloc(imageRef.bytesPerRow * imageRef.height) else { return nil }
         let bitmapData = imageProvider.data
         
-        var inBuffer = vImage_Buffer(data: UnsafeMutablePointer(mutating: CFDataGetBytePtr(bitmapData)), height: UInt(imageRef.height), width: UInt(imageRef.width), rowBytes: imageRef.bytesPerRow)
-
-        guard let pixelBuffer = malloc(imageRef.bytesPerRow * imageRef.height) else { return nil }
+        var imageBuffer = vImage_Buffer(data: UnsafeMutablePointer(mutating: CFDataGetBytePtr(bitmapData)), height: UInt(imageRef.height), width: UInt(imageRef.width), rowBytes: imageRef.bytesPerRow)
 
         let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(imageRef.height)), width: UInt(1 * Float(imageRef.width)), rowBytes: imageRef.bytesPerRow)
 
-        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+        var imageBuffers = ImageBuffers(inBuffer: imageBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 
         var error = vImageMax_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, 0, 0, oddHeight, oddWidth, UInt32(kvImageNoFlags))
-
         
+        let format = vImage_CGImageFormat(bitsPerComponent: 8, bitsPerPixel: 32, colorSpace: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue), renderingIntent: .defaultIntent)
         
-        var format = vImage_CGImageFormat(
-        bitsPerComponent: 8,
-        bitsPerPixel: 32,
-        colorSpace: CGColorSpaceCreateDeviceRGB(),
-        bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),
-        renderingIntent: .defaultIntent)
-        
-        do {
-            try outImage = UIImage(cgImage: outBuffer.createCGImage(format: format!))
-        } catch {
-            
+        if let output = try? UIImage(cgImage: outBuffer.createCGImage(format: format!)) {
+            outImage = output
         }
+//        do {
+//            try outImage = UIImage(cgImage: outBuffer.createCGImage(format: format!))
+//        } catch error {
+//            debugPrint(error.description)
+//        }
          
 //        let outImage = UIImage(fromvImageOutBuffer: imageBuffers.outBuffer, scale: self.scale, orientation: .Up)
         
@@ -97,7 +93,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageMin_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, 0, 0, oddHeight, oddWidth, UInt32(kvImageNoFlags))
 //
@@ -124,7 +120,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageDilate_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, 0, 0, kernel, UInt(kernelSide), UInt(kernelSide), UInt32(kvImageNoFlags))
 //
@@ -151,7 +147,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageErode_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, 0, 0, kernel, UInt(kernelSide), UInt(kernelSide), UInt32(kvImageNoFlags))
 //
@@ -177,7 +173,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(min(scaleY, 1) * Float(CGImageGetHeight(imageRef))), width: UInt(min(scaleX, 1) * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageScale_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, UInt32(kvImageBackgroundColorFill))
 //
@@ -201,7 +197,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var backgroundColor : Array<UInt8> = backgroundColor.getRGB()
 //
@@ -227,7 +223,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var backgroundColor : Array<UInt8> = backgroundColor.getRGB()
 //
@@ -253,7 +249,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageHorizontalReflect_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, UInt32(kvImageNoFlags))
 //
@@ -277,7 +273,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageVerticalReflect_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, UInt32(kvImageNoFlags))
 //
@@ -308,7 +304,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageBoxConvolve_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, 0, 0, oddHeight, oddWidth, &backgroundColor, UInt32(kvImageBackgroundColorFill))
 //
@@ -337,7 +333,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        var error = vImageTentConvolve_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, 0, 0, oddHeight, oddWidth, &backgroundColor, UInt32(kvImageBackgroundColorFill))
 //
@@ -366,7 +362,7 @@ extension UIImage {
 //
 //        let outBuffer = vImage_Buffer(data: pixelBuffer, height: UInt(1 * Float(CGImageGetHeight(imageRef))), width: UInt(1 * Float(CGImageGetWidth(imageRef))), rowBytes: CGImageGetBytesPerRow(imageRef))
 //
-//        var imageBuffers = SIImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
+//        var imageBuffers = ImageBuffers(inBuffer: inBuffer, outBuffer: outBuffer, pixelBuffer: pixelBuffer)
 //
 //        _ = vImageConvolve_ARGB8888(&imageBuffers.inBuffer, &imageBuffers.outBuffer, nil, 0, 0, kernel, kernelSide, kernelSide, Int32(divisor), &backgroundColor, UInt32(kvImageBackgroundColorFill))
 //
@@ -394,7 +390,7 @@ extension UIImage {
 //
     
 // MARK: Utilities
-typealias SIImageBuffers = (inBuffer: vImage_Buffer, outBuffer: vImage_Buffer, pixelBuffer: UnsafeMutableRawPointer)
+typealias ImageBuffers = (inBuffer: vImage_Buffer, outBuffer: vImage_Buffer, pixelBuffer: UnsafeMutableRawPointer)
 
 struct SIConvolutionKernels {
     // Sample kernels for use with SIConvolutionFilter. Use a divisor of 1
