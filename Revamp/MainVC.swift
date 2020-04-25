@@ -9,8 +9,10 @@
 import UIKit
 import Charts
 import CenteredCollectionView
+import SPPermissions
 
 class MainVC: UIViewController {
+    
     
     // MARK: - IBOutlets
     @IBOutlet weak var nameLbl: UILabel!
@@ -25,6 +27,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var historyCollectionView: UICollectionView!
     
     //MARK: - Variables
+    private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var imageScrollView: ImageScrollView!
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
     private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
@@ -35,6 +38,15 @@ class MainVC: UIViewController {
         
         //        print(OpenCVWrapper.openCVVersion())
         setHistoryCollectionView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
+            self.requestPermissions()
+        }
+        
     }
     
     @IBAction func openBtnTapped(_ sender: UIButton) {
@@ -158,6 +170,21 @@ class MainVC: UIViewController {
         historyCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         historyCollectionViewFlowLayout.itemSize = CGSize(width: 250, height: 200)
         historyCollectionViewFlowLayout.minimumLineSpacing = 30
+    }
+    
+    // MARK: - Request authrizations
+    func requestPermissions() {
+        var notAuthorized = false
+        for permission in permissions {
+            if !permission.isAuthorized {
+                notAuthorized = true
+            }
+        }
+        
+        if notAuthorized {
+            let controller = SPPermissions.dialog(permissions)
+            controller.present(on: self)
+        }
     }
     
 }

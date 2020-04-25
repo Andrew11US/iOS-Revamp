@@ -20,6 +20,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need your permission to capture photos inside the app</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need your permission to access the photo library</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -60,9 +64,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>We need your permission to capture photos inside the app</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need your permission to access the photo library</string>
 </dict>
 </plist>

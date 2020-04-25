@@ -45,7 +45,7 @@
                                     <constraint firstAttribute="height" constant="30" id="8iw-Ty-Nsb"/>
                                 </constraints>
                             </stackView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-eh-UpR" customClass="LineChartView" customModule="Charts">
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-eh-UpR" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
