@@ -29,7 +29,7 @@ extension UIImage {
         let greenPtr = UnsafeMutablePointer<vImagePixelCount>(mutating: green)
         let bluePtr = UnsafeMutablePointer<vImagePixelCount>(mutating: blue)
         
-        let ARGB: [UnsafeMutablePointer<vImagePixelCount>?] = [alphaPtr, redPtr, greenPtr, bluePtr]
+        let ARGB: [UnsafeMutablePointer<vImagePixelCount>?] = [redPtr, greenPtr, bluePtr, alphaPtr]
         let histogram = UnsafeMutablePointer<UnsafeMutablePointer<vImagePixelCount>?>(mutating: ARGB)
         
         vImageHistogramCalculation_ARGB8888(&imageBuffer, histogram, UInt32(kvImageNoFlags))

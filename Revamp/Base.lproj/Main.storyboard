@@ -44,16 +44,27 @@
                                     <constraint firstAttribute="height" constant="30" id="8iw-Ty-Nsb"/>
                                 </constraints>
                             </stackView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-eh-UpR" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="82" width="375" height="120"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="UYt-br-Ycd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="SWq-up-bbK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5sc-uF-FE1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ubf-eh-UpR" secondAttribute="trailing" id="8RP-DB-pOJ"/>
+                            <constraint firstItem="ubf-eh-UpR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RA0-lb-t1P"/>
+                            <constraint firstItem="ubf-eh-UpR" firstAttribute="top" secondItem="SWq-up-bbK" secondAttribute="bottom" constant="8" id="Z8M-U4-HUZ"/>
                             <constraint firstItem="SWq-up-bbK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="epS-8K-cmP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SWq-up-bbK" secondAttribute="trailing" constant="20" id="jPN-kb-g2B"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="histogramView" destination="ubf-eh-UpR" id="O5l-8m-yOD"/>
                         <outlet property="nameLbl" destination="G7H-aD-r72" id="LzW-mN-puG"/>
                         <outlet property="openBtn" destination="qiQ-zS-vdm" id="shh-pN-91z"/>
                         <outlet property="saveBtn" destination="oe2-M7-ldT" id="8bi-Nm-cQe"/>
@@ -61,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+            <point key="canvasLocation" x="136.80000000000001" y="113.79310344827587"/>
         </scene>
     </scenes>
 </document>
