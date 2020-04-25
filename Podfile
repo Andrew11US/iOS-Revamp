@@ -7,6 +7,7 @@ target 'Revamp' do
 
   pod 'pop'
   pod 'Charts'
+  pod "CenteredCollectionView"
 
   target 'RevampTests' do
     inherit! :search_paths

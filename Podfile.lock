@@ -1,22 +1,26 @@
 PODS:
+  - CenteredCollectionView (2.2.2)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
   - pop (1.0.12)
 
 DEPENDENCIES:
+  - CenteredCollectionView
   - Charts
   - pop
 
 SPEC REPOS:
   trunk:
+    - CenteredCollectionView
     - Charts
     - pop
 
 SPEC CHECKSUMS:
+  CenteredCollectionView: a9217908a698c386cbb98af11b596da48900b908
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
 
-PODFILE CHECKSUM: 2d7f3302c2fd30556a5181613b86f923bec0c0ac
+PODFILE CHECKSUM: b67c939be5fde07ff4281a45ca7a0d61d633402d
 
 COCOAPODS: 1.8.4
