@@ -15,23 +15,20 @@ class MainVC: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var openBtn: UIButton!
-    @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var histogramView: LineChartView!
     @IBOutlet weak var adjustmentsTableView: UITableView!
     @IBOutlet weak var adjustmentView: UIView!
     @IBOutlet weak var historyView: UIView!
     @IBOutlet weak var adjustmentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var historyViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var historyCollectionView: UICollectionView!
-    var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
-    
-    private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
-    private var historyImages: [HistoryImage] = [HistoryImage(name: "first", image: UIImage(named: "t1")!), HistoryImage(name: "s", image: UIImage(named: "t2")!), HistoryImage(name: "3", image: UIImage(named: "t3")!)]
-    
     
     //MARK: - Variables
-    var imageScrollView: ImageScrollView!
+    private var imageScrollView: ImageScrollView!
+    private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
+    private var adjustments = ["1", "2", "3", "4", "5","11", "2", "3", "4", "5","111", "2", "3", "4", "5"]
+    private var historyImages: [HistoryImage] = [HistoryImage(name: "first", image: UIImage(named: "t1")!), HistoryImage(name: "s", image: UIImage(named: "t2")!), HistoryImage(name: "3", image: UIImage(named: "t3")!)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +42,19 @@ class MainVC: UIViewController {
             imageScrollView.removeFromSuperview()
         }
         setupImageScrollView()
-        let image = UIImage(named: "t2")
+        let image = UIImage(named: "t1")
         self.imageScrollView.set(image: image!)
     }
     
-    @IBAction func saveBtnTapped(_ sender: UIButton) {
+    @IBAction func shareBtnTapped(_ sender: UIButton) {
         //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
         
         //        drawHistogram(image: imageScrollView.baseImage.image)
-        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 3, height: 3))!)
+//        self.imageScrollView.set(image: (imageScrollView.baseImage.image?.MaxFilter(width: 3, height: 3))!)
         //        self.imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
+        let items = [imageScrollView.baseImage.image!]
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activityController, animated: true)
     }
     
     @IBAction func applyBtnTapped(_ sender: UIButton) {
@@ -74,6 +74,16 @@ class MainVC: UIViewController {
             self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
         } else {
             self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 500)
+        }
+    }
+    
+    @IBAction func histogramBtnTapped(_ sender: UIButton) {
+        
+        if histogramView.isHidden {
+            histogramView.isHidden = false
+            drawHistogram(image: imageScrollView.baseImage.image!)
+        } else {
+            histogramView.isHidden = true
         }
     }
     

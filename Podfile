@@ -8,6 +8,8 @@ target 'Revamp' do
   pod 'pop'
   pod 'Charts'
   pod "CenteredCollectionView"
+  pod 'SPPermissions/Camera'
+  pod 'SPPermissions/PhotoLibrary'
 
   target 'RevampTests' do
     inherit! :search_paths

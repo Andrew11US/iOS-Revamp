@@ -36,6 +36,9 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-M7-ldT">
                                         <rect key="frame" x="228.66666666666666" y="0.0" width="106.33333333333334" height="30"/>
                                         <state key="normal" title="Histogram"/>
+                                        <connections>
+                                            <action selector="histogramBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="86D-rQ-Qwj"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -43,10 +46,10 @@
                                 </constraints>
                             </stackView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-eh-UpR" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="82" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="UYt-br-Ycd"/>
+                                    <constraint firstAttribute="height" constant="200" id="UYt-br-Ycd"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLj-cY-Vfv">
@@ -66,13 +69,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-gO-nH5">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-gO-nH5">
                                                                     <rect key="frame" x="15" y="11" width="60" height="48"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="60" id="e7j-ZB-cjX"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85B-Ca-yOO">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85B-Ca-yOO">
                                                                     <rect key="frame" x="83" y="11" width="277" height="48"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
                                                                     <nil key="textColor"/>
@@ -147,9 +150,9 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wqf-si-wBz">
                                                 <rect key="frame" x="255.33333333333334" y="0.0" width="119.66666666666666" height="50"/>
-                                                <state key="normal" title="Save"/>
+                                                <state key="normal" title="Share"/>
                                                 <connections>
-                                                    <action selector="saveBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f5M-Ow-utN"/>
+                                                    <action selector="shareBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jaq-JP-HA0"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -165,12 +168,12 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yC0-kw-Evz">
-                                <rect key="frame" x="0.0" y="478" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
-                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yZG-jt-oH4">
+                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yZG-jt-oH4">
                                         <rect key="frame" x="0.0" y="5" width="375" height="240"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-Rp-J6u">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-Rp-J6u">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <collectionViewLayout key="collectionViewLayout" id="uR3-0M-L5p" customClass="CenteredCollectionViewFlowLayout" customModule="CenteredCollectionView"/>
@@ -223,7 +226,7 @@
                                 <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="yZG-jt-oH4" firstAttribute="leading" secondItem="yC0-kw-Evz" secondAttribute="leading" id="95D-ta-UXg"/>
-                                    <constraint firstAttribute="height" constant="250" id="izG-dC-Hxt"/>
+                                    <constraint firstAttribute="height" id="izG-dC-Hxt"/>
                                     <constraint firstAttribute="trailing" secondItem="yZG-jt-oH4" secondAttribute="trailing" id="ldH-PL-nS4"/>
                                     <constraint firstItem="yZG-jt-oH4" firstAttribute="top" secondItem="yC0-kw-Evz" secondAttribute="top" constant="5" id="pAk-9F-IZX"/>
                                     <constraint firstAttribute="bottom" secondItem="yZG-jt-oH4" secondAttribute="bottom" constant="5" id="s9g-er-Du5"/>
@@ -260,7 +263,7 @@
                         <outlet property="historyViewHeight" destination="izG-dC-Hxt" id="75Z-CI-IXQ"/>
                         <outlet property="nameLbl" destination="G7H-aD-r72" id="LzW-mN-puG"/>
                         <outlet property="openBtn" destination="qiQ-zS-vdm" id="shh-pN-91z"/>
-                        <outlet property="saveBtn" destination="Wqf-si-wBz" id="QPY-yN-WdL"/>
+                        <outlet property="shareBtn" destination="Wqf-si-wBz" id="9Tt-st-1pi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
