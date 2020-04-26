@@ -12,7 +12,7 @@
 
 // MARK: - Objective-C++ implementation file
 @implementation OpenCVWrapper
-//using namespace cv;
+using namespace cv;
 
 + (NSString *)openCVVersion {
     return [NSString stringWithFormat:@"Open CV Version: %s", CV_VERSION];
@@ -25,6 +25,22 @@
     if (src.channels() == 1) return image;
     cv::Mat dst;
     cv::cvtColor(src, dst, cv::COLOR_BGR2GRAY);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)stretchHistogram:(UIImage *) image {
+    
+    Mat src, dst;
+
+    /// Load image
+    UIImageToMat(image, src);
+
+    /// Convert to grayscale
+    cvtColor( src, src, COLOR_BGR2GRAY );
+
+    /// Apply Histogram Equalization
+    equalizeHist( src, dst );
+
     return MatToUIImage(dst);
 }
 

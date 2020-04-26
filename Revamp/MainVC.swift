@@ -38,8 +38,9 @@ class MainVC: UIViewController {
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
-    private var adjustments: [Adjustment] = [Adjustment(name: "gray", action: ProcessingManager.makeGrayscale(image:))]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "3"]
     private var historyImages: [HistoryImage] = []
+    private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
     override func viewDidLoad() {
@@ -116,8 +117,20 @@ class MainVC: UIViewController {
     }
     
     @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
-        imageScrollView.set(image: makeGrayscale(image: imageScrollView.baseImage.image!))
+        switch selectedAdjustment {
+        case adjustments[0]:
+            imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
+        case adjustments[1]:
+            imageScrollView.set(image: OpenCVWrapper.stretchHistogram(imageScrollView.baseImage.image!))
+        default:
+            self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
+            return
+        }
+        
+        historyImages.append(HistoryImage(name: selectedAdjustment, image: imageScrollView.baseImage.image!))
+        historyCollectionView.reloadData()
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
+        print(historyImages.count)
     }
     
     // MARK: - ImageScrollView setup
@@ -273,12 +286,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row])
+        selectedAdjustment = adjustments[indexPath.row]
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 500)
-//        let img: UIImage = adjustments[indexPath.row].action(imageScrollView.baseImage.image!)
-//        imageScrollView.set(image: img)
-//        historyImages.append(HistoryImage(name: adjustments[indexPath.row].name, image: img))
-//        historyCollectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

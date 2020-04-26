@@ -18,9 +18,9 @@ class AdjustmentCell: UITableViewCell {
         // Initialization code
     }
     
-    func configureCell(adjustment: Adjustment) {
+    func configureCell(adjustment: String) {
         
-        self.nameLbl.text = adjustment.name
+        self.nameLbl.text = adjustment
 //        self.iconImg.image = UIImage(named: adjustment.name)
     }
 

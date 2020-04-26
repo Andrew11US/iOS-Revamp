@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Makes image grayscale
 + (UIImage *)makeGray:(UIImage *) image;
 
+// Stretches histogram
++ (UIImage *)stretchHistogram:(UIImage *) image;
+
 @end
 
 NS_ASSUME_NONNULL_END
