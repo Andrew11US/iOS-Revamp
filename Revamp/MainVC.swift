@@ -95,6 +95,7 @@ class MainVC: UIViewController {
             self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         }
+        historyCollectionView.reloadData()
     }
     
     @IBAction func adjustmentsBtnTapped(_ sender: UIButton) {
@@ -128,7 +129,6 @@ class MainVC: UIViewController {
         }
         
         historyImages.append(HistoryImage(name: selectedAdjustment, image: imageScrollView.baseImage.image!))
-        historyCollectionView.reloadData()
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         print(historyImages.count)
     }
@@ -313,6 +313,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         imageScrollView.set(image: historyImages[indexPath.row].image)
+        if !histogramView.isHidden {
+            drawHistogram(image: imageScrollView.baseImage.image!)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
