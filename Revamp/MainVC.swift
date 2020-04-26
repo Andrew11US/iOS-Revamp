@@ -64,12 +64,17 @@ class MainVC: UIViewController {
         } else {
             presentCloseAlert()
         }
+        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        self.animate(view: historyView, constraint: historyViewHeight, to: 0)
+        self.histogramView.isHidden = true
     }
     
     @IBAction func shareBtnTapped(_ sender: UIButton) {
         let items = [imageScrollView.baseImage.image!]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activityController, animated: true)
+        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        self.animate(view: historyView, constraint: historyViewHeight, to: 0)
     }
     
     @IBAction func openLibraryTapped(_ sender: UIButton) {
@@ -81,6 +86,7 @@ class MainVC: UIViewController {
             self.animate(view: historyView, constraint: historyViewHeight, to: 0)
         } else {
             self.animate(view: historyView, constraint: historyViewHeight, to: 250)
+            self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
         }
     }
     
@@ -89,6 +95,7 @@ class MainVC: UIViewController {
             self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
         } else {
             self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 500)
+            self.animate(view: historyView, constraint: historyViewHeight, to: 0)
         }
     }
     
