@@ -16,6 +16,9 @@ class MainVC: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var openBtn: UIButton!
+    @IBOutlet weak var histogramBtn: UIButton!
+    @IBOutlet weak var historyBtn: UIButton!
+    @IBOutlet weak var adjustmentsBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var openLibraryLbl: UILabel!
     @IBOutlet weak var histogramView: LineChartView!
@@ -30,22 +33,22 @@ class MainVC: UIViewController {
     private var imagePicker: ImagePicker!
     private var imageScrollView: ImageScrollView!
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
+    
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
-    
     private var adjustments: [Adjustment] = [Adjustment(name: "gray", action: ProcessingManager.makeGrayscale(image:))]
-//    private var actions: [String: (UIImage)->(UIImage)] = ["gray": ProcessingManager.makeGrayscale(image:)]
-
-    private var historyImages: [HistoryImage] = [HistoryImage(name: "first", image: UIImage(named: "t1")!), HistoryImage(name: "s", image: UIImage(named: "t2")!), HistoryImage(name: "3", image: UIImage(named: "t3")!)]
+    private var historyImages: [HistoryImage] = []
     
+    // MARK: - ViewDidLoad method
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        print(OpenCVWrapper.openCVVersion())
         setHistoryCollectionView()
         imagePicker = ImagePicker(presentationController: self, delegate: self)
-//        actions["gray"] = makeGrayscale(image:)
+        setButtons()
     }
     
+    // MARK: - ViewDidAppear method
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -90,7 +93,6 @@ class MainVC: UIViewController {
     }
     
     @IBAction func histogramBtnTapped(_ sender: UIButton) {
-        
         if histogramView.isHidden {
             histogramView.isHidden = false
             drawHistogram(image: imageScrollView.baseImage.image!)
@@ -166,7 +168,26 @@ class MainVC: UIViewController {
         histogramView.legend.enabled = false
     }
     
-    // MARK: - History Collection View setup for CenteredCollectionView
+    // MARK: - Monitors buttons
+    func setButtons() {
+        if imageScrollView == nil {
+            historyBtn.isEnabled = false
+            histogramBtn.isEnabled = false
+            adjustmentsBtn.isEnabled = false
+            shareBtn.isEnabled = false
+            openLibraryLbl.isHidden = false
+            openBtn.setTitle("Open", for: .normal)
+        } else {
+            historyBtn.isEnabled = true
+            histogramBtn.isEnabled = true
+            adjustmentsBtn.isEnabled = true
+            shareBtn.isEnabled = true
+            openLibraryLbl.isHidden = true
+            openBtn.setTitle("Close", for: .normal)
+        }
+    }
+    
+    // MARK: - historyCollectionView setup
     func setHistoryCollectionView() {
         historyCollectionViewFlowLayout = (historyCollectionView.collectionViewLayout as! CenteredCollectionViewFlowLayout)
         historyCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
@@ -175,14 +196,13 @@ class MainVC: UIViewController {
     }
     
     // MARK: - Close action AlertController
-    public func presentCloseAlert() {
+    func presentCloseAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         alertController.addAction(UIAlertAction(title: "Close", style: .destructive, handler: { alert in
             self.imageScrollView.removeFromSuperview()
             self.imageScrollView = nil
-            self.openBtn.setTitle("Open", for: .normal)
-            self.openLibraryLbl.isHidden = false
+            self.setButtons()
             self.historyImages.removeAll()
             self.historyCollectionView.reloadData()
         }))
@@ -197,7 +217,7 @@ class MainVC: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    // MARK: - Request authrizations
+    // MARK: - Request mandatory authrizations
     func requestPermissions() {
         var notAuthorized = false
         for permission in permissions {
@@ -252,7 +272,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - UICenteredCollectionView delegate and dataSource
+// MARK: - historyCollectionView delegate and dataSource
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -282,9 +302,8 @@ extension MainVC: ImagePickerDelegate {
     func didSelect(image: UIImage?) {
         if let img = image {
             setupImageScrollView()
-            self.imageScrollView.set(image: img)
-            self.openLibraryLbl.isHidden = true
-            self.openBtn.setTitle("Close", for: .normal)
+            imageScrollView.set(image: img)
+            setButtons()
             historyImages.append(HistoryImage(name: "Original Image", image: img))
             historyCollectionView.reloadData()
         } else {

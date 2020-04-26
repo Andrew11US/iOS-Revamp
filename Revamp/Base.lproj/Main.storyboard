@@ -257,8 +257,11 @@
                     <connections>
                         <outlet property="adjustmentView" destination="BLj-cY-Vfv" id="fPt-uJ-nlu"/>
                         <outlet property="adjustmentViewHeight" destination="xW9-gZ-uyE" id="SCp-sv-btF"/>
+                        <outlet property="adjustmentsBtn" destination="yOR-hW-lyt" id="YmJ-hZ-yVc"/>
                         <outlet property="adjustmentsTableView" destination="R0V-FJ-9MH" id="ZPK-xQ-M6m"/>
+                        <outlet property="histogramBtn" destination="oe2-M7-ldT" id="sxD-sW-nKd"/>
                         <outlet property="histogramView" destination="ubf-eh-UpR" id="O5l-8m-yOD"/>
+                        <outlet property="historyBtn" destination="GgZ-GQ-c2h" id="uJ9-bO-ebn"/>
                         <outlet property="historyCollectionView" destination="NO1-Rp-J6u" id="Msr-nf-rgp"/>
                         <outlet property="historyView" destination="yC0-kw-Evz" id="qNS-3W-02n"/>
                         <outlet property="historyViewHeight" destination="izG-dC-Hxt" id="75Z-CI-IXQ"/>
