@@ -229,6 +229,32 @@
                                     <constraint firstAttribute="bottom" secondItem="yZG-jt-oH4" secondAttribute="bottom" constant="5" id="s9g-er-Du5"/>
                                 </constraints>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCd-j9-wlv">
+                                <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
+                                <subviews>
+                                    <stackView clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="BAk-q9-D5b">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                        <subviews>
+                                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ug-xP-BJF">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="applyAdjustmentBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WOh-RV-yGd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="BAk-q9-D5b" firstAttribute="top" secondItem="BCd-j9-wlv" secondAttribute="top" id="Lgm-rA-rzS"/>
+                                    <constraint firstAttribute="trailing" secondItem="BAk-q9-D5b" secondAttribute="trailing" id="bO6-ZP-bHX"/>
+                                    <constraint firstAttribute="height" id="fxX-Tb-dp4"/>
+                                    <constraint firstAttribute="bottom" secondItem="BAk-q9-D5b" secondAttribute="bottom" id="hvi-pr-ace"/>
+                                    <constraint firstItem="BAk-q9-D5b" firstAttribute="leading" secondItem="BCd-j9-wlv" secondAttribute="leading" id="veq-dV-OH1"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -238,6 +264,8 @@
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="top" secondItem="BLj-cY-Vfv" secondAttribute="bottom" id="APl-R7-dNA"/>
                             <constraint firstAttribute="trailing" secondItem="BLj-cY-Vfv" secondAttribute="trailing" id="AjA-87-AG1"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bic-70-0QR"/>
+                            <constraint firstItem="BCd-j9-wlv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ChF-KN-z3i"/>
+                            <constraint firstAttribute="trailing" secondItem="BCd-j9-wlv" secondAttribute="trailing" id="IRm-Rr-BVx"/>
                             <constraint firstItem="hky-zj-Na8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M2y-WO-NJd"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="top" secondItem="hky-zj-Na8" secondAttribute="bottom" constant="20" id="Mtl-nD-eEQ"/>
                             <constraint firstItem="16Y-YD-xcS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="P4h-FV-2LN"/>
@@ -251,14 +279,16 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SWq-up-bbK" secondAttribute="trailing" constant="20" id="jPN-kb-g2B"/>
                             <constraint firstItem="yC0-kw-Evz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qZj-6p-6mG"/>
                             <constraint firstItem="hky-zj-Na8" firstAttribute="top" secondItem="SWq-up-bbK" secondAttribute="bottom" constant="20" id="qqY-6Q-Vx8"/>
+                            <constraint firstItem="16Y-YD-xcS" firstAttribute="top" secondItem="BCd-j9-wlv" secondAttribute="bottom" id="y0E-hq-yRj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="adjustmentView" destination="BLj-cY-Vfv" id="fPt-uJ-nlu"/>
-                        <outlet property="adjustmentViewHeight" destination="xW9-gZ-uyE" id="SCp-sv-btF"/>
                         <outlet property="adjustmentsBtn" destination="yOR-hW-lyt" id="YmJ-hZ-yVc"/>
                         <outlet property="adjustmentsTableView" destination="R0V-FJ-9MH" id="ZPK-xQ-M6m"/>
+                        <outlet property="adjustmentsView" destination="BLj-cY-Vfv" id="fPt-uJ-nlu"/>
+                        <outlet property="adjustmentsViewHeight" destination="xW9-gZ-uyE" id="SCp-sv-btF"/>
+                        <outlet property="applyAdjustmentBtn" destination="6ug-xP-BJF" id="Zqw-9s-C3t"/>
                         <outlet property="histogramBtn" destination="oe2-M7-ldT" id="sxD-sW-nKd"/>
                         <outlet property="histogramView" destination="ubf-eh-UpR" id="O5l-8m-yOD"/>
                         <outlet property="historyBtn" destination="GgZ-GQ-c2h" id="uJ9-bO-ebn"/>
@@ -268,6 +298,8 @@
                         <outlet property="nameLbl" destination="G7H-aD-r72" id="LzW-mN-puG"/>
                         <outlet property="openBtn" destination="qiQ-zS-vdm" id="shh-pN-91z"/>
                         <outlet property="openLibraryLbl" destination="hky-zj-Na8" id="85e-NG-5Pe"/>
+                        <outlet property="setAdjustmentView" destination="BCd-j9-wlv" id="La1-ZR-U5r"/>
+                        <outlet property="setAdjustmentViewHeight" destination="fxX-Tb-dp4" id="Gue-0q-IVg"/>
                         <outlet property="shareBtn" destination="Wqf-si-wBz" id="9Tt-st-1pi"/>
                     </connections>
                 </viewController>

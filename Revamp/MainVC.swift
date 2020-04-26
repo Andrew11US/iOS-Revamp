@@ -23,11 +23,14 @@ class MainVC: UIViewController {
     @IBOutlet weak var openLibraryLbl: UILabel!
     @IBOutlet weak var histogramView: LineChartView!
     @IBOutlet weak var adjustmentsTableView: UITableView!
-    @IBOutlet weak var adjustmentView: UIView!
+    @IBOutlet weak var adjustmentsView: UIView!
     @IBOutlet weak var historyView: UIView!
-    @IBOutlet weak var adjustmentViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var setAdjustmentView: UIView!
+    @IBOutlet weak var adjustmentsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var historyViewHeight: NSLayoutConstraint!
     @IBOutlet weak var historyCollectionView: UICollectionView!
+    @IBOutlet weak var setAdjustmentViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var applyAdjustmentBtn: UIButton!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -64,8 +67,9 @@ class MainVC: UIViewController {
         } else {
             presentCloseAlert()
         }
-        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: historyView, constraint: historyViewHeight, to: 0)
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         self.histogramView.isHidden = true
     }
     
@@ -73,8 +77,9 @@ class MainVC: UIViewController {
         let items = [imageScrollView.baseImage.image!]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activityController, animated: true)
-        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: historyView, constraint: historyViewHeight, to: 0)
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
     }
     
     @IBAction func openLibraryTapped(_ sender: UIButton) {
@@ -86,16 +91,18 @@ class MainVC: UIViewController {
             self.animate(view: historyView, constraint: historyViewHeight, to: 0)
         } else {
             self.animate(view: historyView, constraint: historyViewHeight, to: 250)
-            self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+            self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
+            self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         }
     }
     
     @IBAction func adjustmentsBtnTapped(_ sender: UIButton) {
-        if adjustmentViewHeight.constant > 0 {
-            self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
+        if adjustmentsViewHeight.constant > 0 {
+            self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         } else {
-            self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 500)
+            self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 500)
             self.animate(view: historyView, constraint: historyViewHeight, to: 0)
+            self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         }
     }
     
@@ -106,6 +113,11 @@ class MainVC: UIViewController {
         } else {
             histogramView.isHidden = true
         }
+    }
+    
+    @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
+        imageScrollView.set(image: makeGrayscale(image: imageScrollView.baseImage.image!))
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
     }
     
     // MARK: - ImageScrollView setup
@@ -261,11 +273,12 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row])
-        self.animate(view: adjustmentView, constraint: adjustmentViewHeight, to: 0)
-        let img: UIImage = adjustments[indexPath.row].action(imageScrollView.baseImage.image!)
-        imageScrollView.set(image: img)
-        historyImages.append(HistoryImage(name: adjustments[indexPath.row].name, image: img))
-        historyCollectionView.reloadData()
+        self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 500)
+//        let img: UIImage = adjustments[indexPath.row].action(imageScrollView.baseImage.image!)
+//        imageScrollView.set(image: img)
+//        historyImages.append(HistoryImage(name: adjustments[indexPath.row].name, image: img))
+//        historyCollectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
