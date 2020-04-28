@@ -38,8 +38,8 @@ class MainVC: UIViewController {
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "3"]
     private var historyImages: [HistoryImage] = []
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "3"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -123,6 +123,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
         case adjustments[1]:
             imageScrollView.set(image: OpenCVWrapper.stretchHistogram(imageScrollView.baseImage.image!))
+//        case adjustments[2]:
+//            let kernel = Image<Float>(width: 3, height: 3, pixel: 1.0 / 9.0)
+//            let image = Image<RGBA<UInt8>>(uiImage: imageScrollView.baseImage.image!)
+//            imageScrollView.set(image: image.convoluted(with: kernel).uiImage)
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -219,6 +223,10 @@ class MainVC: UIViewController {
         }
     }
     
+    func adaptSetAdjustmentView(adjustment: String) {
+        // TODO: adapt view to perform adjustments depending on selected item
+    }
+    
     // MARK: - historyCollectionView setup
     func setHistoryCollectionView() {
         historyCollectionViewFlowLayout = (historyCollectionView.collectionViewLayout as! CenteredCollectionViewFlowLayout)
@@ -287,6 +295,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row])
         selectedAdjustment = adjustments[indexPath.row]
+        adaptSetAdjustmentView(adjustment: selectedAdjustment)
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 500)
     }
