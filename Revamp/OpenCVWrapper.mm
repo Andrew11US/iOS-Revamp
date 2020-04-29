@@ -18,35 +18,34 @@ using namespace cv;
     return [NSString stringWithFormat:@"Open CV Version: %s", CV_VERSION];
 }
 
-+ (UIImage *)makeGray:(UIImage *)image {
-    Mat src;
-    UIImageToMat(image, src);
-    
-    if (src.channels() == 1) return image;
-    Mat dst;
++ (UIImage *)toGrayscale:(UIImage *)image {
+    Mat src, dst;
+    UIImageToMat(image, src);           // iOS UIImage -> Mat
     cvtColor(src, dst, COLOR_BGR2GRAY);
+    cvtColor(dst, dst, COLOR_GRAY2RGB); // Converting back to RBG
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)stretchHistogram:(UIImage *) image {
++ (UIImage *)histogramEqualization:(UIImage *) image {
     Mat src, dst;
-    /// Load image
     UIImageToMat(image, src);
-    /// Convert to grayscale
-    cvtColor( src, src, COLOR_BGR2GRAY );
-    /// Apply Histogram Equalization
-    equalizeHist( src, dst );
+    cvtColor(src, src, COLOR_BGR2GRAY);
+    equalizeHist(src, dst);
+    cvtColor(dst, dst, COLOR_GRAY2RGB);
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)thresholdImage:(UIImage *)image level:(double)threshold {
++ (UIImage *)threshold:(UIImage *)image level:(double)level {
     Mat src, dst;
-    /// Load image
     UIImageToMat(image, src);
-    /// Convert to grayscale
-//    cvtColor( src, src, COLOR_BGR2GRAY );
-    /// Apply Histogram Equalization
-    cv::threshold(src, dst, threshold, 255, THRESH_BINARY);
+    cv::threshold(src, dst, level, 255, THRESH_BINARY);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)grayscaleThreshold:(UIImage *) image level:(double) level {
+    Mat src, dst;
+    UIImageToMat(image, src);
+    cv::threshold(src, dst, level, 255, THRESH_TOZERO);
     return MatToUIImage(dst);
 }
 

@@ -42,7 +42,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -125,13 +125,17 @@ class MainVC: UIViewController {
     @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
         switch selectedAdjustment {
         case adjustments[0]:
-            imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.toGrayscale(imageScrollView.baseImage.image!))
         case adjustments[1]:
-            imageScrollView.set(image: OpenCVWrapper.stretchHistogram(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.histogramEqualization(imageScrollView.baseImage.image!))
         case adjustments[2]:
-            imageScrollView.set(image: OpenCVWrapper.thresholdImage(imageScrollView.baseImage.image!, level: thresholdView.threshold))
+            imageScrollView.set(image: OpenCVWrapper.threshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
             thresholdView.removeFromSuperview()
             thresholdView = nil
+        case adjustments[3]:
+            imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
+        thresholdView.removeFromSuperview()
+        thresholdView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -146,7 +150,7 @@ class MainVC: UIViewController {
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
     }
     
-    // MARK: - ImageScrollView setup
+    // MARK: - Custom Views setup
     func setupImageScrollView() {
         imageScrollView = ImageScrollView(frame: view.bounds)
         view.addSubview(imageScrollView)
@@ -245,8 +249,22 @@ class MainVC: UIViewController {
         }
     }
     
-    func adaptSetAdjustmentView(adjustment: String) {
-        // TODO: adapt view to perform adjustments depending on selected item
+    func adaptSetAdjustmentView(adjustment: String) -> Int {
+        let size = 61
+        switch adjustment {
+        case adjustments[0]:
+            return size
+        case adjustments[1]:
+            return size
+        case adjustments[2]:
+            setupThresholdView()
+            return 300
+        case adjustments[3]:
+            setupThresholdView()
+            return 300
+        default:
+            return size
+        }
     }
     
     // MARK: - historyCollectionView setup
@@ -296,7 +314,7 @@ class MainVC: UIViewController {
     
     @objc func makeGrayscale(image: UIImage) -> UIImage {
         print("Performed")
-        return OpenCVWrapper.makeGray(image)
+        return OpenCVWrapper.toGrayscale(image)
     }
 }
 
@@ -317,12 +335,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row])
         selectedAdjustment = adjustments[indexPath.row]
-        adaptSetAdjustmentView(adjustment: selectedAdjustment)
-        if indexPath.row == 2 {
-            setupThresholdView()
-        }
+        let size = adaptSetAdjustmentView(adjustment: selectedAdjustment)
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
-        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 300)
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: size)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

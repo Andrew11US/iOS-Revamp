@@ -15,14 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 // Header file is used for declarations
 @interface OpenCVWrapper : NSObject
 
-// Shows OpenCV version
+// Show OpenCV version
 + (NSString *)openCVVersion;
-// Makes image grayscale
-+ (UIImage *)makeGray:(UIImage *) image;
-// Stretches histogram
-+ (UIImage *)stretchHistogram:(UIImage *) image;
-// Threshold
-+ (UIImage *)thresholdImage:(UIImage *) image level:(double) threshold;
+// Convert to Grayscale
++ (UIImage *)toGrayscale:(UIImage *) image;
+// Histogram equalization
++ (UIImage *)histogramEqualization:(UIImage *) image;
+// Thresholding
++ (UIImage *)threshold:(UIImage *) image level:(double) level;
+// Thresholding with grayscale
++ (UIImage *)grayscaleThreshold:(UIImage *) image level:(double) level;
 
 @end
 
