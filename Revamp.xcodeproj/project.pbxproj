@@ -46,6 +46,7 @@
 		012B17E02458C51F007CB124 /* NumericPixel.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17C22458C51F007CB124 /* NumericPixel.swift.gyb */; };
 		012B17E12458C51F007CB124 /* Convolution.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17C32458C51F007CB124 /* Convolution.swift.gyb */; };
 		012B17E22458C51F007CB124 /* PremultipliedRGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17C42458C51F007CB124 /* PremultipliedRGBA.swift */; };
+		012B17E52458CBFB007CB124 /* ThresholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17E42458CBFB007CB124 /* ThresholdView.swift */; };
 		0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178DCD024537A220084984D /* UIImage+Extension.swift */; };
 		0178DCD3245388540084984D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178DCD2245388540084984D /* UIColor+Extension.swift */; };
 		01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B8F242CFB3D00180242 /* AppDelegate.swift */; };
@@ -122,6 +123,7 @@
 		012B17C22458C51F007CB124 /* NumericPixel.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumericPixel.swift.gyb; sourceTree = "<group>"; };
 		012B17C32458C51F007CB124 /* Convolution.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Convolution.swift.gyb; sourceTree = "<group>"; };
 		012B17C42458C51F007CB124 /* PremultipliedRGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremultipliedRGBA.swift; sourceTree = "<group>"; };
+		012B17E42458CBFB007CB124 /* ThresholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdView.swift; sourceTree = "<group>"; };
 		0178DCD024537A220084984D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		0178DCD2245388540084984D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		01B38B8C242CFB3D00180242 /* Revamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,6 +323,7 @@
 				01130E652454743700C2ACCC /* AdjustmentCell.swift */,
 				01130E692454847400C2ACCC /* HistoryCell.swift */,
 				01130E6D2454B27400C2ACCC /* ImagePicker.swift */,
+				012B17E42458CBFB007CB124 /* ThresholdView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				012B17CF2458C51F007CB124 /* Image.swift in Sources */,
 				012B17DD2458C51F007CB124 /* UIKit.swift in Sources */,
 				01B38B94242CFB3D00180242 /* MainVC.swift in Sources */,
+				012B17E52458CBFB007CB124 /* ThresholdView.swift in Sources */,
 				01130E6E2454B27400C2ACCC /* ImagePicker.swift in Sources */,
 				012B17D12458C51F007CB124 /* ExtrapolatedImage.swift in Sources */,
 				012B17DE2458C51F007CB124 /* Interpolation.swift in Sources */,
@@ -820,7 +824,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -848,7 +852,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

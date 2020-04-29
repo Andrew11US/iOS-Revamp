@@ -39,4 +39,15 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)thresholdImage:(UIImage *)image level:(double)threshold {
+    Mat src, dst;
+    /// Load image
+    UIImageToMat(image, src);
+    /// Convert to grayscale
+//    cvtColor( src, src, COLOR_BGR2GRAY );
+    /// Apply Histogram Equalization
+    cv::threshold(src, dst, threshold, 255, THRESH_BINARY);
+    return MatToUIImage(dst);
+}
+
 @end

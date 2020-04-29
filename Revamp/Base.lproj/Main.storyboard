@@ -168,10 +168,10 @@
                                 <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yZG-jt-oH4">
-                                        <rect key="frame" x="0.0" y="5" width="375" height="240"/>
+                                        <rect key="frame" x="0.0" y="5" width="375" height="390"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-Rp-J6u">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <collectionViewLayout key="collectionViewLayout" id="uR3-0M-L5p" customClass="CenteredCollectionViewFlowLayout" customModule="CenteredCollectionView"/>
                                                 <cells>
@@ -232,27 +232,41 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCd-j9-wlv">
                                 <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
-                                    <stackView clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="BAk-q9-D5b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qwv-7u-Y8P">
+                                        <rect key="frame" x="0.0" y="-53" width="375" height="45"/>
                                         <subviews>
-                                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ug-xP-BJF">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
-                                                <state key="normal" title="Button"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaA-3e-cUL">
+                                                <rect key="frame" x="0.0" y="0.0" width="183.66666666666666" height="45"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <state key="normal" title="Apply">
+                                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="applyAdjustmentBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WOh-RV-yGd"/>
+                                                    <action selector="applyAdjustmentBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nZk-qd-cSW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yak-dq-vMz">
+                                                <rect key="frame" x="191.66666666666663" y="0.0" width="183.33333333333337" height="45"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelAdjustmentBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6mY-Vx-Mwh"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="MiH-nj-mMY"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="BAk-q9-D5b" firstAttribute="top" secondItem="BCd-j9-wlv" secondAttribute="top" id="Lgm-rA-rzS"/>
-                                    <constraint firstAttribute="trailing" secondItem="BAk-q9-D5b" secondAttribute="trailing" id="bO6-ZP-bHX"/>
+                                    <constraint firstItem="Qwv-7u-Y8P" firstAttribute="leading" secondItem="BCd-j9-wlv" secondAttribute="leading" id="QCd-jz-2gg"/>
                                     <constraint firstAttribute="height" id="fxX-Tb-dp4"/>
-                                    <constraint firstAttribute="bottom" secondItem="BAk-q9-D5b" secondAttribute="bottom" id="hvi-pr-ace"/>
-                                    <constraint firstItem="BAk-q9-D5b" firstAttribute="leading" secondItem="BCd-j9-wlv" secondAttribute="leading" id="veq-dV-OH1"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qwv-7u-Y8P" secondAttribute="trailing" id="qxi-wj-EOR"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qwv-7u-Y8P" secondAttribute="bottom" constant="8" id="vAU-26-s9Q"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -288,7 +302,7 @@
                         <outlet property="adjustmentsTableView" destination="R0V-FJ-9MH" id="ZPK-xQ-M6m"/>
                         <outlet property="adjustmentsView" destination="BLj-cY-Vfv" id="fPt-uJ-nlu"/>
                         <outlet property="adjustmentsViewHeight" destination="xW9-gZ-uyE" id="SCp-sv-btF"/>
-                        <outlet property="applyAdjustmentBtn" destination="6ug-xP-BJF" id="Zqw-9s-C3t"/>
+                        <outlet property="applyAdjustmentBtn" destination="DaA-3e-cUL" id="AsQ-jb-QwI"/>
                         <outlet property="histogramBtn" destination="oe2-M7-ldT" id="sxD-sW-nKd"/>
                         <outlet property="histogramView" destination="ubf-eh-UpR" id="O5l-8m-yOD"/>
                         <outlet property="historyBtn" destination="GgZ-GQ-c2h" id="uJ9-bO-ebn"/>

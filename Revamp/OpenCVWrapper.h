@@ -19,9 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)openCVVersion;
 // Makes image grayscale
 + (UIImage *)makeGray:(UIImage *) image;
-
 // Stretches histogram
 + (UIImage *)stretchHistogram:(UIImage *) image;
+// Threshold
++ (UIImage *)thresholdImage:(UIImage *) image level:(double) threshold;
 
 @end
 

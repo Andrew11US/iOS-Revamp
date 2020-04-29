@@ -32,6 +32,9 @@ class MainVC: UIViewController {
     @IBOutlet weak var setAdjustmentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var applyAdjustmentBtn: UIButton!
     
+    // MARK: - Adjustment Views
+    private var thresholdView: ThresholdView!
+    
     //MARK: - Variables
     private var imagePicker: ImagePicker!
     private var imageScrollView: ImageScrollView!
@@ -39,7 +42,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "3"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -59,6 +62,8 @@ class MainVC: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
             self.requestPermissions()
         }
+        
+//        setupThresholdView()
     }
     
     //MARK: - IBActions
@@ -123,10 +128,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.makeGray(imageScrollView.baseImage.image!))
         case adjustments[1]:
             imageScrollView.set(image: OpenCVWrapper.stretchHistogram(imageScrollView.baseImage.image!))
-//        case adjustments[2]:
-//            let kernel = Image<Float>(width: 3, height: 3, pixel: 1.0 / 9.0)
-//            let image = Image<RGBA<UInt8>>(uiImage: imageScrollView.baseImage.image!)
-//            imageScrollView.set(image: image.convoluted(with: kernel).uiImage)
+        case adjustments[2]:
+            imageScrollView.set(image: OpenCVWrapper.thresholdImage(imageScrollView.baseImage.image!, level: thresholdView.threshold))
+            thresholdView.removeFromSuperview()
+            thresholdView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -135,6 +140,10 @@ class MainVC: UIViewController {
         historyImages.append(HistoryImage(name: selectedAdjustment, image: imageScrollView.baseImage.image!))
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         print(historyImages.count)
+    }
+    
+    @IBAction func cancelAdjustmentBtnTapped(_ sender: UIButton) {
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
     }
     
     // MARK: - ImageScrollView setup
@@ -148,6 +157,19 @@ class MainVC: UIViewController {
         imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    }
+    
+    func setupThresholdView() {
+        thresholdView = ThresholdView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(thresholdView)
+        thresholdView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            thresholdView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            thresholdView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            thresholdView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            thresholdView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
     }
     
     // MARK: - Draw Histogram
@@ -296,8 +318,11 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         print("Selected: ", adjustments[indexPath.row])
         selectedAdjustment = adjustments[indexPath.row]
         adaptSetAdjustmentView(adjustment: selectedAdjustment)
+        if indexPath.row == 2 {
+            setupThresholdView()
+        }
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
-        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 500)
+        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 300)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
