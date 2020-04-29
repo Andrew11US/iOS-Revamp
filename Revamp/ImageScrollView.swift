@@ -42,7 +42,6 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
     
     // MARK: - Sets base image and adds it to superview
     func set(image: UIImage) {
-        
         baseImage?.removeFromSuperview()
         baseImage = nil
         baseImage = UIImageView(image: image)

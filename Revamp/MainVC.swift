@@ -42,7 +42,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -136,6 +136,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
         thresholdView.removeFromSuperview()
         thresholdView = nil
+        case adjustments[4]:
+            imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!))
+        case adjustments[5]:
+            imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return

@@ -23,6 +23,8 @@ using namespace cv;
     UIImageToMat(image, src);           // iOS UIImage -> Mat
     cvtColor(src, dst, COLOR_BGR2GRAY);
     cvtColor(dst, dst, COLOR_GRAY2RGB); // Converting back to RBG
+    cv::flip(dst, dst, 0); // Flip x issue fix
+    cv::flip(dst, dst, 1); // Flip y issue fix
     return MatToUIImage(dst);
 }
 
@@ -46,6 +48,30 @@ using namespace cv;
     Mat src, dst;
     UIImageToMat(image, src);
     cv::threshold(src, dst, level, 255, THRESH_TOZERO);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)contrastEnhancement:(UIImage *) image {
+    Mat src, dst;
+    UIImageToMat(image, src);
+//    dst = src;
+    for( int y = 0; y < src.rows; y++ ) {
+        for( int x = 0; x < src.cols; x++ ) {
+            for( int c = 0; c < 3; c++ ) {
+                dst.at<Vec3b>(y,x)[c] = saturate_cast<uchar>( 3 *( src.at<Vec3b>(y,x)[c] ) + 50 );
+            }
+        }
+    }
+    
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)invert:(UIImage *) image {
+    Mat src, dst;
+    
+    UIImageToMat(image, src);
+    dst = Scalar::all(255) - src;
+//    cv::bitwise_not(src, dst);
     return MatToUIImage(dst);
 }
 
