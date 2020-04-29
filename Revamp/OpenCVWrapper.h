@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)threshold:(UIImage *) image level:(double) level;
 // Thresholding with grayscale
 + (UIImage *)grayscaleThreshold:(UIImage *) image level:(double) level;
+// Adaptive thresholding
++ (UIImage *)adaptiveThreshold:(UIImage *) image level:(double) blockSize;
 // Contrast enhancement
 + (UIImage *)contrastEnhancement:(UIImage *) image;
 // Invert

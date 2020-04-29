@@ -51,6 +51,15 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)adaptiveThreshold:(UIImage *) image level:(double) blockSize {
+    Mat src, dst;
+    UIImageToMat(image, src);
+    dst = src;
+    cvtColor(src, src, COLOR_BGR2GRAY);
+    cv::adaptiveThreshold(src, dst, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, blockSize, 0);
+    return MatToUIImage(dst);
+}
+
 + (UIImage *)contrastEnhancement:(UIImage *) image {
     Mat src, dst;
     UIImageToMat(image, src);
