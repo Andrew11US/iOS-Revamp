@@ -31,8 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)contrastEnhancement:(UIImage *) image r1:(int) r1 r2:(int) r2 s1:(int) s1 s2:(int) s2;
 // Invert
 + (UIImage *)invert:(UIImage *) image;
-
-//- (int)computeOutput:(int) x, r1:(int) r1, s1:(int) s1, r2:(int) r2, s2:(int) s2;
+// Blur
++ (UIImage *)blur:(UIImage *) image;
+// Gaussian blur
++ (UIImage *)gaussianBlur:(UIImage *) image;
+// Median filter
++ (UIImage *)medianFilter:(UIImage *) image;
 
 @end
 

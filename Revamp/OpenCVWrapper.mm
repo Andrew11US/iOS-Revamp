@@ -90,8 +90,30 @@ using namespace cv;
 //    cv::Mat gray;
 //    cv::cvtColor(rgb, gray, COLOR_RGB2GRAY);
 //    cv::Mat gray_invert = 255 ^ gray;
-    UIImage* binImg = MatToUIImage(rgb_invert);
-    return binImg;
+    UIImage* img = MatToUIImage(rgb_invert);
+    return img;
+}
+
++ (UIImage *)blur:(UIImage *) image {
+    Mat src, dst;
+    UIImageToMat(image, src);
+    cv::blur(src, dst, cv::Size(15,15));
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)gaussianBlur:(UIImage *) image {
+    Mat src, dst;
+    UIImageToMat(image, src);
+    cv::GaussianBlur(src, dst, cv::Size(155,155), 0);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)medianFilter:(UIImage *) image {
+    Mat src, dst;
+    UIImageToMat(image, src);
+    dst = src.clone();
+    cv::medianBlur(src, dst, 221);
+    return MatToUIImage(dst);
 }
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)
