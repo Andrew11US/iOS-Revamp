@@ -25,7 +25,8 @@ using namespace cv;
     cvtColor(dst, dst, COLOR_GRAY2RGB); // Converting back to RBG
     cv::flip(dst, dst, 0); // Flip x issue fix
     cv::flip(dst, dst, 1); // Flip y issue fix
-    return MatToUIImage(dst);
+    UIImage* img = MatToUIImage(dst);
+    return img;
 }
 
 + (UIImage *)histogramEqualization:(UIImage *) image {
@@ -60,14 +61,16 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)contrastEnhancement:(UIImage *) image {
++ (UIImage *)contrastEnhancement:(UIImage *) image r1:(int) r1 r2:(int) r2 s1:(int) s1 s2:(int) s2 {
     Mat src, dst;
     UIImageToMat(image, src);
     dst = src.clone();
-    for( int y = 0; y < src.rows; y++ ) {
-        for( int x = 0; x < src.cols; x++ ) {
-            for( int c = 0; c < 3; c++ ) {
-                dst.at<Vec3b>(y,x)[c] = saturate_cast<uchar>( 3 *( src.at<Vec3b>(y,x)[c] ) + 50 );
+    
+    for(int y = 0; y < src.rows; ++y) {
+        for(int x = 0; x < src.cols; ++x) {
+            for(int c = 0; c < 3; ++c) {
+                int output = computeOutput(src.at<Vec3b>(y,x)[c], r1, r2, s1, s2);
+                dst.at<Vec3b>(y,x)[c] = saturate_cast<uchar>(output);
             }
         }
     }
@@ -89,6 +92,19 @@ using namespace cv;
 //    cv::Mat gray_invert = 255 ^ gray;
     UIImage* binImg = MatToUIImage(rgb_invert);
     return binImg;
+}
+
+private int computeOutput(int x, int r1, int r2, int s1, int s2)
+{
+    float result;
+    if(0 <= x && x <= r1){
+        result = s1/r1 * x;
+    }else if(r1 < x && x <= r2){
+        result = ((s2 - s1)/(r2 - r1)) * (x - r1) + s1;
+    }else if(r2 < x && x <= 255){
+        result = ((255 - s2)/(255 - r2)) * (x - r2) + s2;
+    }
+    return (int)result;
 }
 
 @end

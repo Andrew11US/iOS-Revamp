@@ -34,6 +34,7 @@ class MainVC: UIViewController {
     
     // MARK: - Adjustment Views
     private var thresholdView: ThresholdView!
+    private var contrastView: ContrastView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -138,7 +139,9 @@ class MainVC: UIViewController {
             thresholdView.removeFromSuperview()
             thresholdView = nil
         case adjustments[4]:
-            imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!, r1: Int32(contrastView.fromMin), r2: Int32(contrastView.fromMax), s1: Int32(contrastView.toMin), s2: Int32(contrastView.toMax)))
+            contrastView.removeFromSuperview()
+            contrastView = nil
         case adjustments[5]:
             imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
         case adjustments[6]:
@@ -182,6 +185,19 @@ class MainVC: UIViewController {
             thresholdView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             thresholdView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             thresholdView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupContrastView() {
+        contrastView = ContrastView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(contrastView)
+        contrastView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            contrastView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            contrastView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            contrastView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            contrastView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -270,6 +286,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[3]:
             setupThresholdView()
+            return 300
+        case adjustments[4]:
+            setupContrastView()
             return 300
         case adjustments[6]:
             setupThresholdView()
