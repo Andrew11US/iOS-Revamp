@@ -94,25 +94,25 @@ using namespace cv;
     return img;
 }
 
-+ (UIImage *)blur:(UIImage *) image {
++ (UIImage *)blur:(UIImage *) image level:(int) level {
     Mat src, dst;
     UIImageToMat(image, src);
-    cv::blur(src, dst, cv::Size(15,15));
+    cv::blur(src, dst, cv::Size(level, level));
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)gaussianBlur:(UIImage *) image {
++ (UIImage *)gaussianBlur:(UIImage *) image level:(int) level {
     Mat src, dst;
     UIImageToMat(image, src);
-    cv::GaussianBlur(src, dst, cv::Size(155,155), 0);
+    cv::GaussianBlur(src, dst, cv::Size(level, level), 0);
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)medianFilter:(UIImage *) image {
++ (UIImage *)medianFilter:(UIImage *) image level:(int) level {
     Mat src, dst;
     UIImageToMat(image, src);
     dst = src.clone();
-    cv::medianBlur(src, dst, 221);
+    cv::medianBlur(src, dst, level);
     return MatToUIImage(dst);
 }
 

@@ -35,6 +35,7 @@ class MainVC: UIViewController {
     // MARK: - Adjustment Views
     private var thresholdView: ThresholdView!
     private var contrastView: ContrastView!
+    private var blurView: BlurView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -149,11 +150,17 @@ class MainVC: UIViewController {
             thresholdView.removeFromSuperview()
             thresholdView = nil
         case adjustments[7]:
-            imageScrollView.set(image: OpenCVWrapper.blur(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.blur(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
+            blurView.removeFromSuperview()
+            blurView = nil
         case adjustments[8]:
-            imageScrollView.set(image: OpenCVWrapper.gaussianBlur(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.gaussianBlur(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
+            blurView.removeFromSuperview()
+            blurView = nil
         case adjustments[9]:
-            imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
+            blurView.removeFromSuperview()
+            blurView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -204,6 +211,19 @@ class MainVC: UIViewController {
             contrastView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             contrastView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             contrastView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupBlurView() {
+        blurView = BlurView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(blurView)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            blurView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            blurView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            blurView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -298,6 +318,15 @@ class MainVC: UIViewController {
             return 300
         case adjustments[6]:
             setupThresholdView()
+            return 300
+        case adjustments[7]:
+            setupBlurView()
+            return 300
+        case adjustments[8]:
+            setupBlurView()
+            return 300
+        case adjustments[9]:
+            setupBlurView()
             return 300
         default:
             return size

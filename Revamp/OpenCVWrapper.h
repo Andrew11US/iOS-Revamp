@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 // Invert
 + (UIImage *)invert:(UIImage *) image;
 // Blur
-+ (UIImage *)blur:(UIImage *) image;
++ (UIImage *)blur:(UIImage *) image level:(int) level;
 // Gaussian blur
-+ (UIImage *)gaussianBlur:(UIImage *) image;
++ (UIImage *)gaussianBlur:(UIImage *) image level:(int) level;
 // Median filter
-+ (UIImage *)medianFilter:(UIImage *) image;
++ (UIImage *)medianFilter:(UIImage *) image level:(int) level;
 
 @end
 
