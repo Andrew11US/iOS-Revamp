@@ -63,7 +63,7 @@ using namespace cv;
 + (UIImage *)contrastEnhancement:(UIImage *) image {
     Mat src, dst;
     UIImageToMat(image, src);
-//    dst = src;
+    dst = src.clone();
     for( int y = 0; y < src.rows; y++ ) {
         for( int x = 0; x < src.cols; x++ ) {
             for( int c = 0; c < 3; c++ ) {
@@ -76,12 +76,19 @@ using namespace cv;
 }
 
 + (UIImage *)invert:(UIImage *) image {
-    Mat src, dst;
-    
-    UIImageToMat(image, src);
-    dst = Scalar::all(255) - src;
-//    cv::bitwise_not(src, dst);
-    return MatToUIImage(dst);
+    Mat mat;
+    UIImageToMat(image, mat);
+
+    cv::Mat rgb;
+    cv::cvtColor(mat, rgb, COLOR_RGBA2RGB);
+    cv::Mat tmp(rgb.size(), rgb.type(), cv::Scalar(255,255,255));
+    cv::Mat rgb_invert = tmp ^ rgb;
+
+//    cv::Mat gray;
+//    cv::cvtColor(rgb, gray, COLOR_RGB2GRAY);
+//    cv::Mat gray_invert = 255 ^ gray;
+    UIImage* binImg = MatToUIImage(rgb_invert);
+    return binImg;
 }
 
 @end

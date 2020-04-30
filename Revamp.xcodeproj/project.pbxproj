@@ -12,7 +12,6 @@
 		01130E6A2454847400C2ACCC /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E692454847400C2ACCC /* HistoryCell.swift */; };
 		01130E6C245488EC00C2ACCC /* HistoryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E6B245488EC00C2ACCC /* HistoryImage.swift */; };
 		01130E6E2454B27400C2ACCC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E6D2454B27400C2ACCC /* ImagePicker.swift */; };
-		01130E722454CCC000C2ACCC /* Adjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E712454CCC000C2ACCC /* Adjustment.swift */; };
 		012953F32452196C0067082D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012953F22452196C0067082D /* opencv2.framework */; };
 		012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012953F6245219E90067082D /* OpenCVWrapper.mm */; };
 		012953F924522FDE0067082D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012953F824522FDE0067082D /* ImageScrollView.swift */; };
@@ -86,7 +85,6 @@
 		01130E692454847400C2ACCC /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		01130E6B245488EC00C2ACCC /* HistoryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryImage.swift; sourceTree = "<group>"; };
 		01130E6D2454B27400C2ACCC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		01130E712454CCC000C2ACCC /* Adjustment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adjustment.swift; sourceTree = "<group>"; };
 		012953F22452196C0067082D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		012953F4245219E80067082D /* Revamp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Revamp-Bridging-Header.h"; sourceTree = "<group>"; };
 		012953F5245219E90067082D /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 				012953F6245219E90067082D /* OpenCVWrapper.mm */,
 				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 				01130E6B245488EC00C2ACCC /* HistoryImage.swift */,
-				01130E712454CCC000C2ACCC /* Adjustment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -636,7 +633,6 @@
 				012B17D92458C51F007CB124 /* Resizing.swift in Sources */,
 				012B17CE2458C51F007CB124 /* RGBAOperators.swift in Sources */,
 				012B17DA2458C51F007CB124 /* Util.swift in Sources */,
-				01130E722454CCC000C2ACCC /* Adjustment.swift in Sources */,
 				012B17DC2458C51F007CB124 /* ImageIterator.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
 				012B17CB2458C51F007CB124 /* RGB.swift in Sources */,
@@ -824,7 +820,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -852,7 +848,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

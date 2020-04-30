@@ -122,6 +122,7 @@ class MainVC: UIViewController {
         }
     }
     
+    // MARK: - Apply adjustment
     @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
         switch selectedAdjustment {
         case adjustments[0]:
@@ -134,16 +135,16 @@ class MainVC: UIViewController {
             thresholdView = nil
         case adjustments[3]:
             imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-        thresholdView.removeFromSuperview()
-        thresholdView = nil
+            thresholdView.removeFromSuperview()
+            thresholdView = nil
         case adjustments[4]:
             imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!))
         case adjustments[5]:
             imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
         case adjustments[6]:
             imageScrollView.set(image: OpenCVWrapper.adaptiveThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-        thresholdView.removeFromSuperview()
-        thresholdView = nil
+            thresholdView.removeFromSuperview()
+            thresholdView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
