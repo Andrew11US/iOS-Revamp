@@ -253,6 +253,22 @@ using namespace cv;
     }
 }
 
++ (UIImage *)laplacian:(UIImage *) image {
+    
+    Mat src, gray, dst;
+    Mat abs_dst;
+
+    UIImageToMat(image, src);
+    GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
+
+    /// Convert it to GRAY
+    cvtColor( src, gray, COLOR_BGR2GRAY );
+    Laplacian(gray, dst, CV_16S);
+    convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
+    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
+    return MatToUIImage(abs_dst);
+}
+
 
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)

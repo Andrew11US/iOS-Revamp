@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)watershed:(UIImage *) image; // <<< FIX
 // Sobel filter
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border;
+// Laplacian
++ (UIImage *)laplacian:(UIImage *) image;
 
 @end
 
