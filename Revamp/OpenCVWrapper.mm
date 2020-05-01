@@ -116,6 +116,39 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)otsuThreshold:(UIImage *) image level:(double) level {
+    Mat src, dst, tmp;
+    UIImageToMat(image, src);
+    cvtColor(src, tmp, COLOR_BGR2GRAY);
+    cv::threshold(tmp, dst, level, 255, THRESH_BINARY | THRESH_OTSU);
+    cvtColor(dst, dst, COLOR_GRAY2RGB);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)posterize:(UIImage *) image level:(int) level {
+    Mat src;
+    UIImageToMat(image, src);
+    cv::Mat dst(src.size(), src.type(), cv::Scalar(255,255,255));
+    
+    for(int i = 0; i < src.rows; i++) {
+        for(int j = 0; j < src.cols; j++) {
+            for(int c = 0; c < 3; c++) {
+                int num_colors = level;
+                int divisor = 256 / num_colors;
+                int max_quantized_value = 255 / divisor;
+                int new_value = ((src.at<Vec3b>(i,j)[c] / divisor) * 255) / max_quantized_value;
+                dst.at<Vec3b>(i,j)[c] = new_value;
+            }
+        }
+    }
+    
+    return MatToUIImage(dst);
+}
+
+
+
+
+
 private int computeOutput(int x, int r1, int r2, int s1, int s2)
 {
     float result;

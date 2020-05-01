@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)grayscaleThreshold:(UIImage *) image level:(double) level;
 // Adaptive thresholding
 + (UIImage *)adaptiveThreshold:(UIImage *) image level:(double) blockSize;
+// Otsu thresholding
++ (UIImage *)otsuThreshold:(UIImage *) image level:(double) level;
 // Contrast enhancement
 + (UIImage *)contrastEnhancement:(UIImage *) image r1:(int) r1 r2:(int) r2 s1:(int) s1 s2:(int) s2;
 // Invert
@@ -37,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)gaussianBlur:(UIImage *) image level:(int) level;
 // Median filter
 + (UIImage *)medianFilter:(UIImage *) image level:(int) level;
+// Posterize
++ (UIImage *)posterize:(UIImage *) image level:(int) level;
 
 @end
 

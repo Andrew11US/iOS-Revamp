@@ -44,7 +44,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -161,6 +161,12 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
             blurView.removeFromSuperview()
             blurView = nil
+        case adjustments[10]:
+            imageScrollView.set(image: OpenCVWrapper.otsuThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
+            thresholdView.removeFromSuperview()
+            thresholdView = nil
+        case adjustments[11]:
+            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 5))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -327,6 +333,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[9]:
             setupBlurView()
+            return 300
+        case adjustments[10]:
+            setupThresholdView()
             return 300
         default:
             return size
