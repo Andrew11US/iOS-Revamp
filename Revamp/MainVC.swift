@@ -37,6 +37,7 @@ class MainVC: UIViewController {
     private var contrastView: ContrastView!
     private var blurView: BlurView!
     private var sobelView: SobelView!
+    private var cannyView: CannyView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -177,7 +178,9 @@ class MainVC: UIViewController {
         case adjustments[14]:
             imageScrollView.set(image: OpenCVWrapper.laplacian(imageScrollView.baseImage.image!))
         case adjustments[15]:
-            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: 50, upper: 150))
+            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: Int32(cannyView.lowerBound), upper: Int32(cannyView.upperBound)))
+            cannyView.removeFromSuperview()
+            cannyView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -254,6 +257,19 @@ class MainVC: UIViewController {
             sobelView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             sobelView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             sobelView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupCannyView() {
+        cannyView = CannyView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(cannyView)
+        cannyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            cannyView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            cannyView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            cannyView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            cannyView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -363,6 +379,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[13]:
             setupSobelView()
+            return 300
+        case adjustments[15]:
+            setupCannyView()
             return 300
         default:
             return size
