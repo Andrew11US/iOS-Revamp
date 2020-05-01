@@ -42,7 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Posterize
 + (UIImage *)posterize:(UIImage *) image level:(int) level;
 // Watershed segmentation
-+ (UIImage *)watershed:(UIImage *) image;
++ (UIImage *)watershed:(UIImage *) image; // <<< FIX
+// Sobel filter
++ (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border;
 
 @end
 

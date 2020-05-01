@@ -36,6 +36,7 @@ class MainVC: UIViewController {
     private var thresholdView: ThresholdView!
     private var contrastView: ContrastView!
     private var blurView: BlurView!
+    private var sobelView: SobelView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -44,7 +45,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -169,6 +170,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 5))
         case adjustments[12]:
             imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
+        case adjustments[13]:
+            imageScrollView.set(image: OpenCVWrapper.sobel(imageScrollView.baseImage.image!, type: Int32(sobelView.type), border: Int32(sobelView.border)))
+            sobelView.removeFromSuperview()
+            sobelView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -232,6 +237,19 @@ class MainVC: UIViewController {
             blurView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             blurView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             blurView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupSobelView() {
+        sobelView = SobelView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(sobelView)
+        sobelView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sobelView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            sobelView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            sobelView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            sobelView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -338,6 +356,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[10]:
             setupThresholdView()
+            return 300
+        case adjustments[13]:
+            setupSobelView()
             return 300
         default:
             return size

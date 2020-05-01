@@ -155,20 +155,103 @@ using namespace cv;
 ////    cvtColor(dst, dst, COLOR_GRAY2RGB);
 //    return MatToUIImage(dst);
     
-    
-    
-    Mat src, dst;
+    Mat src;
     UIImageToMat(image, src);
-    cvtColor(src, dst, COLOR_BGR2GRAY);
-//    src.convertTo(src, CV_8UC3);
-//    dst.convertTo(dst, CV_32SC1);
-//    cvtColor(src, tmp, COLOR_BGR2GRAY);
-    cv::watershed(dst, dst);
-//    cvtColor(dst, dst, COLOR_GRAY2RGB);
-    return MatToUIImage(dst);
+    Mat dst = cv::Mat();
+    Mat gray =  Mat();
+    Mat opening = Mat();
+    Mat coinsBg = Mat();
+    Mat coinsFg = Mat();
+    Mat distTrans = Mat();
+    Mat unknown = Mat();
+    Mat markers = cv::Mat();
+    // gray and threshold image
+    cvtColor(src, gray, COLOR_RGBA2GRAY, 0);
+    threshold(gray, gray, 0, 255, THRESH_BINARY_INV + THRESH_OTSU);
+    // get background
+    Mat M = Mat::ones(3, 3, CV_8U);
+    erode(gray, gray, M);
+    dilate(gray, opening, M);
+    dilate(opening, coinsBg, M, cv::Point(-1, -1), 3);
+    // distance transform
+    cv::distanceTransform(opening, distTrans, DIST_L2, 5);
+    cv::normalize(distTrans, distTrans, 1, 0, NORM_INF);
+    // get foreground
+    cv::threshold(distTrans, coinsFg, 0.7 * 1, 255, cv::THRESH_BINARY);
+    coinsFg.convertTo(coinsFg, CV_8U, 1, 0);
+    cv::subtract(coinsBg, coinsFg, unknown);
+    // get connected components markers
+    cv::connectedComponents(coinsFg, markers);
+    markers += 1;
+    
+    for (int i = 0; i < markers.rows; i++) {
+        for (int j = 0; j < markers.cols; j++) {
+//            markers.ptr(i, j)[0] = markers.ptr(i, j)[0] + 1;
+            markers.at<Vec3b>(i,j)[0] = markers.at<Vec3b>(i,j)[0] + 1;
+            if (unknown.at<Vec3b>(i, j)[0] == 255) {
+                markers.at<Vec3b>(i, j)[0] = 0;
+            }
+        }
+    }
+    cv::cvtColor(src, src, COLOR_RGBA2RGB, 0);
+    cv::watershed(src, markers);
+    // draw barriers
+    for (int i = 0; i < markers.rows; i++) {
+        for (int j = 0; j < markers.cols; j++) {
+            if (markers.at<Vec3b>(i, j)[0] == -1) {
+                src.at<Vec3b>(i, j)[0] = 255; // R
+                src.at<Vec3b>(i, j)[1] = 0; // G
+                src.at<Vec3b>(i, j)[2] = 0; // B
+            }
+        }
+    }
+    UIImage* output = MatToUIImage(src);
+    src.deallocate();
+    return output;
+//    src.delete(); dst.delete(); gray.delete(); opening.delete(); coinsBg.delete();
+//    coinsFg.delete(); distTrans.delete(); unknown.delete(); markers.delete(); M.delete();
+    
+//    Mat src, dst;
+//    UIImageToMat(image, src);
+//    cvtColor(src, dst, COLOR_BGR2GRAY);
+////    src.convertTo(src, CV_8UC3);
+////    dst.convertTo(dst, CV_32SC1);
+////    cvtColor(src, tmp, COLOR_BGR2GRAY);
+//    cv::watershed(dst, dst);
+////    cvtColor(dst, dst, COLOR_GRAY2RGB);
+//    return MatToUIImage(dst);
 }
 
++ (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
+    Mat src, gray, dst;
+    Mat grad;
+    Mat grad_x, grad_y;
+    Mat abs_grad_x, abs_grad_y;
+    
+    int scale = 1;
+    int delta = 0;
+    int ddepth = CV_16S;
 
+    UIImageToMat(image, src);
+    GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
+
+    /// Convert it to GRAY
+    cvtColor( src, gray, COLOR_BGR2GRAY );
+
+    if (type == 0) {
+        /// Gradient X
+        Sobel( gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
+        convertScaleAbs( grad_x, abs_grad_x ); // Convert back to CV_8U
+        cvtColor(abs_grad_x, grad, COLOR_GRAY2BGR);
+        return MatToUIImage(grad);
+    } else {
+        /// Gradient Y
+        Sobel( gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );
+        convertScaleAbs( grad_y, abs_grad_y );
+        cvtColor(abs_grad_y, grad, COLOR_GRAY2BGR);
+        return MatToUIImage(grad);
+    }
+}
 
 
 
