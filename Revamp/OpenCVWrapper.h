@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)laplacian:(UIImage *) image;
 // Canny
 + (UIImage *)canny:(UIImage *) image lower:(int) lower upper:(int) upper;
+// Mask 3x3
++ (UIImage *)mask3x3:(UIImage *) image mask:(NSArray *) mask divisor:(int) divisor;
 
 @end
 

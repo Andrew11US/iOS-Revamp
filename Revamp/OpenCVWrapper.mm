@@ -283,6 +283,29 @@ using namespace cv;
     return MatToUIImage(abs_dst);
 }
 
++ (UIImage *)mask3x3:(UIImage *) image mask:(NSArray *) mask divisor:(int) divisor {
+    Mat src, gray, dst;
+    
+    float kernelData[9];
+    NSInteger count = [mask count];
+    for (int k = 0; k < count; ++k) {
+        kernelData[k] = [[mask objectAtIndex:(NSUInteger)k] floatValue];
+        NSLog(@"%f", kernelData[k]);
+    }
+//    float kdata[] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+    for (int i = 0; i < 9; ++i) {
+        kernelData[i] = (kernelData[i] / divisor);
+    }
+    Mat kernel(3,3, CV_32F, kernelData);
+
+    UIImageToMat(image, src);
+//    filter2D(src, dst, CV_8U, kernel);
+    filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, BORDER_DEFAULT );
+//    convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
+//    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
+    return MatToUIImage(dst);
+}
+
 
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)
