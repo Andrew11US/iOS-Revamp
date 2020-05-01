@@ -25,18 +25,10 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var divLbl: UILabel = {
            let nameLbl = UILabel()
            nameLbl.textAlignment = .center
-           nameLbl.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+           nameLbl.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
            nameLbl.text = "Divisor: 9"
            return nameLbl
        }()
-    
-    lazy var spacing1Lbl: UILabel = {
-        let spacingLbl = UILabel()
-        spacingLbl.textAlignment = .center
-        spacingLbl.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
-        spacingLbl.text = " - "
-        return spacingLbl
-    }()
     
     lazy var mask0_0: UITextField = {
         let field = UITextField()
@@ -231,7 +223,6 @@ class MaskView: UIView, UITextFieldDelegate {
         stackView3.addArrangedSubview(mask2_0)
         stackView3.addArrangedSubview(mask2_1)
         stackView3.addArrangedSubview(mask2_2)
-        //        stackView1.addArrangedSubview(spacing1Lbl)
         
         stackView.addArrangedSubview(nameLbl)
         stackView.addArrangedSubview(stackView1)

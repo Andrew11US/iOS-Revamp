@@ -39,6 +39,7 @@ class MainVC: UIViewController {
     private var sobelView: SobelView!
     private var cannyView: CannyView!
     private var maskView: MaskView!
+    private var sharpenView: SharpenView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -47,7 +48,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -186,6 +187,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: maskView.kernel, divisor: Int32(maskView.divisor)))
             maskView.removeFromSuperview()
             maskView = nil
+        case adjustments[17]:
+            imageScrollView.set(image: OpenCVWrapper.sharpen(imageScrollView.baseImage.image!, type: Int32(sharpenView.type), border: Int32(sharpenView.border)))
+            sharpenView.removeFromSuperview()
+            sharpenView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -288,6 +293,19 @@ class MainVC: UIViewController {
             maskView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             maskView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             maskView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupSharpenView() {
+        sharpenView = SharpenView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(sharpenView)
+        sharpenView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sharpenView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            sharpenView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            sharpenView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            sharpenView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -403,6 +421,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[16]:
             setupMaskView()
+            return 300
+        case adjustments[17]:
+            setupSharpenView()
             return 300
         default:
             return size

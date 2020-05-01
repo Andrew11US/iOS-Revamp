@@ -304,6 +304,29 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border {
+    Mat src, kernel, dst;
+    
+    float kernelData1[9] = {0,-1,0,-1,5,-1,0,-1,0};
+    float kernelData2[9] = {-1,-1,-1,-1,9,-1,-1,-1,-1};
+    float kernelData3[9] = {1,-2,1,-2,5,-2,1,-2,1};
+    
+    if (type == 0) {
+        Mat temp(3,3, CV_32F, kernelData1);
+        kernel = temp.clone();
+    } else if (type == 1) {
+        Mat temp(3,3, CV_32F, kernelData2);
+        kernel = temp.clone();
+    } else {
+        Mat temp(3,3, CV_32F, kernelData3);
+        kernel = temp.clone();
+    }
+
+    UIImageToMat(image, src);
+    filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, border);
+    return MatToUIImage(dst);
+}
+
 
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)

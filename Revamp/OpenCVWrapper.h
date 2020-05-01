@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)canny:(UIImage *) image lower:(int) lower upper:(int) upper;
 // Mask 3x3
 + (UIImage *)mask3x3:(UIImage *) image mask:(NSArray *) mask divisor:(int) divisor;
+// Sharpen mask
++ (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border ;
 
 @end
 
