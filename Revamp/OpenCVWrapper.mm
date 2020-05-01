@@ -141,7 +141,30 @@ using namespace cv;
             }
         }
     }
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)watershed:(UIImage *) image {
+//    Mat src, tmp;
+//    UIImageToMat(image, src);
+//    cvtColor(src, tmp, COLOR_BGRA2BGR);
+////    tmp.convertTo(tmp, CV_32F);
+//    cv::Mat dst(tmp.size(), tmp.type(), cv::Scalar(255));
+////    cvtColor(src, tmp, COLOR_BGR2GRAY);
+//    cv::watershed(tmp, dst);
+////    cvtColor(dst, dst, COLOR_GRAY2RGB);
+//    return MatToUIImage(dst);
     
+    
+    
+    Mat src, dst;
+    UIImageToMat(image, src);
+    cvtColor(src, dst, COLOR_BGR2GRAY);
+//    src.convertTo(src, CV_8UC3);
+//    dst.convertTo(dst, CV_32SC1);
+//    cvtColor(src, tmp, COLOR_BGR2GRAY);
+    cv::watershed(dst, dst);
+//    cvtColor(dst, dst, COLOR_GRAY2RGB);
     return MatToUIImage(dst);
 }
 

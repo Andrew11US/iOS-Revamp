@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)medianFilter:(UIImage *) image level:(int) level;
 // Posterize
 + (UIImage *)posterize:(UIImage *) image level:(int) level;
+// Watershed segmentation
++ (UIImage *)watershed:(UIImage *) image;
 
 @end
 
