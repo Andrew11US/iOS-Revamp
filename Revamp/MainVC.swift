@@ -38,6 +38,7 @@ class MainVC: UIViewController {
     private var blurView: BlurView!
     private var sobelView: SobelView!
     private var cannyView: CannyView!
+    private var maskView: MaskView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -182,7 +183,9 @@ class MainVC: UIViewController {
             cannyView.removeFromSuperview()
             cannyView = nil
         case adjustments[16]:
-            imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: [1,1,1,1,1,1,1,1,1], divisor: 9))
+            imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: maskView.kernel, divisor: Int32(maskView.divisor)))
+            maskView.removeFromSuperview()
+            maskView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -272,6 +275,19 @@ class MainVC: UIViewController {
             cannyView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
             cannyView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
             cannyView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
+    func setupMaskView() {
+        maskView = MaskView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(maskView)
+        maskView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            maskView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            maskView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            maskView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            maskView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -384,6 +400,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[15]:
             setupCannyView()
+            return 300
+        case adjustments[16]:
+            setupMaskView()
             return 300
         default:
             return size
