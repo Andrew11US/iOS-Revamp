@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border;
 // Laplacian
 + (UIImage *)laplacian:(UIImage *) image;
+// Canny
++ (UIImage *)canny:(UIImage *) image lower:(int) lower upper:(int) upper;
 
 @end
 

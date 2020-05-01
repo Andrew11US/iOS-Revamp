@@ -45,7 +45,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -176,6 +176,8 @@ class MainVC: UIViewController {
             sobelView = nil
         case adjustments[14]:
             imageScrollView.set(image: OpenCVWrapper.laplacian(imageScrollView.baseImage.image!))
+        case adjustments[15]:
+            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: 50, upper: 150))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return

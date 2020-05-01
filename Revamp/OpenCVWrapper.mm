@@ -254,7 +254,6 @@ using namespace cv;
 }
 
 + (UIImage *)laplacian:(UIImage *) image {
-    
     Mat src, gray, dst;
     Mat abs_dst;
 
@@ -264,6 +263,21 @@ using namespace cv;
     /// Convert it to GRAY
     cvtColor( src, gray, COLOR_BGR2GRAY );
     Laplacian(gray, dst, CV_16S);
+    convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
+    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
+    return MatToUIImage(abs_dst);
+}
+
++ (UIImage *)canny:(UIImage *) image lower:(int) lower upper:(int) upper {
+    Mat src, gray, dst;
+    Mat abs_dst;
+
+    UIImageToMat(image, src);
+    GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
+
+    /// Convert it to GRAY
+    cvtColor( src, gray, COLOR_BGR2GRAY );
+    Canny(gray, dst, lower, upper);
     convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
     cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
     return MatToUIImage(abs_dst);
