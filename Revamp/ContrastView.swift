@@ -47,7 +47,7 @@ class ContrastView: UIView, UITextFieldDelegate {
         field.text = "50"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
-        field.keyboardType = .numbersAndPunctuation
+        field.keyboardType = .numberPad
         field.addTarget(self, action: #selector(validateFromMinField(_:)), for: .editingDidEnd)
         return field
     }()
@@ -59,7 +59,7 @@ class ContrastView: UIView, UITextFieldDelegate {
         field.text = "150"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
-        field.keyboardType = .numbersAndPunctuation
+        field.keyboardType = .numberPad
         field.addTarget(self, action: #selector(validateFromMaxField(_:)), for: .editingDidEnd)
         return field
     }()
@@ -71,7 +71,7 @@ class ContrastView: UIView, UITextFieldDelegate {
         field.text = "0"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
-        field.keyboardType = .numbersAndPunctuation
+        field.keyboardType = .numberPad
         field.addTarget(self, action: #selector(validateToMinField(_:)), for: .editingDidEnd)
         return field
     }()
@@ -83,7 +83,7 @@ class ContrastView: UIView, UITextFieldDelegate {
         field.text = "255"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
-        field.keyboardType = .numbersAndPunctuation
+        field.keyboardType = .numberPad
         field.addTarget(self, action: #selector(validateToMaxField(_:)), for: .editingDidEnd)
         return field
     }()
@@ -138,6 +138,10 @@ class ContrastView: UIView, UITextFieldDelegate {
         fromMaxTF.delegate = self
         toMinTF.delegate = self
         toMaxTF.delegate = self
+        setDoneToolBar(field: fromMinTF)
+        setDoneToolBar(field: fromMaxTF)
+        setDoneToolBar(field: toMinTF)
+        setDoneToolBar(field: toMaxTF)
         stackView1.addArrangedSubview(fromMinTF)
         stackView1.addArrangedSubview(spacing1Lbl)
         stackView1.addArrangedSubview(fromMaxTF)
@@ -212,5 +216,16 @@ class ContrastView: UIView, UITextFieldDelegate {
     
     @objc private func dismissKeyboard() {
         endEditing(true)
+    }
+    
+    func setDoneToolBar(field: UITextField) {
+        let doneToolbar: UIToolbar = UIToolbar()
+
+        doneToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(dismissKeyboard))
+        ]
+        doneToolbar.sizeToFit()
+        field.inputAccessoryView = doneToolbar
     }
 }
