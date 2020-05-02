@@ -37,7 +37,7 @@ class MainVC: UIViewController {
     private var contrastView: ContrastView!
     private var blurView: BlurView!
     private var sobelView: SobelView!
-    private var cannyView: CannyView!
+    private var cannyView: UIView!
     private var maskView: MaskView!
     private var sharpenView: SharpenView!
     private var prewittView: PrewittView!
@@ -138,86 +138,56 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.histogramEqualization(imageScrollView.baseImage.image!))
         case adjustments[2]:
             imageScrollView.set(image: OpenCVWrapper.threshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-            thresholdView.removeFromSuperview()
-            thresholdView = nil
         case adjustments[3]:
             imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-            thresholdView.removeFromSuperview()
-            thresholdView = nil
         case adjustments[4]:
             imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!, r1: Int32(contrastView.fromMin), r2: Int32(contrastView.fromMax), s1: Int32(contrastView.toMin), s2: Int32(contrastView.toMax)))
-            contrastView.removeFromSuperview()
-            contrastView = nil
         case adjustments[5]:
             imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
         case adjustments[6]:
             imageScrollView.set(image: OpenCVWrapper.adaptiveThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-            thresholdView.removeFromSuperview()
-            thresholdView = nil
         case adjustments[7]:
             imageScrollView.set(image: OpenCVWrapper.blur(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
-            blurView.removeFromSuperview()
-            blurView = nil
         case adjustments[8]:
             imageScrollView.set(image: OpenCVWrapper.gaussianBlur(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
-            blurView.removeFromSuperview()
-            blurView = nil
         case adjustments[9]:
             imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!, level: Int32(blurView.blurLevel)))
-            blurView.removeFromSuperview()
-            blurView = nil
         case adjustments[10]:
             imageScrollView.set(image: OpenCVWrapper.otsuThreshold(imageScrollView.baseImage.image!, level: thresholdView.threshold))
-            thresholdView.removeFromSuperview()
-            thresholdView = nil
         case adjustments[11]:
             imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 3))
         case adjustments[12]:
             imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
         case adjustments[13]:
             imageScrollView.set(image: OpenCVWrapper.sobel(imageScrollView.baseImage.image!, type: Int32(sobelView.type), border: Int32(sobelView.border)))
-            sobelView.removeFromSuperview()
-            sobelView = nil
         case adjustments[14]:
             imageScrollView.set(image: OpenCVWrapper.laplacian(imageScrollView.baseImage.image!))
         case adjustments[15]:
-            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: Int32(cannyView.lowerBound), upper: Int32(cannyView.upperBound)))
-            cannyView.removeFromSuperview()
-            cannyView = nil
+            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: Int32((cannyView as! CannyView).lowerBound), upper: Int32((cannyView as! CannyView).upperBound)))
         case adjustments[16]:
             imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: maskView.kernel, divisor: Int32(maskView.divisor)))
-            maskView.removeFromSuperview()
-            maskView = nil
         case adjustments[17]:
             imageScrollView.set(image: OpenCVWrapper.sharpen(imageScrollView.baseImage.image!, type: Int32(sharpenView.type), border: Int32(sharpenView.border)))
-            sharpenView.removeFromSuperview()
-            sharpenView = nil
         case adjustments[18]:
             imageScrollView.set(image: OpenCVWrapper.prewitt(imageScrollView.baseImage.image!, type: Int32(prewittView.type), border: Int32(prewittView.border)))
-            prewittView.removeFromSuperview()
-            prewittView = nil
         case adjustments[19]:
             imageScrollView.set(image: OpenCVWrapper.edgeDetection(imageScrollView.baseImage.image!, type: Int32(edgeDetectionView.type), border: Int32(edgeDetectionView.border)))
-            edgeDetectionView.removeFromSuperview()
-            edgeDetectionView = nil
         case adjustments[20]:
             imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32(morphologyView.operation), element: Int32(morphologyView.element), n: Int32(morphologyView.iterations), border: Int32(morphologyView.border)))
-            morphologyView.removeFromSuperview()
-            morphologyView = nil
         case adjustments[21]:
             imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
-            return
         }
         
         historyImages.append(HistoryImage(name: selectedAdjustment, image: imageScrollView.baseImage.image!))
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
-        print(historyImages.count)
+        removeFromView()
     }
     
     @IBAction func cancelAdjustmentBtnTapped(_ sender: UIButton) {
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
+        removeFromView()
     }
     
     // MARK: - Custom Views setup
@@ -225,12 +195,14 @@ class MainVC: UIViewController {
         imageScrollView = ImageScrollView(frame: view.bounds)
         view.addSubview(imageScrollView)
         view.sendSubviewToBack(imageScrollView)
-        
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
-        imageScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            imageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
     }
     
     func setupThresholdView() {
@@ -501,6 +473,42 @@ class MainVC: UIViewController {
         historyCollectionViewFlowLayout.minimumLineSpacing = 30
     }
     
+    private func removeFromView() {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            if self.thresholdView != nil {
+                self.thresholdView.removeFromSuperview()
+                self.thresholdView = nil
+            } else if self.contrastView != nil {
+                self.contrastView.removeFromSuperview()
+                self.contrastView = nil
+            } else if self.blurView != nil {
+                self.blurView.removeFromSuperview()
+                self.blurView = nil
+            } else if self.sobelView != nil {
+                self.sobelView.removeFromSuperview()
+                self.sobelView = nil
+            } else if self.cannyView != nil {
+                self.cannyView.removeFromSuperview()
+                self.cannyView = nil
+            } else if self.maskView != nil {
+                self.maskView.removeFromSuperview()
+                self.maskView = nil
+            } else if self.sharpenView != nil {
+                self.sharpenView.removeFromSuperview()
+                self.sharpenView = nil
+            } else if self.prewittView != nil {
+                self.prewittView.removeFromSuperview()
+                self.prewittView = nil
+            } else if self.edgeDetectionView != nil {
+                self.edgeDetectionView.removeFromSuperview()
+                self.edgeDetectionView = nil
+            } else if self.morphologyView != nil  {
+                self.morphologyView.removeFromSuperview()
+                self.morphologyView = nil
+            }
+        }
+    }
+    
     // MARK: - Close action AlertController
     func presentCloseAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -536,11 +544,6 @@ class MainVC: UIViewController {
             let controller = SPPermissions.dialog(permissions)
             controller.present(on: self)
         }
-    }
-    
-    @objc func makeGrayscale(image: UIImage) -> UIImage {
-        print("Performed")
-        return OpenCVWrapper.toGrayscale(image)
     }
 }
 
