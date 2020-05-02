@@ -40,6 +40,7 @@ class MainVC: UIViewController {
     private var cannyView: CannyView!
     private var maskView: MaskView!
     private var sharpenView: SharpenView!
+    private var prewittView: PrewittView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -48,7 +49,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -191,6 +192,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.sharpen(imageScrollView.baseImage.image!, type: Int32(sharpenView.type), border: Int32(sharpenView.border)))
             sharpenView.removeFromSuperview()
             sharpenView = nil
+        case adjustments[18]:
+            imageScrollView.set(image: OpenCVWrapper.prewitt(imageScrollView.baseImage.image!, type: Int32(prewittView.type), border: Int32(prewittView.border)))
+            prewittView.removeFromSuperview()
+            prewittView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -309,6 +314,19 @@ class MainVC: UIViewController {
         ])
     }
     
+    func setupPrewittView() {
+        prewittView = PrewittView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(prewittView)
+        prewittView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            prewittView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            prewittView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            prewittView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            prewittView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
     // MARK: - Draw Histogram
     private func drawHistogram(image: UIImage?) {
         guard let histogram = image?.histogram() else { return }
@@ -424,6 +442,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[17]:
             setupSharpenView()
+            return 300
+        case adjustments[18]:
+            setupPrewittView()
             return 300
         default:
             return size

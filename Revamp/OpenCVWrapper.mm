@@ -291,7 +291,7 @@ using namespace cv;
     
     for (int k = 0; k < count; ++k) {
         kernelData[k] = [[mask objectAtIndex:(NSUInteger)k] floatValue];
-        NSLog(@"%f", kernelData[k]);
+//        NSLog(@"%f", kernelData[k]);
     }
 
     for (int i = 0; i < 9; ++i) {
@@ -319,6 +319,25 @@ using namespace cv;
         kernel = temp.clone();
     } else {
         Mat temp(3,3, CV_32F, kernelData3);
+        kernel = temp.clone();
+    }
+
+    UIImageToMat(image, src);
+    filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, border);
+    return MatToUIImage(dst);
+}
+
++ (UIImage *)prewitt:(UIImage *) image type:(int) type border:(int) border {
+    Mat src, kernel, dst;
+    
+    float kernelData1[9] = {1,1,1,0,1,0,-1,-1,-1};
+    float kernelData2[9] = {1,0,-1, 1,1,-1, 1,0,-1};
+    
+    if (type == 0) {
+        Mat temp(3,3, CV_32F, kernelData1);
+        kernel = temp.clone();
+    } else {
+        Mat temp(3,3, CV_32F, kernelData2);
         kernel = temp.clone();
     }
 

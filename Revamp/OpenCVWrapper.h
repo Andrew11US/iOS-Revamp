@@ -52,7 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Mask 3x3
 + (UIImage *)mask3x3:(UIImage *) image mask:(NSArray *) mask divisor:(int) divisor;
 // Sharpen mask
-+ (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border ;
++ (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border;
+// Prewitt operator
++ (UIImage *)prewitt:(UIImage *) image type:(int) type border:(int) border;
 
 @end
 
