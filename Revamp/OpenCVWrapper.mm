@@ -431,6 +431,7 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
+// MARK: - helping functions
 private void thinning(Mat& src) {
     src /= 255;
     

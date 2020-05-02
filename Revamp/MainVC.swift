@@ -51,8 +51,8 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology", "Thinning"]
     private var selectedAdjustment: String!
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology", "Thinning"]
     
     // MARK: - ViewDidLoad method
     override func viewDidLoad() {
@@ -71,8 +71,6 @@ class MainVC: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
             self.requestPermissions()
         }
-        
-//        setupThresholdView()
     }
     
     //MARK: - IBActions
