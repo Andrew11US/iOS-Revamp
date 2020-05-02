@@ -51,7 +51,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology", "Thinning"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -173,7 +173,7 @@ class MainVC: UIViewController {
             thresholdView.removeFromSuperview()
             thresholdView = nil
         case adjustments[11]:
-            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 5))
+            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 3))
         case adjustments[12]:
             imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
         case adjustments[13]:
@@ -204,8 +204,10 @@ class MainVC: UIViewController {
             edgeDetectionView = nil
         case adjustments[20]:
             imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32(morphologyView.operation), element: Int32(morphologyView.element), n: Int32(morphologyView.iterations), border: Int32(morphologyView.border)))
-        morphologyView.removeFromSuperview()
-        morphologyView = nil
+            morphologyView.removeFromSuperview()
+            morphologyView = nil
+        case adjustments[21]:
+            imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return

@@ -57,6 +57,7 @@
 		01959145245D81DE00DDE1A8 /* PrewittView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959144245D81DE00DDE1A8 /* PrewittView.swift */; };
 		01959147245D87C900DDE1A8 /* EdgeDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */; };
 		01959149245D969C00DDE1A8 /* MorphologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959148245D969C00DDE1A8 /* MorphologyView.swift */; };
+		0195914B245DA9FB00DDE1A8 /* lut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0195914A245DA9FB00DDE1A8 /* lut.cpp */; };
 		01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B8F242CFB3D00180242 /* AppDelegate.swift */; };
 		01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B91242CFB3D00180242 /* SceneDelegate.swift */; };
 		01B38B94242CFB3D00180242 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38B93242CFB3D00180242 /* MainVC.swift */; };
@@ -142,6 +143,7 @@
 		01959144245D81DE00DDE1A8 /* PrewittView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrewittView.swift; sourceTree = "<group>"; };
 		01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeDetectionView.swift; sourceTree = "<group>"; };
 		01959148245D969C00DDE1A8 /* MorphologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorphologyView.swift; sourceTree = "<group>"; };
+		0195914A245DA9FB00DDE1A8 /* lut.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lut.cpp; sourceTree = "<group>"; };
 		01B38B8C242CFB3D00180242 /* Revamp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revamp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B38B8F242CFB3D00180242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01B38B91242CFB3D00180242 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				012953F6245219E90067082D /* OpenCVWrapper.mm */,
 				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 				01130E6B245488EC00C2ACCC /* HistoryImage.swift */,
+				0195914A245DA9FB00DDE1A8 /* lut.cpp */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */,
 				012B17CD2458C51F007CB124 /* NumericPixel.swift in Sources */,
 				012B17D22458C51F007CB124 /* ImageFormat.swift in Sources */,
+				0195914B245DA9FB00DDE1A8 /* lut.cpp in Sources */,
 				012B17CA2458C51F007CB124 /* RGBA.swift in Sources */,
 				012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */,
 				012B17D82458C51F007CB124 /* Convolution.swift in Sources */,
@@ -856,7 +860,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -884,7 +888,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

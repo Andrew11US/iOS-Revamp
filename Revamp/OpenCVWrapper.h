@@ -59,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)edgeDetection:(UIImage *) image type:(int) type border:(int) border;
 // Morphology functions
 + (UIImage *)morphology:(UIImage *) image operation:(int) op element:(int) element n:(int) n border:(int) border;
-
+// Thinning
++ (UIImage *)thinning:(UIImage *) image;
 
 @end
 

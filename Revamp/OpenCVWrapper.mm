@@ -130,7 +130,28 @@ using namespace cv;
     UIImageToMat(image, src);
     cv::Mat dst(src.size(), src.type(), cv::Scalar(255,255,255));
     
+//    cv::cvtColor(src, gray, COLOR_BGR2GRAY);
+//    Mat lut(1,256, CV_8UC1);
+
+//    float param1 = 255.0f / (level - 1);
+//    float param2 = 256.0f / (level);
+//    for (int i = 0; i < 256; ++i)
+//    {
+//        if (lut.at<unsigned char>(0,i) < 85) {
+//            lut.at<unsigned char>(0,i) = (unsigned char)(128);
+//        } else if (lut.at<unsigned char>(0,i) >= 85 && lut.at<unsigned char>(0,i) < 170) {
+//            lut.at<unsigned char>(0,i) = (unsigned char)(0);
+//        }  else {
+//            lut.at<unsigned char>(0,i) = (unsigned char)(255);
+//        }
+//        lut.at<unsigned char>(0,i) = ((i / param2) * level);
+//    }
+    
+//    LUT(gray, lut, dst);
+//    cvtColor(dst, dst, COLOR_GRAY2RGB);
+    int x=0,y=0;
     for(int i = 0; i < src.rows; i++) {
+        x=0;
         for(int j = 0; j < src.cols; j++) {
             for(int c = 0; c < 3; c++) {
                 int num_colors = level;
@@ -139,8 +160,11 @@ using namespace cv;
                 int new_value = ((src.at<Vec3b>(i,j)[c] / divisor) * 255) / max_quantized_value;
                 dst.at<Vec3b>(i,j)[c] = new_value;
             }
+            x++;
         }
+        y++;
     }
+    NSLog(@"%i %i", x,y);
     return MatToUIImage(dst);
 }
 
@@ -398,7 +422,59 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)thinning:(UIImage *) image {
+    Mat src, dst, gray;
+    UIImageToMat(image, src);
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    thinning(gray);
+    cvtColor(gray, dst, COLOR_GRAY2RGB);
+    return MatToUIImage(dst);
+}
 
+private void thinning(Mat& src) {
+    src /= 255;
+    
+    cv::Mat prev = cv::Mat::zeros(src.size(), CV_8UC1);
+    cv::Mat diff;
+    
+    do {
+        thinningIteration(src, 0);
+        thinningIteration(src, 1);
+        cv::absdiff(src, prev, diff);
+        src.copyTo(prev);
+    } while (cv::countNonZero(diff) > 0);
+    
+    src *= 255;
+}
+
+private void thinningIteration(Mat& src, int iteration) {
+    cv::Mat marker = cv::Mat::zeros(src.size(), CV_8UC1);
+    
+    for (int i = 1; i < src.rows; i++) {
+        for (int j = 1; j < src.cols; j++) {
+            uchar p2 = src.at<uchar>(i-1, j);
+            uchar p3 = src.at<uchar>(i-1, j+1);
+            uchar p4 = src.at<uchar>(i, j+1);
+            uchar p5 = src.at<uchar>(i+1, j+1);
+            uchar p6 = src.at<uchar>(i+1, j);
+            uchar p7 = src.at<uchar>(i+1, j-1);
+            uchar p8 = src.at<uchar>(i, j-1);
+            uchar p9 = src.at<uchar>(i-1, j-1);
+            
+            int C  = (!p2 & (p3 | p4)) + (!p4 & (p5 | p6)) +
+            (!p6 & (p7 | p8)) + (!p8 & (p9 | p2));
+            int N1 = (p9 | p2) + (p3 | p4) + (p5 | p6) + (p7 | p8);
+            int N2 = (p2 | p3) + (p4 | p5) + (p6 | p7) + (p8 | p9);
+            int N  = N1 < N2 ? N1 : N2;
+            int m  = iteration == 0 ? ((p6 | p7 | !p9) & p8) : ((p2 | p3 | !p5) & p4);
+            
+            if (C == 1 && (N >= 2 && N <= 3) & m == 0)
+                marker.at<uchar>(i,j) = 1;
+        }
+    }
+    
+    src &= ~marker;
+}
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)
 {
