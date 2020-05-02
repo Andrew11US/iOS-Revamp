@@ -37,14 +37,10 @@ class MainVC: UIViewController {
     private var imagePicker: ImagePicker!
     private var imageScrollView: ImageScrollView!
     private var historyCollectionViewFlowLayout: CenteredCollectionViewFlowLayout!
-    
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    
     private var selectedAdjustment: Adjustment!
     private var adjustments: [Adjustment] = Adjustment.allCases
-    
-    
     
     // MARK: - ViewDidLoad method
     override func viewDidLoad() {
@@ -147,7 +143,7 @@ class MainVC: UIViewController {
         case .thresholdOtsu:
             imageScrollView.set(image: OpenCVWrapper.otsuThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
         case .posterize:
-            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 3))
+            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: Int32((sView as! PosterizeView).grayLevels)))
         case .watershed:
             imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
         case .sobel:
@@ -303,6 +299,9 @@ class MainVC: UIViewController {
         case .morphology:
             setupAdjustmentSettingsView(viewType: .morphologyView)
             return 300
+        case .posterize:
+            setupAdjustmentSettingsView(viewType: .posterizeView)
+            return 300
         default:
             return size
         }
@@ -330,6 +329,8 @@ class MainVC: UIViewController {
             sView = EdgeDetectionView(frame: setAdjustmentView.bounds)
         case .morphologyView:
             sView = MorphologyView(frame: setAdjustmentView.bounds)
+        case .posterizeView:
+            sView = PosterizeView(frame: setAdjustmentView.bounds)
         }
         
         setAdjustmentView.addSubview(sView)

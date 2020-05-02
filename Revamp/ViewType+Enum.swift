@@ -19,4 +19,5 @@ enum ViewType {
     case prewittView
     case edgeDetectionView
     case morphologyView
+    case posterizeView
 }
