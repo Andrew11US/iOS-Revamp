@@ -40,8 +40,11 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var selectedAdjustment: String!
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology", "Thinning"]
+    
+    private var selectedAdjustment: Adjustment!
+    private var adjustments: [Adjustment] = Adjustment.allCases
+    
+    
     
     // MARK: - ViewDidLoad method
     override func viewDidLoad() {
@@ -121,55 +124,55 @@ class MainVC: UIViewController {
     // MARK: - Apply adjustment
     @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
         switch selectedAdjustment {
-        case adjustments[0]:
+        case .grayscale:
             imageScrollView.set(image: OpenCVWrapper.toGrayscale(imageScrollView.baseImage.image!))
-        case adjustments[1]:
+        case .equalize:
             imageScrollView.set(image: OpenCVWrapper.histogramEqualization(imageScrollView.baseImage.image!))
-        case adjustments[2]:
+        case .thresholdBinarized:
             imageScrollView.set(image: OpenCVWrapper.threshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
-        case adjustments[3]:
+        case .thresholGray:
             imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
-        case adjustments[4]:
+        case .contrast:
             imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!, r1: Int32((sView as! ContrastView).fromMin), r2: Int32((sView as! ContrastView).fromMax), s1: Int32((sView as! ContrastView).toMin), s2: Int32((sView as! ContrastView).toMax)))
-        case adjustments[5]:
+        case .invert:
             imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
-        case adjustments[6]:
+        case .thresholAdaptive:
             imageScrollView.set(image: OpenCVWrapper.adaptiveThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
-        case adjustments[7]:
+        case .blur:
             imageScrollView.set(image: OpenCVWrapper.blur(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
-        case adjustments[8]:
+        case .gaussian:
             imageScrollView.set(image: OpenCVWrapper.gaussianBlur(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
-        case adjustments[9]:
+        case .median:
             imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
-        case adjustments[10]:
+        case .thresholdOtsu:
             imageScrollView.set(image: OpenCVWrapper.otsuThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
-        case adjustments[11]:
+        case .posterize:
             imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: 3))
-        case adjustments[12]:
+        case .watershed:
             imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
-        case adjustments[13]:
+        case .sobel:
             imageScrollView.set(image: OpenCVWrapper.sobel(imageScrollView.baseImage.image!, type: Int32((sView as! SobelView).type), border: Int32((sView as! SobelView).border)))
-        case adjustments[14]:
+        case .laplacian:
             imageScrollView.set(image: OpenCVWrapper.laplacian(imageScrollView.baseImage.image!))
-        case adjustments[15]:
+        case .canny:
             imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: Int32((sView as! CannyView).lowerBound), upper: Int32((sView as! CannyView).upperBound)))
-        case adjustments[16]:
+        case .mask:
             imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: (sView as! MaskView).kernel, divisor: Int32((sView as! MaskView).divisor)))
-        case adjustments[17]:
+        case .sharpen:
             imageScrollView.set(image: OpenCVWrapper.sharpen(imageScrollView.baseImage.image!, type: Int32((sView as! SharpenView).type), border: Int32((sView as! SharpenView).border)))
-        case adjustments[18]:
+        case .prewitt:
             imageScrollView.set(image: OpenCVWrapper.prewitt(imageScrollView.baseImage.image!, type: Int32((sView as! PrewittView).type), border: Int32((sView as! PrewittView).border)))
-        case adjustments[19]:
+        case .edge:
             imageScrollView.set(image: OpenCVWrapper.edgeDetection(imageScrollView.baseImage.image!, type: Int32((sView as! EdgeDetectionView).type), border: Int32((sView as! EdgeDetectionView).border)))
-        case adjustments[20]:
+        case .morphology:
             imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
-        case adjustments[21]:
+        case .thinning:
             imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         }
         
-        historyImages.append(HistoryImage(name: selectedAdjustment, image: imageScrollView.baseImage.image!))
+        historyImages.append(HistoryImage(name: selectedAdjustment.rawValue, image: imageScrollView.baseImage.image!))
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         removeFromView()
     }
@@ -191,41 +194,6 @@ class MainVC: UIViewController {
             imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             imageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-    }
-    
-    private func setupAdjustmentSettingsView(viewType: ViewType) {
-        switch viewType {
-        case .thresholdView:
-            sView = ThresholdView(frame: setAdjustmentView.bounds)
-        case .contrastView:
-            sView = ContrastView(frame: setAdjustmentView.bounds)
-        case .blurView:
-            sView = BlurView(frame: setAdjustmentView.bounds)
-        case .sobelView:
-            sView = SobelView(frame: setAdjustmentView.bounds)
-        case .cannyView:
-            sView = CannyView(frame: setAdjustmentView.bounds)
-        case .maskView:
-            sView = MaskView(frame: setAdjustmentView.bounds)
-        case .sharpenView:
-            sView = SharpenView(frame: setAdjustmentView.bounds)
-        case .prewittView:
-            sView = PrewittView(frame: setAdjustmentView.bounds)
-        case .edgeDetectionView:
-            sView = EdgeDetectionView(frame: setAdjustmentView.bounds)
-        case .morphologyView:
-            sView = MorphologyView(frame: setAdjustmentView.bounds)
-        }
-        
-        setAdjustmentView.addSubview(sView)
-        sView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            sView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
-            sView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
-            sView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
-            sView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
         ])
     }
     
@@ -302,57 +270,77 @@ class MainVC: UIViewController {
         }
     }
     
-    func adaptSetAdjustmentView(adjustment: String) -> Int {
+    func restyleSettingsView(adjustment: Adjustment) -> Int {
         let size = 61
         switch adjustment {
-        case adjustments[2]:
+        case .thresholdBinarized, .thresholGray, .thresholAdaptive, .thresholdOtsu:
             setupAdjustmentSettingsView(viewType: .thresholdView)
             return 300
-        case adjustments[3]:
-            setupAdjustmentSettingsView(viewType: .thresholdView)
-            return 300
-        case adjustments[4]:
+        case .contrast:
             setupAdjustmentSettingsView(viewType: .contrastView)
             return 300
-        case adjustments[6]:
-            setupAdjustmentSettingsView(viewType: .thresholdView)
-            return 300
-        case adjustments[7]:
+        case .blur, .gaussian, .median:
             setupAdjustmentSettingsView(viewType: .blurView)
             return 300
-        case adjustments[8]:
-            setupAdjustmentSettingsView(viewType: .blurView)
-            return 300
-        case adjustments[9]:
-            setupAdjustmentSettingsView(viewType: .blurView)
-            return 300
-        case adjustments[10]:
-            setupAdjustmentSettingsView(viewType: .thresholdView)
-            return 300
-        case adjustments[13]:
+        case .sobel:
             setupAdjustmentSettingsView(viewType: .sobelView)
             return 300
-        case adjustments[15]:
+        case .canny:
             setupAdjustmentSettingsView(viewType: .cannyView)
             return 300
-        case adjustments[16]:
+        case .mask:
             setupAdjustmentSettingsView(viewType: .maskView)
             return 300
-        case adjustments[17]:
+        case .sharpen:
             setupAdjustmentSettingsView(viewType: .sharpenView)
             return 300
-        case adjustments[18]:
+        case .prewitt:
             setupAdjustmentSettingsView(viewType: .prewittView)
             return 300
-        case adjustments[19]:
+        case .edge:
             setupAdjustmentSettingsView(viewType: .edgeDetectionView)
             return 300
-        case adjustments[20]:
+        case .morphology:
             setupAdjustmentSettingsView(viewType: .morphologyView)
             return 300
         default:
             return size
         }
+    }
+    
+    private func setupAdjustmentSettingsView(viewType: ViewType) {
+        switch viewType {
+        case .thresholdView:
+            sView = ThresholdView(frame: setAdjustmentView.bounds)
+        case .contrastView:
+            sView = ContrastView(frame: setAdjustmentView.bounds)
+        case .blurView:
+            sView = BlurView(frame: setAdjustmentView.bounds)
+        case .sobelView:
+            sView = SobelView(frame: setAdjustmentView.bounds)
+        case .cannyView:
+            sView = CannyView(frame: setAdjustmentView.bounds)
+        case .maskView:
+            sView = MaskView(frame: setAdjustmentView.bounds)
+        case .sharpenView:
+            sView = SharpenView(frame: setAdjustmentView.bounds)
+        case .prewittView:
+            sView = PrewittView(frame: setAdjustmentView.bounds)
+        case .edgeDetectionView:
+            sView = EdgeDetectionView(frame: setAdjustmentView.bounds)
+        case .morphologyView:
+            sView = MorphologyView(frame: setAdjustmentView.bounds)
+        }
+        
+        setAdjustmentView.addSubview(sView)
+        sView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            sView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            sView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            sView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
     }
     
     // MARK: - historyCollectionView setup
@@ -425,9 +413,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected: ", adjustments[indexPath.row])
+        print("Selected: ", adjustments[indexPath.row].rawValue)
         selectedAdjustment = adjustments[indexPath.row]
-        let size = adaptSetAdjustmentView(adjustment: selectedAdjustment)
+        let size = restyleSettingsView(adjustment: selectedAdjustment)
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: size)
     }
@@ -435,7 +423,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "AdjustmentCell", for: indexPath) as? AdjustmentCell {
             
-            cell.configureCell(adjustment: adjustments[indexPath.row])
+            cell.configureCell(adjustment: adjustments[indexPath.row].rawValue)
             return cell
         } else {
             return UITableViewCell()
