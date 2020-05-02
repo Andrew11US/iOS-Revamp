@@ -346,6 +346,49 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)edgeDetection:(UIImage *) image type:(int) type border:(int) border {
+    Mat src, kernel, dst;
+    
+    float kernelData0[9] = { 1, 1, 0, 1, 1, -1, 0, -1, -1 };
+    float kernelData1[9] = { 1, 1, 1, 0, 1, 0, -1, -1, -1 };
+    float kernelData2[9] = { 0, 1, 1 , -1, 1, 1 , -1, -1, 0 };
+    float kernelData3[9] = { 1, 0, -1 , 1, 1, -1 , 1, 0, -1 };
+    float kernelData4[9] = { -1, 0, 1 ,- 1, 1, 1 , -1, 0, 1 };
+    float kernelData5[9] = { 0, -1, -1 , 1, 1, -1 , 1, 1, 0 };
+    float kernelData6[9] = { -1, -1, -1 , 0, 1, 0 , 1, 1, 1 };
+    float kernelData7[9] = { -1, -1, 0 , -1, 1, 1 , 0, 1, 1 };
+    
+    if (type == 0) {
+        Mat temp(3,3, CV_32F, kernelData0);
+        kernel = temp.clone();
+    } else if (type == 1) {
+        Mat temp(3,3, CV_32F, kernelData1);
+        kernel = temp.clone();
+    } else if (type == 2) {
+        Mat temp(3,3, CV_32F, kernelData2);
+        kernel = temp.clone();
+    } else if (type == 3) {
+        Mat temp(3,3, CV_32F, kernelData3);
+        kernel = temp.clone();
+    } else if (type == 4) {
+        Mat temp(3,3, CV_32F, kernelData4);
+        kernel = temp.clone();
+    } else if (type == 5) {
+        Mat temp(3,3, CV_32F, kernelData5);
+        kernel = temp.clone();
+    } else if (type == 6) {
+        Mat temp(3,3, CV_32F, kernelData6);
+        kernel = temp.clone();
+    } else {
+        Mat temp(3,3, CV_32F, kernelData7);
+        kernel = temp.clone();
+    }
+
+    UIImageToMat(image, src);
+    filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, border);
+    return MatToUIImage(dst);
+}
+
 
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)

@@ -41,6 +41,7 @@ class MainVC: UIViewController {
     private var maskView: MaskView!
     private var sharpenView: SharpenView!
     private var prewittView: PrewittView!
+    private var edgeDetectionView: EdgeDetectionView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -49,7 +50,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -196,6 +197,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.prewitt(imageScrollView.baseImage.image!, type: Int32(prewittView.type), border: Int32(prewittView.border)))
             prewittView.removeFromSuperview()
             prewittView = nil
+        case adjustments[19]:
+            imageScrollView.set(image: OpenCVWrapper.edgeDetection(imageScrollView.baseImage.image!, type: Int32(edgeDetectionView.type), border: Int32(edgeDetectionView.border)))
+            edgeDetectionView.removeFromSuperview()
+            edgeDetectionView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -327,6 +332,19 @@ class MainVC: UIViewController {
         ])
     }
     
+    func setupEdgeView() {
+        edgeDetectionView = EdgeDetectionView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(edgeDetectionView)
+        edgeDetectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            edgeDetectionView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            edgeDetectionView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            edgeDetectionView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            edgeDetectionView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
     // MARK: - Draw Histogram
     private func drawHistogram(image: UIImage?) {
         guard let histogram = image?.histogram() else { return }
@@ -445,6 +463,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[18]:
             setupPrewittView()
+            return 300
+        case adjustments[19]:
+            setupEdgeView()
             return 300
         default:
             return size

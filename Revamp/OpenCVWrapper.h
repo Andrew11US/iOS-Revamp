@@ -55,6 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border;
 // Prewitt operator
 + (UIImage *)prewitt:(UIImage *) image type:(int) type border:(int) border;
+// Edge detection
++ (UIImage *)edgeDetection:(UIImage *) image type:(int) type border:(int) border;
+
 
 @end
 
