@@ -389,6 +389,15 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)morphology:(UIImage *) image operation:(int) op element:(int) element n:(int) n border:(int) border {
+    Mat src, kernel, dst;
+    UIImageToMat(image, src);
+    
+    kernel = getStructuringElement(element, cv::Size(3,3), cv::Point(-1,-1));
+    morphologyEx(src, dst, op, kernel, cv::Point(-1,-1), n, border);
+    return MatToUIImage(dst);
+}
+
 
 
 private int computeOutput(int x, int r1, int r2, int s1, int s2)

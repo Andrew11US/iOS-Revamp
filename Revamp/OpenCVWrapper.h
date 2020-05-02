@@ -57,6 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)prewitt:(UIImage *) image type:(int) type border:(int) border;
 // Edge detection
 + (UIImage *)edgeDetection:(UIImage *) image type:(int) type border:(int) border;
+// Morphology functions
++ (UIImage *)morphology:(UIImage *) image operation:(int) op element:(int) element n:(int) n border:(int) border;
 
 
 @end

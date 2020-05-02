@@ -42,6 +42,7 @@ class MainVC: UIViewController {
     private var sharpenView: SharpenView!
     private var prewittView: PrewittView!
     private var edgeDetectionView: EdgeDetectionView!
+    private var morphologyView: MorphologyView!
     
     //MARK: - Variables
     private var imagePicker: ImagePicker!
@@ -50,7 +51,7 @@ class MainVC: UIViewController {
     
     private var permissions: [SPPermission] = [.camera, .photoLibrary]
     private var historyImages: [HistoryImage] = []
-    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection"]
+    private var adjustments: [String] = ["Grayscale", "Equalize Histogram", "Threshold Binarized", "Threshold Grayscale", "Enhance Contrast", "Invert", "Adaptive Threshold", "Blur", "Gaussian blur", "Median filter", "Otsu Threshold", "Posterize", "Watershed", "Sobel", "Laplacian", "Canny", "Mask 3x3", "Sharpen", "Prewitt", "Edge Detection", "Morphology"]
     private var selectedAdjustment: String!
     
     // MARK: - ViewDidLoad method
@@ -201,6 +202,10 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.edgeDetection(imageScrollView.baseImage.image!, type: Int32(edgeDetectionView.type), border: Int32(edgeDetectionView.border)))
             edgeDetectionView.removeFromSuperview()
             edgeDetectionView = nil
+        case adjustments[20]:
+            imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32(morphologyView.operation), element: Int32(morphologyView.element), n: Int32(morphologyView.iterations), border: Int32(morphologyView.border)))
+        morphologyView.removeFromSuperview()
+        morphologyView = nil
         default:
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
             return
@@ -345,6 +350,19 @@ class MainVC: UIViewController {
         ])
     }
     
+    func setupMorphView() {
+        morphologyView = MorphologyView(frame: setAdjustmentView.bounds)
+        setAdjustmentView.addSubview(morphologyView)
+        morphologyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            morphologyView.topAnchor.constraint(equalTo: setAdjustmentView.topAnchor, constant: 5),
+            morphologyView.bottomAnchor.constraint(equalTo: applyAdjustmentBtn.topAnchor, constant: -10),
+            morphologyView.trailingAnchor.constraint(equalTo: setAdjustmentView.trailingAnchor, constant: 0),
+            morphologyView.leadingAnchor.constraint(equalTo: setAdjustmentView.leadingAnchor, constant: 0)
+        ])
+    }
+    
     // MARK: - Draw Histogram
     private func drawHistogram(image: UIImage?) {
         guard let histogram = image?.histogram() else { return }
@@ -466,6 +484,9 @@ class MainVC: UIViewController {
             return 300
         case adjustments[19]:
             setupEdgeView()
+            return 300
+        case adjustments[20]:
+            setupMorphView()
             return 300
         default:
             return size
