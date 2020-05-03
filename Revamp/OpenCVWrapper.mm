@@ -432,14 +432,27 @@ using namespace cv;
 }
 
 + (NSMutableArray *)moments:(UIImage *) image {
-    Mat src, dst, gray;
+    Mat src, thresh, gray;
     UIImageToMat(image, src);
+    int channels = src.channels();
     int cX = 0, cY = 0;
     int totalPixels = 0, width = 0, height = 0;
-    int channels = src.channels();
+    double area = 0, perimeter = 0;
+    
     cvtColor(src, gray, COLOR_BGR2GRAY);
-    threshold(gray, dst, 100,255,THRESH_BINARY);
-    Moments m = moments(dst, true);
+    threshold(gray, thresh, 127, 255, THRESH_BINARY);
+    Moments m = moments(thresh, true);
+    
+    Mat canny_output;
+    std::vector<std::vector<cv::Point> > contours;
+    std::vector<Vec4i> hierarchy;
+    
+    blur( gray, gray, cv::Size(3,3) );
+    Canny( gray, canny_output, 50, 50*2, 3 );
+    findContours(thresh, contours, hierarchy, 1, 2);
+    findContours(canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+    area = contourArea(contours[0]);
+    perimeter = arcLength(contours[0], true);
     
     // Calculating dimensions
     for (int i = 0; i < gray.rows; ++i) {
@@ -465,6 +478,8 @@ using namespace cv;
     [arr addObject:@(height)];
     [arr addObject:@(totalPixels)];
     [arr addObject:@(channels)];
+    [arr addObject:@(area)];
+    [arr addObject:@(perimeter)];
     return arr;
 }
 

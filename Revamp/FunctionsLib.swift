@@ -9,7 +9,7 @@
 import Foundation
 
 struct FunctionsLib {
-    static func showMoments(img: UIImage) {
+    static func showMetrics(img: UIImage) {
         guard let moments = OpenCVWrapper.moments(img) as? [Double] else { return }
         let alert = UIAlertController(style: .actionSheet)
         
@@ -36,6 +36,9 @@ struct FunctionsLib {
             .normal(""),
             .header2("Center of mass"),
             .list("Central Point: (\(Int(moments[8])), \(Int(moments[9])))"),
+            .header2("Object Properties"),
+            .list("Area: \(Int(moments[14]))"),
+            .list("Perimeter: \(Int(moments[15]))"),
             ]
         alert.addTextViewer(text: .attributedText(text))
         alert.addAction(title: "OK", style: .cancel)
