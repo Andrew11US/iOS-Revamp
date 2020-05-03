@@ -10,7 +10,7 @@ import Foundation
 
 struct FunctionsLib {
     static func showMetrics(img: UIImage) {
-        guard let moments = OpenCVWrapper.moments(img) as? [Double] else { return }
+        guard let moments = OpenCVWrapper.metrics(img) as? [Double] else { return }
         let alert = UIAlertController(style: .actionSheet)
         
         let text: [AttributedTextBlock] = [
@@ -39,6 +39,11 @@ struct FunctionsLib {
             .header2("Object Properties"),
             .list("Area: \(Int(moments[14]))"),
             .list("Perimeter: \(Int(moments[15]))"),
+            .header2("Contour Properties"),
+            .list("Aspect Ratio: \(moments[16])"),
+            .list("Extent: \(moments[17])"),
+            .list("Solidity: \(moments[18])"),
+            .list("Equivalent Diameter: \(moments[19])"),
             ]
         alert.addTextViewer(text: .attributedText(text))
         alert.addAction(title: "OK", style: .cancel)

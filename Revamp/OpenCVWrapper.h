@@ -61,8 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)morphology:(UIImage *) image operation:(int) op element:(int) element n:(int) n border:(int) border;
 // Thinning
 + (UIImage *)thinning:(UIImage *) image;
-// Moments
-+ (NSMutableArray *)moments:(UIImage *) image;
+// Image metrics
++ (NSMutableArray *)metrics:(UIImage *) image;
 
 @end
 

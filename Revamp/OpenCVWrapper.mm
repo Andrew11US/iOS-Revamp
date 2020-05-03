@@ -431,28 +431,52 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
-+ (NSMutableArray *)moments:(UIImage *) image {
-    Mat src, thresh, gray;
++ (NSMutableArray *)metrics:(UIImage *) image {
+    Mat src, thresh, gray, canny_output;
+    std::vector<std::vector<cv::Point> > contours;
+    std::vector<Vec4i> hierarchy;
+    
     UIImageToMat(image, src);
+    /// Number of channels
     int channels = src.channels();
+    /// Central points
     int cX = 0, cY = 0;
+    /// Image dimensions
     int totalPixels = 0, width = 0, height = 0;
     double area = 0, perimeter = 0;
     
     cvtColor(src, gray, COLOR_BGR2GRAY);
     threshold(gray, thresh, 127, 255, THRESH_BINARY);
+    /// Getting moments
     Moments m = moments(thresh, true);
     
-    Mat canny_output;
-    std::vector<std::vector<cv::Point> > contours;
-    std::vector<Vec4i> hierarchy;
-    
-    blur( gray, gray, cv::Size(3,3) );
-    Canny( gray, canny_output, 50, 50*2, 3 );
-    findContours(thresh, contours, hierarchy, 1, 2);
+    blur(gray, gray, cv::Size(3,3));
+    Canny(gray, canny_output, 50, 100, 3);
+    /// Calling findContours from canny threshold
     findContours(canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
-    area = contourArea(contours[0]);
-    perimeter = arcLength(contours[0], true);
+    
+    /// Getting contour from std::vector
+    std::vector<cv::Point> cnt = contours[0];
+    /// Contour area and perimeter
+    area = contourArea(cnt);
+    perimeter = arcLength(cnt, true);
+    
+    /// Calculation of aspect ratio
+    cv::Rect rect = boundingRect(cnt);
+    double aspectRatio = (double)(rect.width / rect.height);
+    
+    /// Calculation of extent
+    int rect_area = rect.width*rect.height;
+    double extent = double(area)/rect_area;
+    
+    /// Calculation of solidity
+    std::vector<cv::Point> hull;
+    convexHull(cnt, hull);
+    double hull_area = contourArea(hull);
+    double solidity = double(area) / hull_area;
+    
+    /// Calculation of equivalent diameter
+    double eq_diameter = sqrt(4 * area/M_PI);
     
     // Calculating dimensions
     for (int i = 0; i < gray.rows; ++i) {
@@ -470,7 +494,7 @@ using namespace cv;
         cY = int(m.m01 / m.m00);
     }
     
-    // Adding spatial and central moments
+    // Adding data to metrics NSArray
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@(m.m00),@(m.m01),@(m.m10),@(m.m11),@(m.mu20),@(m.mu11),@(m.mu02),@(m.mu30), nil];
     [arr addObject:@(cX)];
     [arr addObject:@(cY)];
@@ -480,6 +504,10 @@ using namespace cv;
     [arr addObject:@(channels)];
     [arr addObject:@(area)];
     [arr addObject:@(perimeter)];
+    [arr addObject:@(aspectRatio)];
+    [arr addObject:@(extent)];
+    [arr addObject:@(solidity)];
+    [arr addObject:@(eq_diameter)];
     return arr;
 }
 
