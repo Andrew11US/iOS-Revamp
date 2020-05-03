@@ -16,36 +16,17 @@
 		012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012953F6245219E90067082D /* OpenCVWrapper.mm */; };
 		012953F924522FDE0067082D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012953F824522FDE0067082D /* ImageScrollView.swift */; };
 		012953FB24523A4D0067082D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 012953FA24523A4D0067082D /* README.md */; };
-		012B17C62458C51F007CB124 /* ImageSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17A82458C51F007CB124 /* ImageSlice.swift */; };
-		012B17C72458C51F007CB124 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17A92458C51F007CB124 /* ColorLiteral.swift */; };
-		012B17C82458C51F007CB124 /* ImageOperators.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17AA2458C51F007CB124 /* ImageOperators.swift.gyb */; };
-		012B17C92458C51F007CB124 /* AnyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17AB2458C51F007CB124 /* AnyImage.swift */; };
-		012B17CA2458C51F007CB124 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17AC2458C51F007CB124 /* RGBA.swift */; };
-		012B17CB2458C51F007CB124 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17AD2458C51F007CB124 /* RGB.swift */; };
-		012B17CC2458C51F007CB124 /* ImageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17AE2458C51F007CB124 /* ImageProtocol.swift */; };
-		012B17CD2458C51F007CB124 /* NumericPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17AF2458C51F007CB124 /* NumericPixel.swift */; };
-		012B17CE2458C51F007CB124 /* RGBAOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B02458C51F007CB124 /* RGBAOperators.swift */; };
-		012B17CF2458C51F007CB124 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B12458C51F007CB124 /* Image.swift */; };
-		012B17D02458C51F007CB124 /* ImageOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B22458C51F007CB124 /* ImageOperators.swift */; };
-		012B17D12458C51F007CB124 /* ExtrapolatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B32458C51F007CB124 /* ExtrapolatedImage.swift */; };
-		012B17D22458C51F007CB124 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B42458C51F007CB124 /* ImageFormat.swift */; };
-		012B17D32458C51F007CB124 /* HigherOrderFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B52458C51F007CB124 /* HigherOrderFunctions.swift */; };
-		012B17D42458C51F007CB124 /* TypicalChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B62458C51F007CB124 /* TypicalChannel.swift */; };
-		012B17D52458C51F007CB124 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B72458C51F007CB124 /* AppKit.swift */; };
-		012B17D62458C51F007CB124 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17B82458C51F007CB124 /* CoreGraphics.swift */; };
-		012B17D72458C51F007CB124 /* RGBAOperators.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17B92458C51F007CB124 /* RGBAOperators.swift.gyb */; };
-		012B17D82458C51F007CB124 /* Convolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BA2458C51F007CB124 /* Convolution.swift */; };
-		012B17D92458C51F007CB124 /* Resizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BB2458C51F007CB124 /* Resizing.swift */; };
-		012B17DA2458C51F007CB124 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BC2458C51F007CB124 /* Util.swift */; };
-		012B17DB2458C51F007CB124 /* Extrapolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BD2458C51F007CB124 /* Extrapolation.swift */; };
-		012B17DC2458C51F007CB124 /* ImageIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BE2458C51F007CB124 /* ImageIterator.swift */; };
-		012B17DD2458C51F007CB124 /* UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17BF2458C51F007CB124 /* UIKit.swift */; };
-		012B17DE2458C51F007CB124 /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17C02458C51F007CB124 /* Interpolation.swift */; };
-		012B17DF2458C51F007CB124 /* Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17C12458C51F007CB124 /* Rotation.swift */; };
-		012B17E02458C51F007CB124 /* NumericPixel.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17C22458C51F007CB124 /* NumericPixel.swift.gyb */; };
-		012B17E12458C51F007CB124 /* Convolution.swift.gyb in Resources */ = {isa = PBXBuildFile; fileRef = 012B17C32458C51F007CB124 /* Convolution.swift.gyb */; };
-		012B17E22458C51F007CB124 /* PremultipliedRGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17C42458C51F007CB124 /* PremultipliedRGBA.swift */; };
 		012B17E52458CBFB007CB124 /* ThresholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012B17E42458CBFB007CB124 /* ThresholdView.swift */; };
+		015BF379245EF90600434E96 /* AttributedTextBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF32C245EF90600434E96 /* AttributedTextBlock.swift */; };
+		015BF37A245EF90600434E96 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF32D245EF90600434E96 /* TextViewController.swift */; };
+		015BF3B2245EFD0000434E96 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3A1245EFD0000434E96 /* UIViewController+Extensions.swift */; };
+		015BF3B3245EFD0000434E96 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3A2245EFD0000434E96 /* UIView+Extensions.swift */; };
+		015BF3B6245EFD0000434E96 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3A5245EFD0000434E96 /* UITextView+Extensions.swift */; };
+		015BF3BA245EFD0000434E96 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3A9245EFD0000434E96 /* UIApplication+Extensions.swift */; };
+		015BF3BB245EFD0000434E96 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3AA245EFD0000434E96 /* UIAlertController+Extensions.swift */; };
+		015BF3BF245EFD0000434E96 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3AE245EFD0000434E96 /* UITextField+Extensions.swift */; };
+		015BF3C1245EFDF200434E96 /* Common+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3C0245EFDF200434E96 /* Common+Extensions.swift */; };
+		015BF3C3245EFE7000434E96 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BF3C2245EFE6F00434E96 /* String+Extensions.swift */; };
 		0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178DCD024537A220084984D /* UIImage+Extension.swift */; };
 		0178DCD3245388540084984D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178DCD2245388540084984D /* UIColor+Extension.swift */; };
 		01892F4F245CAF6A007390B9 /* SobelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01892F4E245CAF6A007390B9 /* SobelView.swift */; };
@@ -104,37 +85,17 @@
 		012953F6245219E90067082D /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		012953F824522FDE0067082D /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		012953FA24523A4D0067082D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		012B17A72458C51F007CB124 /* SwiftImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftImage.h; sourceTree = "<group>"; };
-		012B17A82458C51F007CB124 /* ImageSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSlice.swift; sourceTree = "<group>"; };
-		012B17A92458C51F007CB124 /* ColorLiteral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
-		012B17AA2458C51F007CB124 /* ImageOperators.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImageOperators.swift.gyb; sourceTree = "<group>"; };
-		012B17AB2458C51F007CB124 /* AnyImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyImage.swift; sourceTree = "<group>"; };
-		012B17AC2458C51F007CB124 /* RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
-		012B17AD2458C51F007CB124 /* RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
-		012B17AE2458C51F007CB124 /* ImageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProtocol.swift; sourceTree = "<group>"; };
-		012B17AF2458C51F007CB124 /* NumericPixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericPixel.swift; sourceTree = "<group>"; };
-		012B17B02458C51F007CB124 /* RGBAOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBAOperators.swift; sourceTree = "<group>"; };
-		012B17B12458C51F007CB124 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		012B17B22458C51F007CB124 /* ImageOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOperators.swift; sourceTree = "<group>"; };
-		012B17B32458C51F007CB124 /* ExtrapolatedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtrapolatedImage.swift; sourceTree = "<group>"; };
-		012B17B42458C51F007CB124 /* ImageFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
-		012B17B52458C51F007CB124 /* HigherOrderFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigherOrderFunctions.swift; sourceTree = "<group>"; };
-		012B17B62458C51F007CB124 /* TypicalChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypicalChannel.swift; sourceTree = "<group>"; };
-		012B17B72458C51F007CB124 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
-		012B17B82458C51F007CB124 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
-		012B17B92458C51F007CB124 /* RGBAOperators.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RGBAOperators.swift.gyb; sourceTree = "<group>"; };
-		012B17BA2458C51F007CB124 /* Convolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convolution.swift; sourceTree = "<group>"; };
-		012B17BB2458C51F007CB124 /* Resizing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resizing.swift; sourceTree = "<group>"; };
-		012B17BC2458C51F007CB124 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		012B17BD2458C51F007CB124 /* Extrapolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extrapolation.swift; sourceTree = "<group>"; };
-		012B17BE2458C51F007CB124 /* ImageIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageIterator.swift; sourceTree = "<group>"; };
-		012B17BF2458C51F007CB124 /* UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKit.swift; sourceTree = "<group>"; };
-		012B17C02458C51F007CB124 /* Interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
-		012B17C12458C51F007CB124 /* Rotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rotation.swift; sourceTree = "<group>"; };
-		012B17C22458C51F007CB124 /* NumericPixel.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NumericPixel.swift.gyb; sourceTree = "<group>"; };
-		012B17C32458C51F007CB124 /* Convolution.swift.gyb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Convolution.swift.gyb; sourceTree = "<group>"; };
-		012B17C42458C51F007CB124 /* PremultipliedRGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremultipliedRGBA.swift; sourceTree = "<group>"; };
 		012B17E42458CBFB007CB124 /* ThresholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdView.swift; sourceTree = "<group>"; };
+		015BF32C245EF90600434E96 /* AttributedTextBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextBlock.swift; sourceTree = "<group>"; };
+		015BF32D245EF90600434E96 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		015BF3A1245EFD0000434E96 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3A2245EFD0000434E96 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3A5245EFD0000434E96 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3A9245EFD0000434E96 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3AA245EFD0000434E96 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3AE245EFD0000434E96 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3C0245EFDF200434E96 /* Common+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extensions.swift"; sourceTree = "<group>"; };
+		015BF3C2245EFE6F00434E96 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		0178DCD024537A220084984D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		0178DCD2245388540084984D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		01892F4E245CAF6A007390B9 /* SobelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SobelView.swift; sourceTree = "<group>"; };
@@ -208,47 +169,34 @@
 		012953F1245219270067082D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				012B17A62458C51F007CB124 /* SwiftImage */,
+				015BF317245EF90600434E96 /* TextViewAlert */,
 				012953F22452196C0067082D /* opencv2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		012B17A62458C51F007CB124 /* SwiftImage */ = {
+		015BF317245EF90600434E96 /* TextViewAlert */ = {
 			isa = PBXGroup;
 			children = (
-				012B17A72458C51F007CB124 /* SwiftImage.h */,
-				012B17A82458C51F007CB124 /* ImageSlice.swift */,
-				012B17A92458C51F007CB124 /* ColorLiteral.swift */,
-				012B17AA2458C51F007CB124 /* ImageOperators.swift.gyb */,
-				012B17AB2458C51F007CB124 /* AnyImage.swift */,
-				012B17AC2458C51F007CB124 /* RGBA.swift */,
-				012B17AD2458C51F007CB124 /* RGB.swift */,
-				012B17AE2458C51F007CB124 /* ImageProtocol.swift */,
-				012B17AF2458C51F007CB124 /* NumericPixel.swift */,
-				012B17B02458C51F007CB124 /* RGBAOperators.swift */,
-				012B17B12458C51F007CB124 /* Image.swift */,
-				012B17B22458C51F007CB124 /* ImageOperators.swift */,
-				012B17B32458C51F007CB124 /* ExtrapolatedImage.swift */,
-				012B17B42458C51F007CB124 /* ImageFormat.swift */,
-				012B17B52458C51F007CB124 /* HigherOrderFunctions.swift */,
-				012B17B62458C51F007CB124 /* TypicalChannel.swift */,
-				012B17B72458C51F007CB124 /* AppKit.swift */,
-				012B17B82458C51F007CB124 /* CoreGraphics.swift */,
-				012B17B92458C51F007CB124 /* RGBAOperators.swift.gyb */,
-				012B17BA2458C51F007CB124 /* Convolution.swift */,
-				012B17BB2458C51F007CB124 /* Resizing.swift */,
-				012B17BC2458C51F007CB124 /* Util.swift */,
-				012B17BD2458C51F007CB124 /* Extrapolation.swift */,
-				012B17BE2458C51F007CB124 /* ImageIterator.swift */,
-				012B17BF2458C51F007CB124 /* UIKit.swift */,
-				012B17C02458C51F007CB124 /* Interpolation.swift */,
-				012B17C12458C51F007CB124 /* Rotation.swift */,
-				012B17C22458C51F007CB124 /* NumericPixel.swift.gyb */,
-				012B17C32458C51F007CB124 /* Convolution.swift.gyb */,
-				012B17C42458C51F007CB124 /* PremultipliedRGBA.swift */,
+				015BF32C245EF90600434E96 /* AttributedTextBlock.swift */,
+				015BF32D245EF90600434E96 /* TextViewController.swift */,
 			);
-			path = SwiftImage;
+			path = TextViewAlert;
+			sourceTree = "<group>";
+		};
+		015BF39D245EFD0000434E96 /* Framework+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				015BF3C0245EFDF200434E96 /* Common+Extensions.swift */,
+				015BF3C2245EFE6F00434E96 /* String+Extensions.swift */,
+				015BF3A1245EFD0000434E96 /* UIViewController+Extensions.swift */,
+				015BF3A2245EFD0000434E96 /* UIView+Extensions.swift */,
+				015BF3A5245EFD0000434E96 /* UITextView+Extensions.swift */,
+				015BF3A9245EFD0000434E96 /* UIApplication+Extensions.swift */,
+				015BF3AA245EFD0000434E96 /* UIAlertController+Extensions.swift */,
+				015BF3AE245EFD0000434E96 /* UITextField+Extensions.swift */,
+			);
+			path = "Framework+Extensions";
 			sourceTree = "<group>";
 		};
 		0195914E245DF5FC00DDE1A8 /* Extensions */ = {
@@ -256,6 +204,7 @@
 			children = (
 				0195914C245DECA700DDE1A8 /* ViewType+Enum.swift */,
 				0195914F245DF61D00DDE1A8 /* Adjustment+Enum.swift */,
+				015BF39D245EFD0000434E96 /* Framework+Extensions */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -518,13 +467,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				012B17E12458C51F007CB124 /* Convolution.swift.gyb in Resources */,
 				01B38B9F242CFB3E00180242 /* LaunchScreen.storyboard in Resources */,
-				012B17D72458C51F007CB124 /* RGBAOperators.swift.gyb in Resources */,
 				01B38B9C242CFB3E00180242 /* Assets.xcassets in Resources */,
-				012B17E02458C51F007CB124 /* NumericPixel.swift.gyb in Resources */,
 				012953FB24523A4D0067082D /* README.md in Resources */,
-				012B17C82458C51F007CB124 /* ImageOperators.swift.gyb in Resources */,
 				01B38B97242CFB3D00180242 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,57 +598,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				012B17C62458C51F007CB124 /* ImageSlice.swift in Sources */,
 				01130E64245471D800C2ACCC /* UIViewController+Extension.swift in Sources */,
-				012B17D42458C51F007CB124 /* TypicalChannel.swift in Sources */,
-				012B17CF2458C51F007CB124 /* Image.swift in Sources */,
-				012B17DD2458C51F007CB124 /* UIKit.swift in Sources */,
 				01B38B94242CFB3D00180242 /* MainVC.swift in Sources */,
 				012B17E52458CBFB007CB124 /* ThresholdView.swift in Sources */,
 				01130E6E2454B27400C2ACCC /* ImagePicker.swift in Sources */,
-				012B17D12458C51F007CB124 /* ExtrapolatedImage.swift in Sources */,
-				012B17DE2458C51F007CB124 /* Interpolation.swift in Sources */,
-				012B17D32458C51F007CB124 /* HigherOrderFunctions.swift in Sources */,
+				015BF3BF245EFD0000434E96 /* UITextField+Extensions.swift in Sources */,
+				015BF3B6245EFD0000434E96 /* UITextView+Extensions.swift in Sources */,
 				018B523A245B7E6C0078EFE4 /* BlurView.swift in Sources */,
+				015BF379245EF90600434E96 /* AttributedTextBlock.swift in Sources */,
 				0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */,
-				012B17CD2458C51F007CB124 /* NumericPixel.swift in Sources */,
-				012B17D22458C51F007CB124 /* ImageFormat.swift in Sources */,
 				0195914B245DA9FB00DDE1A8 /* lut.cpp in Sources */,
-				012B17CA2458C51F007CB124 /* RGBA.swift in Sources */,
 				012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */,
-				012B17D82458C51F007CB124 /* Convolution.swift in Sources */,
-				012B17D02458C51F007CB124 /* ImageOperators.swift in Sources */,
 				01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */,
 				01959145245D81DE00DDE1A8 /* PrewittView.swift in Sources */,
 				01892F53245CD41F007390B9 /* MaskView.swift in Sources */,
 				0195914D245DECA700DDE1A8 /* ViewType+Enum.swift in Sources */,
 				01959150245DF61D00DDE1A8 /* Adjustment+Enum.swift in Sources */,
+				015BF3C3245EFE7000434E96 /* String+Extensions.swift in Sources */,
 				01130E6A2454847400C2ACCC /* HistoryCell.swift in Sources */,
+				015BF3B2245EFD0000434E96 /* UIViewController+Extensions.swift in Sources */,
 				012953F924522FDE0067082D /* ImageScrollView.swift in Sources */,
-				012B17C72458C51F007CB124 /* ColorLiteral.swift in Sources */,
-				012B17CC2458C51F007CB124 /* ImageProtocol.swift in Sources */,
 				01959149245D969C00DDE1A8 /* MorphologyView.swift in Sources */,
+				015BF3BB245EFD0000434E96 /* UIAlertController+Extensions.swift in Sources */,
 				01959154245DFF2600DDE1A8 /* PosterizeView.swift in Sources */,
-				012B17E22458C51F007CB124 /* PremultipliedRGBA.swift in Sources */,
-				012B17D92458C51F007CB124 /* Resizing.swift in Sources */,
-				012B17CE2458C51F007CB124 /* RGBAOperators.swift in Sources */,
-				012B17DA2458C51F007CB124 /* Util.swift in Sources */,
+				015BF3BA245EFD0000434E96 /* UIApplication+Extensions.swift in Sources */,
 				01892F55245CE06F007390B9 /* SharpenView.swift in Sources */,
-				012B17DC2458C51F007CB124 /* ImageIterator.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
 				01892F4F245CAF6A007390B9 /* SobelView.swift in Sources */,
-				012B17CB2458C51F007CB124 /* RGB.swift in Sources */,
-				012B17DB2458C51F007CB124 /* Extrapolation.swift in Sources */,
 				01130E6C245488EC00C2ACCC /* HistoryImage.swift in Sources */,
 				01959147245D87C900DDE1A8 /* EdgeDetectionView.swift in Sources */,
 				01892F51245CC221007390B9 /* CannyView.swift in Sources */,
 				01B38B92242CFB3D00180242 /* SceneDelegate.swift in Sources */,
-				012B17D62458C51F007CB124 /* CoreGraphics.swift in Sources */,
-				012B17DF2458C51F007CB124 /* Rotation.swift in Sources */,
-				012B17C92458C51F007CB124 /* AnyImage.swift in Sources */,
+				015BF3C1245EFDF200434E96 /* Common+Extensions.swift in Sources */,
 				01130E662454743700C2ACCC /* AdjustmentCell.swift in Sources */,
-				012B17D52458C51F007CB124 /* AppKit.swift in Sources */,
+				015BF3B3245EFD0000434E96 /* UIView+Extensions.swift in Sources */,
 				018B5238245B67900078EFE4 /* ContrastView.swift in Sources */,
+				015BF37A245EF90600434E96 /* TextViewController.swift in Sources */,
 				0178DCD3245388540084984D /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
