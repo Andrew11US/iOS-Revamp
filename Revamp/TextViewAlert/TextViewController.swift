@@ -26,7 +26,7 @@ final class TextViewerViewController: UIViewController {
     fileprivate lazy var textView: UITextView = {
         $0.isEditable = false
         $0.isSelectable = true
-        $0.backgroundColor = nil
+        $0.backgroundColor = .white
         return $0
     }(UITextView())
     

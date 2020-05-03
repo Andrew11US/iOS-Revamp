@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Thinning
 + (UIImage *)thinning:(UIImage *) image;
 // Moments
-+ (UIImage *)moments:(UIImage *) image;
++ (NSMutableArray *)moments:(UIImage *) image;
 
 @end
 

@@ -431,19 +431,41 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
-+ (UIImage *)moments:(UIImage *) image {
++ (NSMutableArray *)moments:(UIImage *) image {
     Mat src, dst, gray;
     UIImageToMat(image, src);
-
-    // convert image to grayscale
-    cvtColor( src, gray, COLOR_BGR2GRAY );
-    // convert grayscale to binary image
-    threshold( gray, dst, 100,255,THRESH_BINARY );
+    int cX = 0, cY = 0;
+    int totalPixels = 0, width = 0, height = 0;
+    int channels = src.channels();
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    threshold(gray, dst, 100,255,THRESH_BINARY);
+    Moments m = moments(dst, true);
     
-    Moments m = moments(dst,true);
-    NSLog(@"%f %f %f %f %f", m.m00, m.m01, m.m02, m.m03, m.m10);
+    // Calculating dimensions
+    for (int i = 0; i < gray.rows; ++i) {
+        width = 0;
+        for (int j = 0; j < gray.cols; ++j) {
+            width++;
+            totalPixels++;
+        }
+        height++;
+    }
     
-    return MatToUIImage(dst);
+    // Calculating central point
+    if (int(m.m00) != 0) {
+        cX = int(m.m10 / m.m00);
+        cY = int(m.m01 / m.m00);
+    }
+    
+    // Adding spatial and central moments
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@(m.m00),@(m.m01),@(m.m10),@(m.m11),@(m.mu20),@(m.mu11),@(m.mu02),@(m.mu30), nil];
+    [arr addObject:@(cX)];
+    [arr addObject:@(cY)];
+    [arr addObject:@(width)];
+    [arr addObject:@(height)];
+    [arr addObject:@(totalPixels)];
+    [arr addObject:@(channels)];
+    return arr;
 }
 
 
