@@ -431,6 +431,23 @@ using namespace cv;
     return MatToUIImage(dst);
 }
 
++ (UIImage *)moments:(UIImage *) image {
+    Mat src, dst, gray;
+    UIImageToMat(image, src);
+
+    // convert image to grayscale
+    cvtColor( src, gray, COLOR_BGR2GRAY );
+    // convert grayscale to binary image
+    threshold( gray, dst, 100,255,THRESH_BINARY );
+    
+    Moments m = moments(dst,true);
+    NSLog(@"%f %f %f %f %f", m.m00, m.m01, m.m02, m.m03, m.m10);
+    
+    return MatToUIImage(dst);
+}
+
+
+
 // MARK: - helping functions
 private void thinning(Mat& src) {
     src /= 255;

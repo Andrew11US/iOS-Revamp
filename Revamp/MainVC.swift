@@ -87,6 +87,10 @@ class MainVC: UIViewController {
         imagePicker.present(from: sender)
     }
     
+    @IBAction func aboutActionTriggered(_ sender: UIButton) {
+        print("About app")
+    }
+    
     @IBAction func historyBtnTapped(_ sender: UIButton) {
         if historyViewHeight.constant > 0 {
             self.animate(view: historyView, constraint: historyViewHeight, to: 0)
@@ -164,8 +168,9 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
         case .thinning:
             imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
-        default:
-            self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
+        case .moments:
+            OpenCVWrapper.moments(imageScrollView.baseImage.image!)
+        default: break
         }
         
         historyImages.append(HistoryImage(name: selectedAdjustment.rawValue, image: imageScrollView.baseImage.image!))
