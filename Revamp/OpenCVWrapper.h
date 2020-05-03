@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)thinning:(UIImage *) image;
 // Image metrics
 + (NSMutableArray *)metrics:(UIImage *) image;
+// Shape detector
++ (NSString *)shapeDetector:(UIImage *) image;
 
 @end
 

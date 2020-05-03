@@ -168,6 +168,8 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
         case .thinning:
             imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
+        case .shapeDetector:
+            FunctionsLib.detectShape(img: imageScrollView.baseImage.image!)
         case .metrics:
             FunctionsLib.showMetrics(img: imageScrollView.baseImage.image!)
         default: break

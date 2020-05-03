@@ -31,6 +31,7 @@ enum Adjustment: String, CaseIterable {
     case edge = "Edge Detection"
     case morphology = "Morphology"
     case thinning = "Thinning"
+    case shapeDetector = "Shape Detector"
     case metrics = "Metrics"
 }
 

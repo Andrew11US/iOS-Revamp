@@ -49,4 +49,18 @@ struct FunctionsLib {
         alert.addAction(title: "OK", style: .cancel)
         alert.show()
     }
+    
+    static func detectShape(img: UIImage) {
+        let shape = OpenCVWrapper.shapeDetector(img)
+        let alert = UIAlertController(style: .actionSheet)
+        
+        let text: [AttributedTextBlock] = [
+            .header1("Shape Detector"),
+            .header2("Using OpenCV contour markers"),
+            .normal("Detected shape is \(shape)")
+            ]
+        alert.addTextViewer(text: .attributedText(text))
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()
+    }
 }

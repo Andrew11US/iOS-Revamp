@@ -511,6 +511,66 @@ using namespace cv;
     return arr;
 }
 
+// TODO: - Fix shape detector
++ (NSString *)shapeDetector:(UIImage *) image {
+    Mat src, thresh, gray, canny_output;
+    std::vector<std::vector<cv::Point> > contours;
+    std::vector<Vec4i> hierarchy;
+    
+    UIImageToMat(image, src);
+    double area = 0, perimeter = 0;
+    NSString *shape;
+    
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    blur(gray, gray, cv::Size(3,3));
+    threshold(gray, thresh, 60, 255, THRESH_BINARY);
+    /// Getting moments
+//    Moments m = moments(thresh, true);
+    
+//    Canny(gray, canny_output, 50, 100, 3);
+    /// Calling findContours from canny threshold
+    findContours(thresh, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    
+    /// Getting contour from std::vector
+    std::vector<cv::Point> cnt = contours[0];
+    /// Contour area and perimeter
+    area = contourArea(cnt);
+    perimeter = arcLength(cnt, true);
+    
+    std::vector<cv::Point> approx;
+    approxPolyDP(cnt, approx, 3, true);
+    shape = [NSString stringWithFormat:@"%d", approx.size()];
+//    peri = cv2.arcLength(c, True)
+//    approx = cv2.approxPolyDP(c, 0.04 * peri, True)
+
+    if (approx.size() == 3) {
+//        shape = @"Triangle";
+    } else if (approx.size() == 4) {
+        
+    }
+//    if len(approx) == 3:
+//        shape = "triangle"
+//    # if the shape has 4 vertices, it is either a square or
+//    # a rectangle
+//    elif len(approx) == 4:
+//        # compute the bounding box of the contour and use the
+//        # bounding box to compute the aspect ratio
+//        (x, y, w, h) = cv2.boundingRect(approx)
+//        ar = w / float(h)
+//        # a square will have an aspect ratio that is approximately
+//        # equal to one, otherwise, the shape is a rectangle
+//        shape = "square" if ar >= 0.95 and ar <= 1.05 else "rectangle"
+//    # if the shape is a pentagon, it will have 5 vertices
+//    elif len(approx) == 5:
+//        shape = "pentagon"
+//    # otherwise, we assume the shape is a circle
+//    else:
+//        shape = "circle"
+//    # return the name of the shape
+//    return shape
+    return shape;
+}
+
 
 
 // MARK: - helping functions
