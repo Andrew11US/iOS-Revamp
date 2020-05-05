@@ -212,15 +212,6 @@ using namespace cv;
 //    src.delete(); dst.delete(); gray.delete(); opening.delete(); coinsBg.delete();
 //    coinsFg.delete(); distTrans.delete(); unknown.delete(); markers.delete(); M.delete();
     
-//    Mat src, dst;
-//    UIImageToMat(image, src);
-//    cvtColor(src, dst, COLOR_BGR2GRAY);
-////    src.convertTo(src, CV_8UC3);
-////    dst.convertTo(dst, CV_32SC1);
-////    cvtColor(src, tmp, COLOR_BGR2GRAY);
-//    cv::watershed(dst, dst);
-////    cvtColor(dst, dst, COLOR_GRAY2RGB);
-//    return MatToUIImage(dst);
 }
 
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
@@ -560,14 +551,14 @@ private void thinningIteration(Mat& src, int iteration) {
             uchar p8 = src.at<uchar>(i, j-1);
             uchar p9 = src.at<uchar>(i-1, j-1);
             
-            int C  = (!p2 & (p3 | p4)) + (!p4 & (p5 | p6)) +
-            (!p6 & (p7 | p8)) + (!p8 & (p9 | p2));
+            int C  = ((!p2) & (p3 | p4)) + ((!p4) & (p5 | p6)) +
+            ((!p6) & (p7 | p8)) + ((!p8) & (p9 | p2));
             int N1 = (p9 | p2) + (p3 | p4) + (p5 | p6) + (p7 | p8);
             int N2 = (p2 | p3) + (p4 | p5) + (p6 | p7) + (p8 | p9);
             int N  = N1 < N2 ? N1 : N2;
             int m  = iteration == 0 ? ((p6 | p7 | !p9) & p8) : ((p2 | p3 | !p5) & p4);
             
-            if (C == 1 && (N >= 2 && N <= 3) & m == 0)
+            if (C == 1 && (N >= 2 && N <= 3) & (m == 0))
                 marker.at<uchar>(i,j) = 1;
         }
     }
@@ -577,7 +568,7 @@ private void thinningIteration(Mat& src, int iteration) {
 
 private int computeContrast(int x, int r1, int r2, int s1, int s2)
 {
-    float result;
+    float result = 0.0;
     if (0 <= x && x <= r1) {
         result = s1/r1 * x;
     } else if (r1 < x && x <= r2) {
