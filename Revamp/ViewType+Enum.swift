@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Types of view that allow adjustments
 enum ViewType {
     case thresholdView
     case contrastView

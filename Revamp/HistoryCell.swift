@@ -16,7 +16,6 @@ class HistoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.layer.cornerRadius = CGFloat(5)
         self.imageView.layer.cornerRadius = CGFloat(10)
     }
     

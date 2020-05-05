@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Adjustment types enum
 enum Adjustment: String, CaseIterable {
     case grayscale = "Grayscale"
     case equalize = "Equalize Histogram"

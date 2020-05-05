@@ -18,6 +18,7 @@ class AdjustmentCell: UITableViewCell {
         // Initialization code
     }
     
+    // TODO: - Add adjustment icon
     func configureCell(adjustment: String) {
         
         self.nameLbl.text = adjustment

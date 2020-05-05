@@ -13,7 +13,7 @@ class EdgeDetectionView: UIView {
     var type: Int = 0
     var border: Int = 2
     
-    // MARK: - Lazy properties (calculated only if needed)
+    // MARK: - Lazy properties (calculated only when first time is used)
     lazy var nameLbl: UILabel = {
         let nameLbl = UILabel()
         nameLbl.textAlignment = .center
@@ -157,7 +157,7 @@ class EdgeDetectionView: UIView {
         setupView()
     }
     
-    // MARK: - View setup stuff
+    // MARK: - View setup
     private func setupView() {
         backgroundColor = .systemBackground
         

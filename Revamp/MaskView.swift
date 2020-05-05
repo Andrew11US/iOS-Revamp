@@ -13,7 +13,7 @@ class MaskView: UIView, UITextFieldDelegate {
     var kernel: [Int] = [1,1,1, 1,1,1, 1,1,1]
     var divisor: Int = 9
     
-    // MARK: - Lazy properties (calculated only if needed)
+    // MARK: - Lazy properties (calculated only when first time is used)
     lazy var nameLbl: UILabel = {
         let nameLbl = UILabel()
         nameLbl.textAlignment = .center
@@ -33,11 +33,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask0_0: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate0_0Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -45,11 +48,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask0_1: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate0_1Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -57,11 +63,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask0_2: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate0_2Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -69,11 +78,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask1_0: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate1_0Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -81,11 +93,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask1_1: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate1_1Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -93,11 +108,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask1_2: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate1_2Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -105,11 +123,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask2_0: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate2_0Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -117,11 +138,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask2_1: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate2_1Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -129,11 +153,14 @@ class MaskView: UIView, UITextFieldDelegate {
     lazy var mask2_2: UITextField = {
         let field = UITextField()
         field.textAlignment = .center
-        field.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        field.font = UIFont.systemFont(ofSize: 22.0, weight: .medium)
         field.text = "1"
         field.clearsOnBeginEditing = true
         field.returnKeyType = .done
         field.keyboardType = .numberPad
+        field.layer.borderWidth = 1
+        field.layer.cornerRadius = 5
+        field.layer.borderColor = UIColor.label.cgColor
         field.addTarget(self, action: #selector(validate2_2Field(_:)), for: .editingDidEnd)
         return field
     }()
@@ -143,6 +170,7 @@ class MaskView: UIView, UITextFieldDelegate {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
+        stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -152,6 +180,7 @@ class MaskView: UIView, UITextFieldDelegate {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -161,6 +190,7 @@ class MaskView: UIView, UITextFieldDelegate {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -170,6 +200,7 @@ class MaskView: UIView, UITextFieldDelegate {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -189,7 +220,7 @@ class MaskView: UIView, UITextFieldDelegate {
         setupView()
     }
     
-    // MARK: - View setup stuff
+    // MARK: - View setup
     private func setupView() {
         backgroundColor = .systemBackground
         hideKeyboardWhenTappedAround()
@@ -241,7 +272,7 @@ class MaskView: UIView, UITextFieldDelegate {
     
     // MARK: - Action functions
     @objc func validate0_0Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[0] = value
         } else {
             kernel[0] = 1
@@ -251,7 +282,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate0_1Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[1] = value
         } else {
             kernel[1] = 1
@@ -261,7 +292,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate0_2Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[2] = value
         } else {
             kernel[2] = 1
@@ -271,7 +302,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate1_0Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[3] = value
         } else {
             kernel[3] = 1
@@ -281,7 +312,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate1_1Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[4] = value
         } else {
             kernel[4] = 1
@@ -291,7 +322,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate1_2Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[5] = value
         } else {
             kernel[5] = 1
@@ -301,7 +332,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate2_0Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[6] = value
         } else {
             kernel[6] = 1
@@ -311,7 +342,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate2_1Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[7] = value
         } else {
             kernel[7] = 1
@@ -321,7 +352,7 @@ class MaskView: UIView, UITextFieldDelegate {
     }
     
     @objc func validate2_2Field(_ sender: UITextField!) {
-        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt)  {
+        if let txt = sender.text?.trimmingCharacters(in: .whitespaces), let value = Int(txt), value < 100  {
             kernel[8] = value
         } else {
             kernel[8] = 1

@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - History Image struct
+// MARK: - HistoryImage struct holds edited image
 struct HistoryImage {
     var name: String
     var image: UIImage

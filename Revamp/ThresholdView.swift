@@ -12,11 +12,9 @@ public class ThresholdView: UIView {
     
     var threshold: Double = 127
     
-    // MARK: - Lazy properties (calculated only if needed)
+    // MARK: - Lazy properties (calculated only when first time is used)
     lazy var nameLbl: UILabel = {
         let nameLbl = UILabel()
-//        nameLbl.backgroundColor = .yellow
-//        nameLbl.textColor = .black
         nameLbl.textAlignment = .center
         nameLbl.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         nameLbl.text = "Threshold: 127"
@@ -56,7 +54,7 @@ public class ThresholdView: UIView {
         setupView()
     }
     
-    // MARK: - View setup stuff
+    // MARK: - View setup
     private func setupView() {
         backgroundColor = .systemBackground
         addSubview(levelSlider)

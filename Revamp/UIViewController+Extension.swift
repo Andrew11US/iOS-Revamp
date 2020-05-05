@@ -8,10 +8,10 @@
 
 import UIKit
 
-// Adds animations to UIIVewController class
 public extension UIViewController {
     
-    func showAlertWithTitle(_ title: String, message: String) {
+    // MARK: - Alert Controller wrapper
+    internal func showAlertWithTitle(_ title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alertVC.addAction(action)
@@ -21,6 +21,7 @@ public extension UIViewController {
         }
     }
     
+    // MARK: - Adds animations to UIIVewController class
     internal func animate(view: UIView, constraint: NSLayoutConstraint, to: Int) {
         constraint.constant = CGFloat(to)
         UIView.animate(withDuration: 0.3) {

@@ -9,6 +9,7 @@
 import Foundation
 
 struct FunctionsLib {
+    // MARK: - Shows metrics of an image
     static func showMetrics(img: UIImage) {
         guard let metrics = OpenCVWrapper.metrics(img) as? [Double] else { return }
         let alert = UIAlertController(style: .actionSheet)
@@ -50,6 +51,7 @@ struct FunctionsLib {
         alert.show()
     }
     
+    // MARK: - Show shape detection prompt
     static func detectShape(img: UIImage) {
         let shape = OpenCVWrapper.shapeDetector(img)
         let alert = UIAlertController(style: .actionSheet)

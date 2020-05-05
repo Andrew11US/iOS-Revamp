@@ -13,11 +13,9 @@ class PrewittView: UIView {
     var type: Int = 0
     var border: Int = 2
     
-    // MARK: - Lazy properties (calculated only if needed)
+    // MARK: - Lazy properties (calculated only when first time is used)
     lazy var nameLbl: UILabel = {
         let nameLbl = UILabel()
-        //        nameLbl.backgroundColor = .yellow
-        //        nameLbl.textColor = .black
         nameLbl.textAlignment = .center
         nameLbl.baselineAdjustment = .alignCenters
         nameLbl.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
@@ -66,7 +64,7 @@ class PrewittView: UIView {
         setupView()
     }
     
-    // MARK: - View setup stuff
+    // MARK: - View setup
     private func setupView() {
         backgroundColor = .systemBackground
         stackView.addArrangedSubview(nameLbl)

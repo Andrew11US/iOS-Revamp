@@ -290,7 +290,7 @@ class MainVC: UIViewController {
             return 300
         case .canny:
             setupAdjustmentSettingsView(viewType: .cannyView)
-            return 300
+            return 200
         case .mask:
             setupAdjustmentSettingsView(viewType: .maskView)
             return 300

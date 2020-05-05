@@ -47,7 +47,6 @@ final class TextViewerViewController: UIViewController {
             textView.attributedText = text.map { $0.text }.joined(separator: "\n")
         }
         textView.textContainerInset = UIEdgeInsets.init(top: UI.hInset, left: UI.vInset, bottom: UI.hInset, right: UI.vInset)
-        //preferredContentSize.height = self.textView.contentSize.height
     }
     
     required init?(coder aDecoder: NSCoder) {

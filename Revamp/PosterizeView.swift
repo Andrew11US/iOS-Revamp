@@ -12,7 +12,7 @@ class PosterizeView: UIView {
 
     var grayLevels: Int = 8
     
-    // MARK: - Lazy properties (calculated only if needed)
+    // MARK: - Lazy properties (calculated only when first time is used)
     lazy var nameLbl: UILabel = {
         let nameLbl = UILabel()
         nameLbl.textAlignment = .center
@@ -54,7 +54,7 @@ class PosterizeView: UIView {
         setupView()
     }
     
-    // MARK: - View setup stuff
+    // MARK: - View setup
     private func setupView() {
         backgroundColor = .systemBackground
         addSubview(levelSlider)

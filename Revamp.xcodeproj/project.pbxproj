@@ -205,8 +205,6 @@
 				0178DCD024537A220084984D /* UIImage+Extension.swift */,
 				0178DCD2245388540084984D /* UIColor+Extension.swift */,
 				01130E63245471D800C2ACCC /* UIViewController+Extension.swift */,
-				0195914C245DECA700DDE1A8 /* ViewType+Enum.swift */,
-				0195914F245DF61D00DDE1A8 /* Adjustment+Enum.swift */,
 				015BF39D245EFD0000434E96 /* Framework+Extensions */,
 			);
 			name = Extensions;
@@ -275,6 +273,7 @@
 				01B38B91242CFB3D00180242 /* SceneDelegate.swift */,
 				01B38BA0242CFB3E00180242 /* Info.plist */,
 				01B38B98242CFB3D00180242 /* Revamp.xcdatamodeld */,
+				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -284,8 +283,9 @@
 			children = (
 				012953F5245219E90067082D /* OpenCVWrapper.h */,
 				012953F6245219E90067082D /* OpenCVWrapper.mm */,
-				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 				01130E6B245488EC00C2ACCC /* HistoryImage.swift */,
+				0195914F245DF61D00DDE1A8 /* Adjustment+Enum.swift */,
+				0195914C245DECA700DDE1A8 /* ViewType+Enum.swift */,
 				015BF3C4245F022400434E96 /* FunctionsLib.swift */,
 			);
 			name = Model;
@@ -303,9 +303,9 @@
 			isa = PBXGroup;
 			children = (
 				012953F824522FDE0067082D /* ImageScrollView.swift */,
+				01130E6D2454B27400C2ACCC /* ImagePicker.swift */,
 				01130E652454743700C2ACCC /* AdjustmentCell.swift */,
 				01130E692454847400C2ACCC /* HistoryCell.swift */,
-				01130E6D2454B27400C2ACCC /* ImagePicker.swift */,
 				012B17E42458CBFB007CB124 /* ThresholdView.swift */,
 				018B5237245B67900078EFE4 /* ContrastView.swift */,
 				018B5239245B7E6C0078EFE4 /* BlurView.swift */,
@@ -810,7 +810,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -838,7 +838,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 61;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

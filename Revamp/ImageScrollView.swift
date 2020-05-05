@@ -18,13 +18,6 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         return zoomingTap
     }()
     
-    // Long Press Gesture recognizer
-//    lazy var closePress: UILongPressGestureRecognizer = {
-//        let closePress = UILongPressGestureRecognizer(target: self, action: #selector(handleClosePress))
-//        closePress.minimumPressDuration = 2
-//        return closePress
-//    }()
-    
     // MARK: - UIScrollView initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +50,6 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         self.zoomScale = self.minimumZoomScale
         
         self.baseImage.addGestureRecognizer(self.zoomingTap)
-//        self.baseImage.addGestureRecognizer(self.closePress)
         self.baseImage.isUserInteractionEnabled = true
 
     }
@@ -116,11 +108,6 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         let location = sender.location(in: sender.view)
         self.zoom(point: location, animated: true)
     }
-    
-//    @objc func handleClosePress(sender: UILongPressGestureRecognizer) {
-//        baseImage.image = nil
-//        removeFromSuperview()
-//    }
     
     func zoom(point: CGPoint, animated: Bool) {
         let currectScale = self.zoomScale

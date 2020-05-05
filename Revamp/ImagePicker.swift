@@ -8,10 +8,12 @@
 
 import UIKit
 
+// MARK: - ImagePicker Delegate protocol
 public protocol ImagePickerDelegate: class {
     func didSelect(image: UIImage?)
 }
 
+// MARK: - Image picker class to calls it programmatically
 open class ImagePicker: NSObject {
 
     private let pickerController: UIImagePickerController
@@ -74,6 +76,7 @@ open class ImagePicker: NSObject {
     }
 }
 
+// MARK: - ImagePicker controller delegate methods
 extension ImagePicker: UIImagePickerControllerDelegate {
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -89,6 +92,4 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     }
 }
 
-extension ImagePicker: UINavigationControllerDelegate {
-
-}
+extension ImagePicker: UINavigationControllerDelegate {}
