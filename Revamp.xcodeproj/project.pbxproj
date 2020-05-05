@@ -36,6 +36,7 @@
 		01892F55245CE06F007390B9 /* SharpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01892F54245CE06F007390B9 /* SharpenView.swift */; };
 		018B5238245B67900078EFE4 /* ContrastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B5237245B67900078EFE4 /* ContrastView.swift */; };
 		018B523A245B7E6C0078EFE4 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B5239245B7E6C0078EFE4 /* BlurView.swift */; };
+		019137B62462045F00810D99 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019137B52462045F00810D99 /* String+Extension.swift */; };
 		01959145245D81DE00DDE1A8 /* PrewittView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959144245D81DE00DDE1A8 /* PrewittView.swift */; };
 		01959147245D87C900DDE1A8 /* EdgeDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */; };
 		01959149245D969C00DDE1A8 /* MorphologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959148245D969C00DDE1A8 /* MorphologyView.swift */; };
@@ -105,6 +106,7 @@
 		01892F54245CE06F007390B9 /* SharpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharpenView.swift; sourceTree = "<group>"; };
 		018B5237245B67900078EFE4 /* ContrastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContrastView.swift; sourceTree = "<group>"; };
 		018B5239245B7E6C0078EFE4 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		019137B52462045F00810D99 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		01959144245D81DE00DDE1A8 /* PrewittView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrewittView.swift; sourceTree = "<group>"; };
 		01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeDetectionView.swift; sourceTree = "<group>"; };
 		01959148245D969C00DDE1A8 /* MorphologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorphologyView.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		0195914E245DF5FC00DDE1A8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				019137B52462045F00810D99 /* String+Extension.swift */,
 				0178DCD024537A220084984D /* UIImage+Extension.swift */,
 				0178DCD2245388540084984D /* UIColor+Extension.swift */,
 				01130E63245471D800C2ACCC /* UIViewController+Extension.swift */,
@@ -620,6 +623,7 @@
 				01959149245D969C00DDE1A8 /* MorphologyView.swift in Sources */,
 				015BF3BB245EFD0000434E96 /* UIAlertController+Extensions.swift in Sources */,
 				01959154245DFF2600DDE1A8 /* PosterizeView.swift in Sources */,
+				019137B62462045F00810D99 /* String+Extension.swift in Sources */,
 				015BF3BA245EFD0000434E96 /* UIApplication+Extensions.swift in Sources */,
 				01892F55245CE06F007390B9 /* SharpenView.swift in Sources */,
 				01B38B9A242CFB3D00180242 /* Revamp.xcdatamodeld in Sources */,
@@ -810,7 +814,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -838,7 +842,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

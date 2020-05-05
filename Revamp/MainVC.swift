@@ -281,16 +281,16 @@ class MainVC: UIViewController {
         switch adjustment {
         case .thresholdBinarized, .thresholGray, .thresholAdaptive, .thresholdOtsu:
             setupAdjustmentSettingsView(viewType: .thresholdView)
-            return 300
+            return 200
         case .contrast:
             setupAdjustmentSettingsView(viewType: .contrastView)
             return 300
         case .blur, .gaussian, .median:
             setupAdjustmentSettingsView(viewType: .blurView)
-            return 300
+            return 200
         case .sobel:
             setupAdjustmentSettingsView(viewType: .sobelView)
-            return 300
+            return 250
         case .canny:
             setupAdjustmentSettingsView(viewType: .cannyView)
             return 200
@@ -299,19 +299,19 @@ class MainVC: UIViewController {
             return 300
         case .sharpen:
             setupAdjustmentSettingsView(viewType: .sharpenView)
-            return 300
+            return 250
         case .prewitt:
             setupAdjustmentSettingsView(viewType: .prewittView)
-            return 300
+            return 250
         case .edge:
             setupAdjustmentSettingsView(viewType: .edgeDetectionView)
             return 300
         case .morphology:
             setupAdjustmentSettingsView(viewType: .morphologyView)
-            return 300
+            return 400
         case .posterize:
             setupAdjustmentSettingsView(viewType: .posterizeView)
-            return 300
+            return 200
         default:
             return size
         }
@@ -435,7 +435,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "AdjustmentCell", for: indexPath) as? AdjustmentCell {
             
-            cell.configureCell(adjustment: adjustments[indexPath.row].rawValue)
+            cell.configureCell(adjustment: adjustments[indexPath.row])
             return cell
         } else {
             return UITableViewCell()

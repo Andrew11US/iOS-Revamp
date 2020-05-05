@@ -18,11 +18,11 @@ class AdjustmentCell: UITableViewCell {
         // Initialization code
     }
     
-    // TODO: - Add adjustment icon
-    func configureCell(adjustment: String) {
+    func configureCell(adjustment: Adjustment) {
         
-        self.nameLbl.text = adjustment
-//        self.iconImg.image = UIImage(named: adjustment.name)
+        self.nameLbl.text = adjustment.rawValue
+//        self.iconImg.image = UIImage(named: adjustment.rawValue[0...4])
+        print(adjustment.rawValue[0..<3].lowercased() + ".png")
     }
 
 }
