@@ -439,7 +439,7 @@ using namespace cv;
     
     /// Calculation of aspect ratio
     cv::Rect rect = boundingRect(cnt);
-    double aspectRatio = (double)(rect.width / rect.height);
+    double aspectRatio = (double)(rect.width) / rect.height;
     
     /// Calculation of extent
     int rect_area = rect.width*rect.height;
@@ -488,56 +488,42 @@ using namespace cv;
 }
 
 + (NSString *)shapeDetector:(UIImage *) image {
-    Mat src, thresh, gray, canny_output;
+    Mat src, thresh, gray;
     std::vector<std::vector<cv::Point>> contours;
-//    std::vector<Vec4i> hierarchy;
-    
-    UIImageToMat(image, src);
-    double area = 0, perimeter = 0;
     NSString *shape;
     
+    /// Getting Mat from UIImage
+    UIImageToMat(image, src);
+    
+    /// Converting to Gray
     cvtColor(src, gray, COLOR_BGR2GRAY);
     threshold(gray, thresh, 128, 255, THRESH_BINARY);
-    /// Calling findContours from canny threshold
+    /// Calling findContours from threshold
     findContours(thresh, contours, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0,0));
     
     /// Getting contour from std::vector
     std::vector<cv::Point> cnt = contours[0];
-    /// Contour area and perimeter
-    area = contourArea(cnt);
-    perimeter = arcLength(cnt, true);
     
     std::vector<cv::Point> approx;
     approxPolyDP(cnt, approx, 3, true);
-    shape = [NSString stringWithFormat:@"%lu", approx.size()];
-//    peri = cv2.arcLength(c, True)
-//    approx = cv2.approxPolyDP(c, 0.04 * peri, True)
+    cv::Rect rect = boundingRect(cnt);
+    double aspectRatio = (double)(rect.width) / rect.height;
 
+    /// Detecting shape using approximation of polygon
     if (approx.size() == 3) {
         shape = @"Triangle";
     } else if (approx.size() == 4) {
-        
+        if (aspectRatio >= 0.95 && aspectRatio <= 1.05) {
+            shape = @"Square";
+        } else {
+            shape = @"Rectangle";
+        }
+    } else if (approx.size() == 5) {
+        shape = @"Pentagon";
+    } else {
+        shape = @"Circle";
     }
-//    if len(approx) == 3:
-//        shape = "triangle"
-//    # if the shape has 4 vertices, it is either a square or
-//    # a rectangle
-//    elif len(approx) == 4:
-//        # compute the bounding box of the contour and use the
-//        # bounding box to compute the aspect ratio
-//        (x, y, w, h) = cv2.boundingRect(approx)
-//        ar = w / float(h)
-//        # a square will have an aspect ratio that is approximately
-//        # equal to one, otherwise, the shape is a rectangle
-//        shape = "square" if ar >= 0.95 and ar <= 1.05 else "rectangle"
-//    # if the shape is a pentagon, it will have 5 vertices
-//    elif len(approx) == 5:
-//        shape = "pentagon"
-//    # otherwise, we assume the shape is a circle
-//    else:
-//        shape = "circle"
-//    # return the name of the shape
-//    return shape
+    
     return shape;
 }
 
