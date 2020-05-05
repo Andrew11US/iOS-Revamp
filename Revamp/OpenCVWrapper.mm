@@ -19,22 +19,22 @@ using namespace cv;
 }
 
 + (UIImage *)toGrayscale:(UIImage *)image {
-    Mat src, dst;
+    Mat src, dst;                       // Creating source and destination Mat
     UIImageToMat(image, src);           // iOS UIImage -> Mat
-    cvtColor(src, dst, COLOR_BGR2GRAY);
-    cvtColor(dst, dst, COLOR_GRAY2RGB); // Converting back to RBG
-    cv::flip(dst, dst, 0); // Flip x issue fix
-    cv::flip(dst, dst, 1); // Flip y issue fix
-    UIImage* img = MatToUIImage(dst);
+    cvtColor(src, dst, COLOR_BGRA2GRAY); // Converting to Gray
+    cvtColor(dst, dst, COLOR_GRAY2BGRA); // Converting back to RBG
+    cv::flip(dst, dst, 0);              // Flip x issue fix
+    cv::flip(dst, dst, 1);              // Flip y issue fix
+    UIImage* img = MatToUIImage(dst); // Creating pointer to UIImage made from Mat
     return img;
 }
 
 + (UIImage *)histogramEqualization:(UIImage *) image {
     Mat src, dst;
     UIImageToMat(image, src);
-    cvtColor(src, src, COLOR_BGR2GRAY);
+    cvtColor(src, src, COLOR_BGRA2GRAY);
     equalizeHist(src, dst);
-    cvtColor(dst, dst, COLOR_GRAY2RGB);
+    cvtColor(dst, dst, COLOR_GRAY2BGRA);
     return MatToUIImage(dst);
 }
 
@@ -57,7 +57,9 @@ using namespace cv;
     UIImageToMat(image, src);
     dst = src;
     cvtColor(src, src, COLOR_BGR2GRAY);
+    // Calling adaptive threshold
     cv::adaptiveThreshold(src, dst, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, blockSize, 0);
+    cvtColor(dst, dst, COLOR_GRAY2BGRA);
     return MatToUIImage(dst);
 }
 
@@ -65,10 +67,11 @@ using namespace cv;
     Mat src, dst;
     UIImageToMat(image, src);
     dst = src.clone();
-    
+    // Histogram strething using custom function
     for(int y = 0; y < src.rows; ++y) {
         for(int x = 0; x < src.cols; ++x) {
             for(int c = 0; c < 3; ++c) {
+                // Calculating a new contrst value and assingning it in place
                 int output = computeContrast(src.at<Vec3b>(y,x)[c], r1, r2, s1, s2);
                 dst.at<Vec3b>(y,x)[c] = saturate_cast<uchar>(output);
             }
@@ -79,14 +82,14 @@ using namespace cv;
 }
 
 + (UIImage *)invert:(UIImage *) image {
-    Mat mat;
+    Mat mat, rgb;
     UIImageToMat(image, mat);
 
-    cv::Mat rgb;
-    cv::cvtColor(mat, rgb, COLOR_RGBA2RGB);
-    cv::Mat tmp(rgb.size(), rgb.type(), cv::Scalar(255,255,255));
-    cv::Mat rgb_invert = tmp ^ rgb;
-
+    cvtColor(mat, rgb, COLOR_BGRA2BGR);
+    Mat tmp(rgb.size(), rgb.type(), cv::Scalar(255,255,255));
+    // RGB inversion using XOR with white Mat
+    Mat rgb_invert = tmp ^ rgb;
+    cvtColor(rgb_invert, rgb_invert, COLOR_BGR2BGRA);
     UIImage* img = MatToUIImage(rgb_invert);
     return img;
 }
@@ -94,6 +97,7 @@ using namespace cv;
 + (UIImage *)blur:(UIImage *) image level:(int) level {
     Mat src, dst;
     UIImageToMat(image, src);
+    // Performing blur
     cv::blur(src, dst, cv::Size(level, level));
     return MatToUIImage(dst);
 }
@@ -101,6 +105,7 @@ using namespace cv;
 + (UIImage *)gaussianBlur:(UIImage *) image level:(int) level {
     Mat src, dst;
     UIImageToMat(image, src);
+    // Performing gaussian blur
     cv::GaussianBlur(src, dst, cv::Size(level, level), 0);
     return MatToUIImage(dst);
 }
@@ -109,6 +114,7 @@ using namespace cv;
     Mat src, dst;
     UIImageToMat(image, src);
     dst = src.clone();
+    // Performing median blur
     cv::medianBlur(src, dst, level);
     return MatToUIImage(dst);
 }
@@ -116,23 +122,26 @@ using namespace cv;
 + (UIImage *)otsuThreshold:(UIImage *) image level:(double) level {
     Mat src, dst, tmp;
     UIImageToMat(image, src);
-    cvtColor(src, tmp, COLOR_BGR2GRAY);
+    cvtColor(src, tmp, COLOR_BGRA2GRAY);
+    // Performing Otsu thresholding
     cv::threshold(tmp, dst, level, 255, THRESH_BINARY | THRESH_OTSU);
-    cvtColor(dst, dst, COLOR_GRAY2RGB);
+    cvtColor(dst, dst, COLOR_GRAY2BGRA);
     return MatToUIImage(dst);
 }
 
 + (UIImage *)posterize:(UIImage *) image level:(int) level {
+    // Variables
     Mat src;
     UIImageToMat(image, src);
     cv::Mat dst(src.size(), src.type(), cv::Scalar(255,255,255));
-    
+    // dividing image to desired number of gray levels
     for(int i = 0; i < src.rows; i++) {
         for(int j = 0; j < src.cols; j++) {
             for(int c = 0; c < 3; c++) {
                 int num_colors = level;
                 int divisor = 256 / num_colors;
                 int max_quantized_value = 255 / divisor;
+                // Getting value pointer
                 int new_value = ((src.at<Vec3b>(i,j)[c] / divisor) * 255) / max_quantized_value;
                 dst.at<Vec3b>(i,j)[c] = new_value;
             }
@@ -147,24 +156,29 @@ using namespace cv;
     Mat kernel;
     
     UIImageToMat(image, src);
-    cvtColor(src, gray, COLOR_BGR2GRAY);
+    cvtColor(src, gray, COLOR_BGRA2GRAY);
     threshold(gray, thresh, 0, 255, THRESH_BINARY_INV + THRESH_OTSU);
-    
+    // Creating kernel and performing morphonogy operations Open and Dilate
     kernel = getStructuringElement(MORPH_ELLIPSE, cv::Size(3,3), cv::Point(-1,-1));
     morphologyEx(thresh, opening, MORPH_OPEN, kernel, cv::Point(-1,-1), 1);
+    // Getting of image background
     dilate(opening, item_bg, kernel);
-    
+    // Performing distance transformation and getting image foregroung
     distanceTransform(opening, dist_transform, DIST_L2, 5);
     threshold(dist_transform, item_fg, 1, 255, THRESH_BINARY);
     morphologyEx(item_fg, item_fg, MORPH_ERODE, kernel, cv::Point(-1,-1), 10);
+    // Converting to CV_8U Mat type
     item_fg.convertTo(item_fg, CV_8U);
+    // Subtraction
     subtract(item_bg, item_fg, unknown);
+    // Creating markers
     connectedComponents(item_fg, markers);
-    
+    // Converting to RGB 3-channel
     cvtColor(src, dst, COLOR_BGRA2BGR);
     dst.convertTo(dst, CV_8UC3);
+    // Converting markers to single channel 32 bit
     markers.convertTo(markers, CV_32S);
-    
+    // Excluding unknown region from markers
     for (int i = 0; i < markers.rows; i++) {
         for (int j = 0; j < markers.cols; j++) {
             markers.at<Vec3i>(i,j)[0] = markers.at<Vec3b>(i,j)[0] + 1;
@@ -173,9 +187,9 @@ using namespace cv;
             }
         }
     }
-    
+    // Calling watershed
     watershed(dst, markers);
-    
+    // Drawing found objects red
     for (int i = 0; i < markers.rows; i++) {
         for (int j = 0; j < markers.cols; j++) {
             dst.at<Vec3b>(i,j)[0] = 255;
@@ -186,6 +200,7 @@ using namespace cv;
 }
 
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
+    // Variables
     Mat src, gray, dst;
     Mat grad;
     Mat grad_x, grad_y;
@@ -198,20 +213,20 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert image to GRAY
-    cvtColor( src, gray, COLOR_BGR2GRAY );
+    // Convert image to GRAY
+    cvtColor( src, gray, COLOR_BGRA2GRAY );
 
     if (type == 0) {
-        /// Gradient X
+        // Gradient X
         Sobel( gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
         convertScaleAbs( grad_x, abs_grad_x ); // Convert back to CV_8U
-        cvtColor(abs_grad_x, grad, COLOR_GRAY2BGR);
+        cvtColor(abs_grad_x, grad, COLOR_GRAY2BGRA);
         return MatToUIImage(grad);
     } else {
-        /// Gradient Y
+        // Gradient Y
         Sobel( gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );
         convertScaleAbs( grad_y, abs_grad_y );
-        cvtColor(abs_grad_y, grad, COLOR_GRAY2BGR);
+        cvtColor(abs_grad_y, grad, COLOR_GRAY2BGRA);
         return MatToUIImage(grad);
     }
 }
@@ -223,11 +238,12 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert image to GRAY
-    cvtColor( src, gray, COLOR_BGR2GRAY );
+    // Convert image to GRAY
+    cvtColor( src, gray, COLOR_BGRA2GRAY );
     Laplacian(gray, dst, CV_16S);
-    convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
-    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
+    convertScaleAbs( dst, abs_dst );
+    // Convert back to CV_8U
+    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGRA);
     return MatToUIImage(abs_dst);
 }
 
@@ -238,11 +254,12 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert image to GRAY
-    cvtColor( src, gray, COLOR_BGR2GRAY );
+    // Convert image to GRAY
+    cvtColor( src, gray, COLOR_BGRA2GRAY );
     Canny(gray, dst, lower, upper);
-    convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
-    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGR);
+    convertScaleAbs( dst, abs_dst );
+    // Convert back to CV_8U
+    cvtColor(abs_dst, abs_dst, COLOR_GRAY2BGRA);
     return MatToUIImage(abs_dst);
 }
 
@@ -251,16 +268,16 @@ using namespace cv;
     
     float kernelData[9];
     NSInteger count = [mask count];
-    
+    // Reading from NSArray and filling kernelData
     for (int k = 0; k < count; ++k) {
         kernelData[k] = [[mask objectAtIndex:(NSUInteger)k] floatValue];
     }
-
+    // Applying divisor
     for (int i = 0; i < 9; ++i) {
         kernelData[i] = (kernelData[i] / divisor);
     }
     Mat kernel(3,3, CV_32F, kernelData);
-
+    
     UIImageToMat(image, src);
     filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, BORDER_DEFAULT );
     return MatToUIImage(dst);
@@ -268,11 +285,11 @@ using namespace cv;
 
 + (UIImage *)sharpen:(UIImage *) image type:(int) type border:(int) border {
     Mat src, kernel, dst;
-    
+    // Sharpen kernels
     float kernelData1[9] = {0,-1,0,-1,5,-1,0,-1,0};
     float kernelData2[9] = {-1,-1,-1,-1,9,-1,-1,-1,-1};
     float kernelData3[9] = {1,-2,1,-2,5,-2,1,-2,1};
-    
+    // Selecting kernel
     if (type == 0) {
         Mat temp(3,3, CV_32F, kernelData1);
         kernel = temp.clone();
@@ -283,7 +300,7 @@ using namespace cv;
         Mat temp(3,3, CV_32F, kernelData3);
         kernel = temp.clone();
     }
-
+    // Performing filetering
     UIImageToMat(image, src);
     filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, border);
     return MatToUIImage(dst);
@@ -291,7 +308,7 @@ using namespace cv;
 
 + (UIImage *)prewitt:(UIImage *) image type:(int) type border:(int) border {
     Mat src, kernel, dst;
-    
+    // Prewitt kernels
     float kernelData1[9] = {1,1,1,0,1,0,-1,-1,-1};
     float kernelData2[9] = {1,0,-1, 1,1,-1, 1,0,-1};
     
@@ -310,7 +327,7 @@ using namespace cv;
 
 + (UIImage *)edgeDetection:(UIImage *) image type:(int) type border:(int) border {
     Mat src, kernel, dst;
-    
+    // Direction detection filter kernels
     float kernelData0[9] = { 1, 1, 0, 1, 1, -1, 0, -1, -1 };
     float kernelData1[9] = { 1, 1, 1, 0, 1, 0, -1, -1, -1 };
     float kernelData2[9] = { 0, 1, 1 , -1, 1, 1 , -1, -1, 0 };
@@ -345,7 +362,8 @@ using namespace cv;
         Mat temp(3,3, CV_32F, kernelData7);
         kernel = temp.clone();
     }
-
+    
+    // Reading image and applying filters
     UIImageToMat(image, src);
     filter2D(src, dst, CV_8U, kernel, cv::Point(-1,-1), 0, border);
     return MatToUIImage(dst);
@@ -354,8 +372,9 @@ using namespace cv;
 + (UIImage *)morphology:(UIImage *) image operation:(int) op element:(int) element n:(int) n border:(int) border {
     Mat src, kernel, dst;
     UIImageToMat(image, src);
-    
+    // Getting of tructural element and creating a kernel
     kernel = getStructuringElement(element, cv::Size(3,3), cv::Point(-1,-1));
+    // Performing morphology operation
     morphologyEx(src, dst, op, kernel, cv::Point(-1,-1), n, border);
     return MatToUIImage(dst);
 }
@@ -363,13 +382,15 @@ using namespace cv;
 + (UIImage *)thinning:(UIImage *) image {
     Mat src, dst, gray;
     UIImageToMat(image, src);
-    cvtColor(src, gray, COLOR_BGR2GRAY);
+    cvtColor(src, gray, COLOR_BGRA2GRAY);
+    // Applying thinning
     thinning(gray);
-    cvtColor(gray, dst, COLOR_GRAY2RGB);
+    cvtColor(gray, dst, COLOR_GRAY2BGRA);
     return MatToUIImage(dst);
 }
 
 + (NSMutableArray *)metrics:(UIImage *) image {
+    // Variables
     Mat src, thresh, gray, canny_output;
     std::vector<std::vector<cv::Point> > contours;
     std::vector<Vec4i> hierarchy;
@@ -383,7 +404,7 @@ using namespace cv;
     int totalPixels = 0, width = 0, height = 0;
     double area = 0, perimeter = 0;
     
-    cvtColor(src, gray, COLOR_BGR2GRAY);
+    cvtColor(src, gray, COLOR_BGRA2GRAY);
     threshold(gray, thresh, 127, 255, THRESH_BINARY);
     /// Getting moments
     Moments m = moments(thresh, true);
@@ -450,6 +471,7 @@ using namespace cv;
 }
 
 + (NSString *)shapeDetector:(UIImage *) image {
+    // Variables
     Mat src, thresh, gray;
     std::vector<std::vector<cv::Point>> contours;
     NSString *shape;
@@ -458,7 +480,7 @@ using namespace cv;
     UIImageToMat(image, src);
     
     /// Converting to Gray
-    cvtColor(src, gray, COLOR_BGR2GRAY);
+    cvtColor(src, gray, COLOR_BGRA2GRAY);
     threshold(gray, thresh, 128, 255, THRESH_BINARY);
     /// Calling findContours from threshold
     findContours(thresh, contours, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0,0));
@@ -537,6 +559,7 @@ private void thinningIteration(Mat& src, int iteration) {
     src &= ~marker;
 }
 
+// Histogram stretching
 private int computeContrast(int x, int r1, int r2, int s1, int s2)
 {
     float result = 0.0;
