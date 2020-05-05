@@ -489,22 +489,17 @@ using namespace cv;
 
 + (NSString *)shapeDetector:(UIImage *) image {
     Mat src, thresh, gray, canny_output;
-    std::vector<std::vector<cv::Point> > contours;
-    std::vector<Vec4i> hierarchy;
+    std::vector<std::vector<cv::Point>> contours;
+//    std::vector<Vec4i> hierarchy;
     
     UIImageToMat(image, src);
     double area = 0, perimeter = 0;
     NSString *shape;
     
     cvtColor(src, gray, COLOR_BGR2GRAY);
-    blur(gray, gray, cv::Size(3,3));
-    threshold(gray, thresh, 60, 255, THRESH_BINARY);
-    /// Getting moments
-//    Moments m = moments(thresh, true);
-    
-//    Canny(gray, canny_output, 50, 100, 3);
+    threshold(gray, thresh, 128, 255, THRESH_BINARY);
     /// Calling findContours from canny threshold
-    findContours(thresh, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(thresh, contours, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0,0));
     
     /// Getting contour from std::vector
     std::vector<cv::Point> cnt = contours[0];
@@ -514,12 +509,12 @@ using namespace cv;
     
     std::vector<cv::Point> approx;
     approxPolyDP(cnt, approx, 3, true);
-    shape = [NSString stringWithFormat:@"%d", approx.size()];
+    shape = [NSString stringWithFormat:@"%lu", approx.size()];
 //    peri = cv2.arcLength(c, True)
 //    approx = cv2.approxPolyDP(c, 0.04 * peri, True)
 
     if (approx.size() == 3) {
-//        shape = @"Triangle";
+        shape = @"Triangle";
     } else if (approx.size() == 4) {
         
     }
