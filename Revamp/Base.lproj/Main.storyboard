@@ -32,19 +32,25 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-zS-vdm">
                                         <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Open"/>
                                         <connections>
                                             <action selector="openBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KJS-62-1YL"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
                                         <rect key="frame" x="114.33333333333334" y="0.0" width="106.33333333333334" height="30"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="s6o-TU-zRu" appends="YES" id="Fgv-dS-Rcv"/>
+                                        </connections>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-M7-ldT">
                                         <rect key="frame" x="228.66666666666666" y="0.0" width="106.33333333333334" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Histogram"/>
                                         <connections>
                                             <action selector="histogramBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="86D-rQ-Qwj"/>
@@ -133,6 +139,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgZ-GQ-c2h">
                                                 <rect key="frame" x="0.0" y="0.0" width="119.66666666666667" height="50"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="History"/>
                                                 <connections>
                                                     <action selector="historyBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ArI-8r-aOR"/>
@@ -140,6 +147,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOR-hW-lyt">
                                                 <rect key="frame" x="127.66666666666666" y="0.0" width="119.66666666666666" height="50"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="Adjustment"/>
                                                 <connections>
                                                     <action selector="adjustmentsBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Y2-4X-5k4"/>
@@ -147,6 +155,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wqf-si-wBz">
                                                 <rect key="frame" x="255.33333333333334" y="0.0" width="119.66666666666666" height="50"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="Share"/>
                                                 <connections>
                                                     <action selector="shareBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jaq-JP-HA0"/>
@@ -321,6 +330,11 @@
                 <tapGestureRecognizer numberOfTapsRequired="2" id="ahZ-7I-3Zh">
                     <connections>
                         <action selector="openLibraryTapped:" destination="BYZ-38-t0r" id="fB4-1V-HJX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="5" id="s6o-TU-zRu">
+                    <connections>
+                        <action selector="aboutActionTriggered:" destination="BYZ-38-t0r" id="PYW-7O-l6m"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

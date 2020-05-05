@@ -65,4 +65,27 @@ struct FunctionsLib {
         alert.addAction(title: "OK", style: .cancel)
         alert.show()
     }
+    
+    // MARK: - Show About the App info
+    static func aboutApp() {
+        let alert = UIAlertController(style: .actionSheet)
+        
+        let text: [AttributedTextBlock] = [
+            .header1("Revamp"),
+            .header2("WIT University Project"),
+            .normal(""),
+            .header2("Title: Image Processing app for iOS Devices"),
+            .normal("Author: Andrii Halabuda"),
+            .normal("Group: ID06IO2"),
+            .normal("Student ID: 17460"),
+            .normal("Subject: Algorytmy Przetwarzania Obrazów 2020 WIT"),
+            .normal("Prowadzący: mgr inż. Łukasz Roszkowiak"),
+            .normal(""),
+            .normal("Warsaw School of Information Technologies"),
+            .normal("Warsaw 2020")
+            ]
+        alert.addTextViewer(text: .attributedText(text))
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()
+    }
 }

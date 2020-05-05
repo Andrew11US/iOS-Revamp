@@ -8,8 +8,11 @@ import UIKit
 // MARK: - UIScrollView extension class to hold UIImageView
 class ImageScrollView: UIScrollView, UIScrollViewDelegate {
 
-    // MARK: - Image to operate with
-    var baseImage: UIImageView!
+    // MARK: - Image to operate with and it getter
+    private var baseImage: UIImageView!
+    var pic : UIImage {
+        get { return baseImage.image! }
+    }
     
     // Tap Gesture recognizer
     lazy var zoomingTap: UITapGestureRecognizer = {

@@ -75,7 +75,7 @@ class MainVC: UIViewController {
     }
     
     @IBAction func shareBtnTapped(_ sender: UIButton) {
-        let items = [imageScrollView.baseImage.image!]
+        let items = [imageScrollView.pic]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         present(activityController, animated: true)
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
@@ -88,7 +88,7 @@ class MainVC: UIViewController {
     }
     
     @IBAction func aboutActionTriggered(_ sender: UIButton) {
-        print("About app")
+        FunctionsLib.aboutApp()
     }
     
     @IBAction func historyBtnTapped(_ sender: UIButton) {
@@ -115,7 +115,7 @@ class MainVC: UIViewController {
     @IBAction func histogramBtnTapped(_ sender: UIButton) {
         if histogramView.isHidden {
             histogramView.isHidden = false
-            drawHistogram(image: imageScrollView.baseImage.image!)
+            drawHistogram(image: imageScrollView.pic)
         } else {
             histogramView.isHidden = true
         }
@@ -123,59 +123,61 @@ class MainVC: UIViewController {
     
     // MARK: - Apply adjustment
     @IBAction func applyAdjustmentBtnTapped(_ sender: UIButton) {
+        let img = imageScrollView.pic
+        
         switch selectedAdjustment {
         case .grayscale:
-            imageScrollView.set(image: OpenCVWrapper.toGrayscale(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.toGrayscale(img))
         case .equalize:
-            imageScrollView.set(image: OpenCVWrapper.histogramEqualization(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.histogramEqualization(img))
         case .thresholdBinarized:
-            imageScrollView.set(image: OpenCVWrapper.threshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
+            imageScrollView.set(image: OpenCVWrapper.threshold(img, level: (sView as! ThresholdView).threshold))
         case .thresholGray:
-            imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
+            imageScrollView.set(image: OpenCVWrapper.grayscaleThreshold(img, level: (sView as! ThresholdView).threshold))
         case .contrast:
-            imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(imageScrollView.baseImage.image!, r1: Int32((sView as! ContrastView).fromMin), r2: Int32((sView as! ContrastView).fromMax), s1: Int32((sView as! ContrastView).toMin), s2: Int32((sView as! ContrastView).toMax)))
+            imageScrollView.set(image: OpenCVWrapper.contrastEnhancement(img, r1: Int32((sView as! ContrastView).fromMin), r2: Int32((sView as! ContrastView).fromMax), s1: Int32((sView as! ContrastView).toMin), s2: Int32((sView as! ContrastView).toMax)))
         case .invert:
-            imageScrollView.set(image: OpenCVWrapper.invert(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.invert(img))
         case .thresholAdaptive:
-            imageScrollView.set(image: OpenCVWrapper.adaptiveThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
+            imageScrollView.set(image: OpenCVWrapper.adaptiveThreshold(img, level: (sView as! ThresholdView).threshold))
         case .blur:
-            imageScrollView.set(image: OpenCVWrapper.blur(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
+            imageScrollView.set(image: OpenCVWrapper.blur(img, level: Int32((sView as! BlurView).blurLevel)))
         case .gaussian:
-            imageScrollView.set(image: OpenCVWrapper.gaussianBlur(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
+            imageScrollView.set(image: OpenCVWrapper.gaussianBlur(img, level: Int32((sView as! BlurView).blurLevel)))
         case .median:
-            imageScrollView.set(image: OpenCVWrapper.medianFilter(imageScrollView.baseImage.image!, level: Int32((sView as! BlurView).blurLevel)))
+            imageScrollView.set(image: OpenCVWrapper.medianFilter(img, level: Int32((sView as! BlurView).blurLevel)))
         case .thresholdOtsu:
-            imageScrollView.set(image: OpenCVWrapper.otsuThreshold(imageScrollView.baseImage.image!, level: (sView as! ThresholdView).threshold))
+            imageScrollView.set(image: OpenCVWrapper.otsuThreshold(img, level: (sView as! ThresholdView).threshold))
         case .posterize:
-            imageScrollView.set(image: OpenCVWrapper.posterize(imageScrollView.baseImage.image!, level: Int32((sView as! PosterizeView).grayLevels)))
+            imageScrollView.set(image: OpenCVWrapper.posterize(img, level: Int32((sView as! PosterizeView).grayLevels)))
         case .watershed:
-            imageScrollView.set(image: OpenCVWrapper.watershed(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.watershed(img))
         case .sobel:
-            imageScrollView.set(image: OpenCVWrapper.sobel(imageScrollView.baseImage.image!, type: Int32((sView as! SobelView).type), border: Int32((sView as! SobelView).border)))
+            imageScrollView.set(image: OpenCVWrapper.sobel(img, type: Int32((sView as! SobelView).type), border: Int32((sView as! SobelView).border)))
         case .laplacian:
-            imageScrollView.set(image: OpenCVWrapper.laplacian(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.laplacian(img))
         case .canny:
-            imageScrollView.set(image: OpenCVWrapper.canny(imageScrollView.baseImage.image!, lower: Int32((sView as! CannyView).lowerBound), upper: Int32((sView as! CannyView).upperBound)))
+            imageScrollView.set(image: OpenCVWrapper.canny(img, lower: Int32((sView as! CannyView).lowerBound), upper: Int32((sView as! CannyView).upperBound)))
         case .mask:
-            imageScrollView.set(image: OpenCVWrapper.mask3x3(imageScrollView.baseImage.image!, mask: (sView as! MaskView).kernel, divisor: Int32((sView as! MaskView).divisor)))
+            imageScrollView.set(image: OpenCVWrapper.mask3x3(img, mask: (sView as! MaskView).kernel, divisor: Int32((sView as! MaskView).divisor)))
         case .sharpen:
-            imageScrollView.set(image: OpenCVWrapper.sharpen(imageScrollView.baseImage.image!, type: Int32((sView as! SharpenView).type), border: Int32((sView as! SharpenView).border)))
+            imageScrollView.set(image: OpenCVWrapper.sharpen(img, type: Int32((sView as! SharpenView).type), border: Int32((sView as! SharpenView).border)))
         case .prewitt:
-            imageScrollView.set(image: OpenCVWrapper.prewitt(imageScrollView.baseImage.image!, type: Int32((sView as! PrewittView).type), border: Int32((sView as! PrewittView).border)))
+            imageScrollView.set(image: OpenCVWrapper.prewitt(img, type: Int32((sView as! PrewittView).type), border: Int32((sView as! PrewittView).border)))
         case .edge:
-            imageScrollView.set(image: OpenCVWrapper.edgeDetection(imageScrollView.baseImage.image!, type: Int32((sView as! EdgeDetectionView).type), border: Int32((sView as! EdgeDetectionView).border)))
+            imageScrollView.set(image: OpenCVWrapper.edgeDetection(img, type: Int32((sView as! EdgeDetectionView).type), border: Int32((sView as! EdgeDetectionView).border)))
         case .morphology:
-            imageScrollView.set(image: OpenCVWrapper.morphology(imageScrollView.baseImage.image!, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
+            imageScrollView.set(image: OpenCVWrapper.morphology(img, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
         case .thinning:
-            imageScrollView.set(image: OpenCVWrapper.thinning(imageScrollView.baseImage.image!))
+            imageScrollView.set(image: OpenCVWrapper.thinning(img))
         case .shapeDetector:
-            FunctionsLib.detectShape(img: imageScrollView.baseImage.image!)
+            FunctionsLib.detectShape(img: img)
         case .metrics:
-            FunctionsLib.showMetrics(img: imageScrollView.baseImage.image!)
+            FunctionsLib.showMetrics(img: img)
         default: break
         }
         
-        historyImages.append(HistoryImage(name: selectedAdjustment.rawValue, image: imageScrollView.baseImage.image!))
+        historyImages.append(HistoryImage(name: selectedAdjustment.rawValue, image: imageScrollView.pic))
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
         removeFromView()
     }
@@ -273,6 +275,7 @@ class MainVC: UIViewController {
         }
     }
     
+    // MARK: - Restyling settings view to show propper adjustment setting controls
     func restyleSettingsView(adjustment: Adjustment) -> Int {
         let size = 61
         switch adjustment {
@@ -314,6 +317,7 @@ class MainVC: UIViewController {
         }
     }
     
+    // Initializing adjustment settings view
     private func setupAdjustmentSettingsView(viewType: ViewType) {
         switch viewType {
         case .thresholdView:
@@ -451,7 +455,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         imageScrollView.set(image: historyImages[indexPath.row].image)
         if !histogramView.isHidden {
-            drawHistogram(image: imageScrollView.baseImage.image!)
+            drawHistogram(image: imageScrollView.pic)
         }
     }
     
