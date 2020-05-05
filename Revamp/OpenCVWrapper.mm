@@ -161,51 +161,31 @@ using namespace cv;
     subtract(item_bg, item_fg, unknown);
     connectedComponents(item_fg, markers);
     
+    cvtColor(gray, gray, COLOR_GRAY2RGB);
+    gray.convertTo(gray, CV_8UC3);
+    markers.convertTo(markers, CV_32S);
     
+    for (int i = 0; i < markers.rows; i++) {
+        for (int j = 0; j < markers.cols; j++) {
+            markers.at<Vec3i>(i,j)[0] = markers.at<Vec3b>(i,j)[0] + 1;
+            if (unknown.at<Vec3b>(i, j)[0] == 255) {
+                markers.at<Vec3i>(i,j)[0] = 0;
+            }
+        }
+    }
+    watershed(gray, markers);
     
-    markers.convertTo(markers, CV_8UC1);
+    for (int i = 0; i < markers.rows; i++) {
+        for (int j = 0; j < markers.cols; j++) {
+            if (markers.at<Vec3i>(i,j)[0] == -1) {
+                gray.at<Vec3b>(i,j)[0] = 255;
+                gray.at<Vec3b>(i,j)[1] = 0;
+                gray.at<Vec3b>(i,j)[2] = 0;
+            }
+        }
+    }
     
-//    img_gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-//    ret2,thresh = cv2.threshold(img_gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-//    kernel = np.ones((3,3),np.uint8)
-//    opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 1)
-//    sure_bg = cv2.dilate(opening,kernel,iterations=1)
-//    dist_transform = cv2.distanceTransform(opening,cv2.DIST_L2,5)
-    //    ret, sure_fg = cv2.threshold(dist_transform,0.5*dist_transform.max(),255,0)
-    //    sure_fg = np.uint8(sure_fg)
-    //    unknown = cv2.subtract(sure_bg,sure_fg)
-    //    ret, markers = cv2.connectedComponents(sure_fg)
-    
-//    markers = markers+1
-//    markers[unknown==255] = 0
-//    markers2 = cv2.watershed(image, markers)
-//    img gray[markers2 == -1] = 255
-    
-    
-
-//    for (int i = 0; i < markers.rows; i++) {
-//        for (int j = 0; j < markers.cols; j++) {
-//            markers.intPtr(i, j)[0] = markers.ucharPtr(i, j)[0] + 1;
-//            if (unknown.ucharPtr(i, j)[0] == 255) {
-//                markers.intPtr(i, j)[0] = 0;
-//            }
-//        }
-//    }
-//    cv.cvtColor(src, src, cv.COLOR_RGBA2RGB, 0);
-//    cv.watershed(src, markers);
-//    // draw barriers
-//    for (let i = 0; i < markers.rows; i++) {
-//        for (let j = 0; j < markers.cols; j++) {
-//            if (markers.intPtr(i, j)[0] == -1) {
-//                src.ucharPtr(i, j)[0] = 255; // R
-//                src.ucharPtr(i, j)[1] = 0; // G
-//                src.ucharPtr(i, j)[2] = 0; // B
-//            }
-//        }
-//    }
-//    cv.imshow('canvasOutput', src);
-    
-    return MatToUIImage(markers);
+    return MatToUIImage(gray);
 }
 
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
