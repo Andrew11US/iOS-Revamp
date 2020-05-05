@@ -178,11 +178,7 @@ using namespace cv;
     
     for (int i = 0; i < markers.rows; i++) {
         for (int j = 0; j < markers.cols; j++) {
-            if (markers.at<Vec3i>(i,j)[0] == -1) {
-                dst.at<Vec3b>(i,j)[0] = 255;
-                dst.at<Vec3b>(i,j)[1] = 0;
-                dst.at<Vec3b>(i,j)[2] = 0;
-            }
+            dst.at<Vec3b>(i,j)[0] = 255;
         }
     }
     
