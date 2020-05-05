@@ -69,7 +69,7 @@ using namespace cv;
     for(int y = 0; y < src.rows; ++y) {
         for(int x = 0; x < src.cols; ++x) {
             for(int c = 0; c < 3; ++c) {
-                int output = computeOutput(src.at<Vec3b>(y,x)[c], r1, r2, s1, s2);
+                int output = computeContrast(src.at<Vec3b>(y,x)[c], r1, r2, s1, s2);
                 dst.at<Vec3b>(y,x)[c] = saturate_cast<uchar>(output);
             }
         }
@@ -130,28 +130,7 @@ using namespace cv;
     UIImageToMat(image, src);
     cv::Mat dst(src.size(), src.type(), cv::Scalar(255,255,255));
     
-//    cv::cvtColor(src, gray, COLOR_BGR2GRAY);
-//    Mat lut(1,256, CV_8UC1);
-
-//    float param1 = 255.0f / (level - 1);
-//    float param2 = 256.0f / (level);
-//    for (int i = 0; i < 256; ++i)
-//    {
-//        if (lut.at<unsigned char>(0,i) < 85) {
-//            lut.at<unsigned char>(0,i) = (unsigned char)(128);
-//        } else if (lut.at<unsigned char>(0,i) >= 85 && lut.at<unsigned char>(0,i) < 170) {
-//            lut.at<unsigned char>(0,i) = (unsigned char)(0);
-//        }  else {
-//            lut.at<unsigned char>(0,i) = (unsigned char)(255);
-//        }
-//        lut.at<unsigned char>(0,i) = ((i / param2) * level);
-//    }
-    
-//    LUT(gray, lut, dst);
-//    cvtColor(dst, dst, COLOR_GRAY2RGB);
-    int x=0,y=0;
     for(int i = 0; i < src.rows; i++) {
-        x=0;
         for(int j = 0; j < src.cols; j++) {
             for(int c = 0; c < 3; c++) {
                 int num_colors = level;
@@ -160,11 +139,9 @@ using namespace cv;
                 int new_value = ((src.at<Vec3b>(i,j)[c] / divisor) * 255) / max_quantized_value;
                 dst.at<Vec3b>(i,j)[c] = new_value;
             }
-            x++;
         }
-        y++;
     }
-    NSLog(@"%i %i", x,y);
+    
     return MatToUIImage(dst);
 }
 
@@ -315,7 +292,6 @@ using namespace cv;
     
     for (int k = 0; k < count; ++k) {
         kernelData[k] = [[mask objectAtIndex:(NSUInteger)k] floatValue];
-//        NSLog(@"%f", kernelData[k]);
     }
 
     for (int i = 0; i < 9; ++i) {
@@ -511,7 +487,6 @@ using namespace cv;
     return arr;
 }
 
-// TODO: - Fix shape detector
 + (NSString *)shapeDetector:(UIImage *) image {
     Mat src, thresh, gray, canny_output;
     std::vector<std::vector<cv::Point> > contours;
@@ -619,14 +594,14 @@ private void thinningIteration(Mat& src, int iteration) {
     src &= ~marker;
 }
 
-private int computeOutput(int x, int r1, int r2, int s1, int s2)
+private int computeContrast(int x, int r1, int r2, int s1, int s2)
 {
     float result;
-    if(0 <= x && x <= r1){
+    if (0 <= x && x <= r1) {
         result = s1/r1 * x;
-    }else if(r1 < x && x <= r2){
+    } else if (r1 < x && x <= r2) {
         result = ((s2 - s1)/(r2 - r1)) * (x - r1) + s1;
-    }else if(r2 < x && x <= 255){
+    } else if (r2 < x && x <= 255) {
         result = ((255 - s2)/(255 - r2)) * (x - r2) + s2;
     }
     return (int)result;
