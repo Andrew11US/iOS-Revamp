@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // MARK: - Objective-C Wrapper for OpenCV library to operate with Swift
-// Header file is used for declarations
 @interface OpenCVWrapper : NSObject
 
 // Show OpenCV version
@@ -42,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Posterize
 + (UIImage *)posterize:(UIImage *) image level:(int) level;
 // Watershed segmentation
-+ (UIImage *)watershed:(UIImage *) image; // <<< FIX
++ (UIImage *)watershed:(UIImage *) image;
 // Sobel filter
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border;
 // Laplacian

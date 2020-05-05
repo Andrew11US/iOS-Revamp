@@ -75,7 +75,7 @@ class PosterizeView: UIView {
         grayLevels = Int(sender.value)
         
         nameLbl.text = "Gray Levels: " + "\(grayLevels)"
-        print("blur: ", grayLevels)
+        print("Gray levels: ", grayLevels)
     }
 
 }

@@ -87,9 +87,6 @@ using namespace cv;
     cv::Mat tmp(rgb.size(), rgb.type(), cv::Scalar(255,255,255));
     cv::Mat rgb_invert = tmp ^ rgb;
 
-//    cv::Mat gray;
-//    cv::cvtColor(rgb, gray, COLOR_RGB2GRAY);
-//    cv::Mat gray_invert = 255 ^ gray;
     UIImage* img = MatToUIImage(rgb_invert);
     return img;
 }
@@ -146,72 +143,69 @@ using namespace cv;
 }
 
 + (UIImage *)watershed:(UIImage *) image {
-//    Mat src, tmp;
-//    UIImageToMat(image, src);
-//    cvtColor(src, tmp, COLOR_BGRA2BGR);
-////    tmp.convertTo(tmp, CV_32F);
-//    cv::Mat dst(tmp.size(), tmp.type(), cv::Scalar(255));
-////    cvtColor(src, tmp, COLOR_BGR2GRAY);
-//    cv::watershed(tmp, dst);
-////    cvtColor(dst, dst, COLOR_GRAY2RGB);
-//    return MatToUIImage(dst);
+    Mat src, gray, thresh, opening, item_bg, dist_transform, item_fg, unknown, markers, dst;
+    Mat kernel;
     
-    Mat src;
     UIImageToMat(image, src);
-    Mat dst = cv::Mat();
-    Mat gray =  Mat();
-    Mat opening = Mat();
-    Mat coinsBg = Mat();
-    Mat coinsFg = Mat();
-    Mat distTrans = Mat();
-    Mat unknown = Mat();
-    Mat markers = cv::Mat();
-    // gray and threshold image
-    cvtColor(src, gray, COLOR_RGBA2GRAY, 0);
-    threshold(gray, gray, 0, 255, THRESH_BINARY_INV + THRESH_OTSU);
-    // get background
-    Mat M = Mat::ones(3, 3, CV_8U);
-    erode(gray, gray, M);
-    dilate(gray, opening, M);
-    dilate(opening, coinsBg, M, cv::Point(-1, -1), 3);
-    // distance transform
-    cv::distanceTransform(opening, distTrans, DIST_L2, 5);
-    cv::normalize(distTrans, distTrans, 1, 0, NORM_INF);
-    // get foreground
-    cv::threshold(distTrans, coinsFg, 0.7 * 1, 255, cv::THRESH_BINARY);
-    coinsFg.convertTo(coinsFg, CV_8U, 1, 0);
-    cv::subtract(coinsBg, coinsFg, unknown);
-    // get connected components markers
-    cv::connectedComponents(coinsFg, markers);
-    markers += 1;
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    threshold(gray, thresh, 0, 255, THRESH_BINARY_INV + THRESH_OTSU);
     
-    for (int i = 0; i < markers.rows; i++) {
-        for (int j = 0; j < markers.cols; j++) {
-//            markers.ptr(i, j)[0] = markers.ptr(i, j)[0] + 1;
-            markers.at<Vec3b>(i,j)[0] = markers.at<Vec3b>(i,j)[0] + 1;
-            if (unknown.at<Vec3b>(i, j)[0] == 255) {
-                markers.at<Vec3b>(i, j)[0] = 0;
-            }
-        }
-    }
-    cv::cvtColor(src, src, COLOR_RGBA2RGB, 0);
-    cv::watershed(src, markers);
-    // draw barriers
-    for (int i = 0; i < markers.rows; i++) {
-        for (int j = 0; j < markers.cols; j++) {
-            if (markers.at<Vec3b>(i, j)[0] == -1) {
-                src.at<Vec3b>(i, j)[0] = 255; // R
-                src.at<Vec3b>(i, j)[1] = 0; // G
-                src.at<Vec3b>(i, j)[2] = 0; // B
-            }
-        }
-    }
-    UIImage* output = MatToUIImage(src);
-    src.deallocate();
-    return output;
-//    src.delete(); dst.delete(); gray.delete(); opening.delete(); coinsBg.delete();
-//    coinsFg.delete(); distTrans.delete(); unknown.delete(); markers.delete(); M.delete();
+    kernel = getStructuringElement(MORPH_ELLIPSE, cv::Size(3,3), cv::Point(-1,-1));
+    morphologyEx(thresh, opening, MORPH_OPEN, kernel, cv::Point(-1,-1), 1);
+    dilate(opening, item_bg, kernel);
     
+    distanceTransform(opening, dist_transform, DIST_L2, 5);
+    threshold(dist_transform, item_fg, 1, 255, THRESH_BINARY);
+    morphologyEx(item_fg, item_fg, MORPH_ERODE, kernel, cv::Point(-1,-1), 12);
+    item_fg.convertTo(item_fg, CV_8U);
+    subtract(item_bg, item_fg, unknown);
+    connectedComponents(item_fg, markers);
+    
+    
+    
+    markers.convertTo(markers, CV_8UC1);
+    
+//    img_gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+//    ret2,thresh = cv2.threshold(img_gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+//    kernel = np.ones((3,3),np.uint8)
+//    opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 1)
+//    sure_bg = cv2.dilate(opening,kernel,iterations=1)
+//    dist_transform = cv2.distanceTransform(opening,cv2.DIST_L2,5)
+    //    ret, sure_fg = cv2.threshold(dist_transform,0.5*dist_transform.max(),255,0)
+    //    sure_fg = np.uint8(sure_fg)
+    //    unknown = cv2.subtract(sure_bg,sure_fg)
+    //    ret, markers = cv2.connectedComponents(sure_fg)
+    
+//    markers = markers+1
+//    markers[unknown==255] = 0
+//    markers2 = cv2.watershed(image, markers)
+//    img gray[markers2 == -1] = 255
+    
+    
+
+//    for (int i = 0; i < markers.rows; i++) {
+//        for (int j = 0; j < markers.cols; j++) {
+//            markers.intPtr(i, j)[0] = markers.ucharPtr(i, j)[0] + 1;
+//            if (unknown.ucharPtr(i, j)[0] == 255) {
+//                markers.intPtr(i, j)[0] = 0;
+//            }
+//        }
+//    }
+//    cv.cvtColor(src, src, cv.COLOR_RGBA2RGB, 0);
+//    cv.watershed(src, markers);
+//    // draw barriers
+//    for (let i = 0; i < markers.rows; i++) {
+//        for (let j = 0; j < markers.cols; j++) {
+//            if (markers.intPtr(i, j)[0] == -1) {
+//                src.ucharPtr(i, j)[0] = 255; // R
+//                src.ucharPtr(i, j)[1] = 0; // G
+//                src.ucharPtr(i, j)[2] = 0; // B
+//            }
+//        }
+//    }
+//    cv.imshow('canvasOutput', src);
+    
+    return MatToUIImage(markers);
 }
 
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
@@ -227,7 +221,7 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert it to GRAY
+    /// Convert image to GRAY
     cvtColor( src, gray, COLOR_BGR2GRAY );
 
     if (type == 0) {
@@ -252,7 +246,7 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert it to GRAY
+    /// Convert image to GRAY
     cvtColor( src, gray, COLOR_BGR2GRAY );
     Laplacian(gray, dst, CV_16S);
     convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U
@@ -267,7 +261,7 @@ using namespace cv;
     UIImageToMat(image, src);
     GaussianBlur( src, src, cv::Size(3,3), 0, 0, BORDER_DEFAULT );
 
-    /// Convert it to GRAY
+    /// Convert image to GRAY
     cvtColor( src, gray, COLOR_BGR2GRAY );
     Canny(gray, dst, lower, upper);
     convertScaleAbs( dst, abs_dst ); // Convert back to CV_8U

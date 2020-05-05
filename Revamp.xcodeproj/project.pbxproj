@@ -39,7 +39,6 @@
 		01959145245D81DE00DDE1A8 /* PrewittView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959144245D81DE00DDE1A8 /* PrewittView.swift */; };
 		01959147245D87C900DDE1A8 /* EdgeDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */; };
 		01959149245D969C00DDE1A8 /* MorphologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959148245D969C00DDE1A8 /* MorphologyView.swift */; };
-		0195914B245DA9FB00DDE1A8 /* lut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0195914A245DA9FB00DDE1A8 /* lut.cpp */; };
 		0195914D245DECA700DDE1A8 /* ViewType+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0195914C245DECA700DDE1A8 /* ViewType+Enum.swift */; };
 		01959150245DF61D00DDE1A8 /* Adjustment+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0195914F245DF61D00DDE1A8 /* Adjustment+Enum.swift */; };
 		01959154245DFF2600DDE1A8 /* PosterizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01959153245DFF2600DDE1A8 /* PosterizeView.swift */; };
@@ -109,7 +108,6 @@
 		01959144245D81DE00DDE1A8 /* PrewittView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrewittView.swift; sourceTree = "<group>"; };
 		01959146245D87C900DDE1A8 /* EdgeDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeDetectionView.swift; sourceTree = "<group>"; };
 		01959148245D969C00DDE1A8 /* MorphologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorphologyView.swift; sourceTree = "<group>"; };
-		0195914A245DA9FB00DDE1A8 /* lut.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lut.cpp; sourceTree = "<group>"; };
 		0195914C245DECA700DDE1A8 /* ViewType+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewType+Enum.swift"; sourceTree = "<group>"; };
 		0195914F245DF61D00DDE1A8 /* Adjustment+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Adjustment+Enum.swift"; sourceTree = "<group>"; };
 		01959153245DFF2600DDE1A8 /* PosterizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterizeView.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				012953F6245219E90067082D /* OpenCVWrapper.mm */,
 				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 				01130E6B245488EC00C2ACCC /* HistoryImage.swift */,
-				0195914A245DA9FB00DDE1A8 /* lut.cpp */,
 				015BF3C4245F022400434E96 /* FunctionsLib.swift */,
 			);
 			name = Model;
@@ -610,7 +607,6 @@
 				018B523A245B7E6C0078EFE4 /* BlurView.swift in Sources */,
 				015BF379245EF90600434E96 /* AttributedTextBlock.swift in Sources */,
 				0178DCD124537A220084984D /* UIImage+Extension.swift in Sources */,
-				0195914B245DA9FB00DDE1A8 /* lut.cpp in Sources */,
 				012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */,
 				01B38B90242CFB3D00180242 /* AppDelegate.swift in Sources */,
 				01959145245D81DE00DDE1A8 /* PrewittView.swift in Sources */,
@@ -814,7 +810,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -842,7 +838,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
