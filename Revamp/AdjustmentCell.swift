@@ -19,10 +19,8 @@ class AdjustmentCell: UITableViewCell {
     }
     
     func configureCell(adjustment: Adjustment) {
-        
         self.nameLbl.text = adjustment.rawValue
-//        self.iconImg.image = UIImage(named: adjustment.rawValue[0...4])
-        print(adjustment.rawValue[0..<3].lowercased() + ".png")
+        self.iconImg.image = UIImage(named: "\(adjustment.rawValue[0..<3].lowercased())")
     }
 
 }
