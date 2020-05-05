@@ -156,13 +156,13 @@ using namespace cv;
     
     distanceTransform(opening, dist_transform, DIST_L2, 5);
     threshold(dist_transform, item_fg, 1, 255, THRESH_BINARY);
-    morphologyEx(item_fg, item_fg, MORPH_ERODE, kernel, cv::Point(-1,-1), 12);
+    morphologyEx(item_fg, item_fg, MORPH_ERODE, kernel, cv::Point(-1,-1), 10);
     item_fg.convertTo(item_fg, CV_8U);
     subtract(item_bg, item_fg, unknown);
     connectedComponents(item_fg, markers);
     
-    cvtColor(gray, gray, COLOR_GRAY2RGB);
-    gray.convertTo(gray, CV_8UC3);
+    cvtColor(src, dst, COLOR_BGRA2BGR);
+    dst.convertTo(dst, CV_8UC3);
     markers.convertTo(markers, CV_32S);
     
     for (int i = 0; i < markers.rows; i++) {
@@ -173,19 +173,20 @@ using namespace cv;
             }
         }
     }
-    watershed(gray, markers);
+    
+    watershed(dst, markers);
     
     for (int i = 0; i < markers.rows; i++) {
         for (int j = 0; j < markers.cols; j++) {
             if (markers.at<Vec3i>(i,j)[0] == -1) {
-                gray.at<Vec3b>(i,j)[0] = 255;
-                gray.at<Vec3b>(i,j)[1] = 0;
-                gray.at<Vec3b>(i,j)[2] = 0;
+                dst.at<Vec3b>(i,j)[0] = 255;
+                dst.at<Vec3b>(i,j)[1] = 0;
+                dst.at<Vec3b>(i,j)[2] = 0;
             }
         }
     }
     
-    return MatToUIImage(gray);
+    return MatToUIImage(dst);
 }
 
 + (UIImage *)sobel:(UIImage *) image type:(int) type border:(int) border {
