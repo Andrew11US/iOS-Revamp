@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainVC" customModule="Revamp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double Tap to Open Library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hky-zj-Na8">
-                                <rect key="frame" x="0.0" y="90" width="834" height="994"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="614"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="textColor"/>
@@ -31,10 +31,10 @@
                                 </connections>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SWq-up-bbK">
-                                <rect key="frame" x="20" y="20" width="794" height="50"/>
+                                <rect key="frame" x="20" y="44" width="335" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiQ-zS-vdm">
-                                        <rect key="frame" x="0.0" y="0.0" width="259.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Open"/>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -45,7 +45,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-aD-r72">
-                                        <rect key="frame" x="267.5" y="0.0" width="259" height="50"/>
+                                        <rect key="frame" x="114.33333333333334" y="0.0" width="106.33333333333334" height="30"/>
                                         <gestureRecognizers/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
@@ -58,7 +58,7 @@
                                         </connections>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-M7-ldT">
-                                        <rect key="frame" x="534.5" y="0.0" width="259.5" height="50"/>
+                                        <rect key="frame" x="228.66666666666666" y="0.0" width="106.33333333333334" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Histogram"/>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -76,7 +76,7 @@
                                 </constraints>
                             </stackView>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubf-eh-UpR" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="78" width="834" height="300"/>
+                                <rect key="frame" x="0.0" y="82" width="375" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="UYt-br-Ycd">
@@ -85,20 +85,20 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLj-cY-Vfv">
-                                <rect key="frame" x="0.0" y="1104" width="834" height="0.0"/>
+                                <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="myt-a2-EJq">
-                                        <rect key="frame" x="0.0" y="5" width="834" height="490"/>
+                                        <rect key="frame" x="0.0" y="5" width="375" height="490"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R0V-FJ-9MH">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="490"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="490"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdjustmentCell" rowHeight="70" id="sGa-0V-Qe2" customClass="AdjustmentCell" customModule="Revamp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="834" height="70"/>
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sGa-0V-Qe2" id="gpS-aL-wlz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="834" height="70"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-gO-nH5">
@@ -108,7 +108,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85B-Ca-yOO">
-                                                                    <rect key="frame" x="83" y="11" width="736" height="48"/>
+                                                                    <rect key="frame" x="83" y="11" width="277" height="48"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -148,13 +148,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16Y-YD-xcS" userLabel="Tab Bar">
-                                <rect key="frame" x="0.0" y="1104" width="834" height="70"/>
+                                <rect key="frame" x="0.0" y="728" width="375" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-Fa-lPL">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgZ-GQ-c2h">
-                                                <rect key="frame" x="0.0" y="0.0" width="272.5" height="70"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="119.66666666666667" height="50"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="History"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -165,7 +165,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOR-hW-lyt">
-                                                <rect key="frame" x="280.5" y="0.0" width="273" height="70"/>
+                                                <rect key="frame" x="127.66666666666666" y="0.0" width="119.66666666666666" height="50"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="Adjustment"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -176,7 +176,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wqf-si-wBz">
-                                                <rect key="frame" x="561.5" y="0.0" width="272.5" height="70"/>
+                                                <rect key="frame" x="255.33333333333334" y="0.0" width="119.66666666666666" height="50"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="Share"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -201,18 +201,18 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yC0-kw-Evz">
-                                <rect key="frame" x="0.0" y="1104" width="834" height="0.0"/>
+                                <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yZG-jt-oH4">
-                                        <rect key="frame" x="0.0" y="5" width="834" height="390"/>
+                                        <rect key="frame" x="0.0" y="5" width="375" height="390"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NO1-Rp-J6u">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="390"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <collectionViewLayout key="collectionViewLayout" id="uR3-0M-L5p" customClass="CenteredCollectionViewFlowLayout" customModule="CenteredCollectionView"/>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HistoryCell" id="DQh-y0-SbN" customClass="HistoryCell" customModule="Revamp" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+                                                        <rect key="frame" x="62.666666666666664" y="0.0" width="250" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fi6-hQ-33p">
                                                             <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
@@ -266,13 +266,13 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCd-j9-wlv">
-                                <rect key="frame" x="0.0" y="1104" width="834" height="0.0"/>
+                                <rect key="frame" x="0.0" y="728" width="375" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qwv-7u-Y8P">
-                                        <rect key="frame" x="0.0" y="-53" width="834" height="45"/>
+                                        <rect key="frame" x="0.0" y="-53" width="375" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaA-3e-cUL">
-                                                <rect key="frame" x="0.0" y="0.0" width="413" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="183.66666666666666" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <state key="normal" title="Apply">
                                                     <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -282,7 +282,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yak-dq-vMz">
-                                                <rect key="frame" x="421" y="0.0" width="413" height="45"/>
+                                                <rect key="frame" x="191.66666666666663" y="0.0" width="183.33333333333337" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -363,7 +363,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="5" id="s6o-TU-zRu">
                     <connections>
-                        <action selector="aboutActionTriggered:" destination="BYZ-38-t0r" id="PYW-7O-l6m"/>
+                        <action selector="aboutActionTriggered" destination="BYZ-38-t0r" id="N0U-dO-rX8"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

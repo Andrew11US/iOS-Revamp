@@ -96,8 +96,8 @@ class MainVC: UIViewController {
         imagePicker.present(from: openBtn)
     }
     
-    @IBAction func aboutActionTriggered(_ sender: UIButton) {
-        FunctionsLib.aboutApp()
+    @IBAction func aboutActionTriggered() {
+        FunctionsLib.aboutApp(anchor: nameLbl)
     }
     
     @IBAction func historyBtnTapped(_ sender: UIButton) {
@@ -433,9 +433,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         print("Selected: ", adjustments[indexPath.row].rawValue)
         selectedAdjustment = adjustments[indexPath.row]
         if selectedAdjustment == .metrics {
-            FunctionsLib.showMetrics(img: imageScrollView.pic)
+            FunctionsLib.showMetrics(img: imageScrollView.pic, anchor: adjustmentsBtn)
         } else if selectedAdjustment == .shapeDetector {
-            FunctionsLib.detectShape(img: imageScrollView.pic)
+            FunctionsLib.detectShape(img: imageScrollView.pic, anchor: adjustmentsBtn)
         } else {
             let size = restyleSettingsView(adjustment: selectedAdjustment)
             self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: size)
