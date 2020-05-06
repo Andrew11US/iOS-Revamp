@@ -170,10 +170,6 @@ class MainVC: UIViewController {
             imageScrollView.set(image: OpenCVWrapper.morphology(img, operation: Int32((sView as! MorphologyView).operation), element: Int32((sView as! MorphologyView).element), n: Int32((sView as! MorphologyView).iterations), border: Int32((sView as! MorphologyView).border)))
         case .thinning:
             imageScrollView.set(image: OpenCVWrapper.thinning(img))
-        case .shapeDetector:
-            FunctionsLib.detectShape(img: img)
-        case .metrics:
-            FunctionsLib.showMetrics(img: img)
         default: break
         }
         
@@ -427,9 +423,15 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected: ", adjustments[indexPath.row].rawValue)
         selectedAdjustment = adjustments[indexPath.row]
-        let size = restyleSettingsView(adjustment: selectedAdjustment)
+        if selectedAdjustment == .metrics {
+            FunctionsLib.showMetrics(img: imageScrollView.pic)
+        } else if selectedAdjustment == .shapeDetector {
+            FunctionsLib.detectShape(img: imageScrollView.pic)
+        } else {
+            let size = restyleSettingsView(adjustment: selectedAdjustment)
+            self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: size)
+        }
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
-        self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: size)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
