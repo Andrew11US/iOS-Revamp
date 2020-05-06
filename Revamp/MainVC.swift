@@ -77,14 +77,23 @@ class MainVC: UIViewController {
     @IBAction func shareBtnTapped(_ sender: UIButton) {
         let items = [imageScrollView.pic]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        // If device is iPad anchor rect for alert is needed
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityController.popoverPresentationController?.sourceView = sender
+            activityController.popoverPresentationController?.sourceRect = sender.bounds
+            activityController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
+        }
+        
         present(activityController, animated: true)
+        
         self.animate(view: adjustmentsView, constraint: adjustmentsViewHeight, to: 0)
         self.animate(view: historyView, constraint: historyViewHeight, to: 0)
         self.animate(view: setAdjustmentView, constraint: setAdjustmentViewHeight, to: 0)
     }
     
-    @IBAction func openLibraryTapped(_ sender: UIButton) {
-        imagePicker.present(from: sender)
+    @IBAction func openLibraryTapped() {
+        imagePicker.present(from: openBtn)
     }
     
     @IBAction func aboutActionTriggered(_ sender: UIButton) {
