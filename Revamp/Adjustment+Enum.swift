@@ -29,7 +29,7 @@ enum Adjustment: String, CaseIterable {
     case laplacian = "Laplacian"
     case canny = "Canny Edge Detector"
     case prewitt = "Prewitt Operator"
-    case edge = "Edge Direction Detection"
+    case edge = "Edge Direction"
     case morphology = "Morphology Operations"
     case thinning = "Thinning"
     case shapeDetector = "Detect Shape"
