@@ -3,7 +3,6 @@ PODS:
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
-  - pop (1.0.12)
   - SPPermissions/Camera (5.3.2):
     - SPPermissions/Core
   - SPPermissions/Core (5.3.2)
@@ -13,7 +12,6 @@ PODS:
 DEPENDENCIES:
   - CenteredCollectionView
   - Charts
-  - pop
   - SPPermissions/Camera
   - SPPermissions/PhotoLibrary
 
@@ -21,15 +19,13 @@ SPEC REPOS:
   trunk:
     - CenteredCollectionView
     - Charts
-    - pop
     - SPPermissions
 
 SPEC CHECKSUMS:
   CenteredCollectionView: a9217908a698c386cbb98af11b596da48900b908
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
-  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   SPPermissions: f1f82ba07d1a07e1d73521b19e7c3550b0bc0ddb
 
-PODFILE CHECKSUM: 3a19bbc1012161c696236aa392954c1ebb754308
+PODFILE CHECKSUM: 8eb1dcc94c6f4bffcc059860ac3798288e4c4fdc
 
 COCOAPODS: 1.8.4

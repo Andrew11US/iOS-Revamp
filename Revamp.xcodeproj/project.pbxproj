@@ -12,7 +12,6 @@
 		01130E6A2454847400C2ACCC /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E692454847400C2ACCC /* HistoryCell.swift */; };
 		01130E6C245488EC00C2ACCC /* HistoryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E6B245488EC00C2ACCC /* HistoryImage.swift */; };
 		01130E6E2454B27400C2ACCC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01130E6D2454B27400C2ACCC /* ImagePicker.swift */; };
-		012953F32452196C0067082D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012953F22452196C0067082D /* opencv2.framework */; };
 		012953F7245219E90067082D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012953F6245219E90067082D /* OpenCVWrapper.mm */; };
 		012953F924522FDE0067082D /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012953F824522FDE0067082D /* ImageScrollView.swift */; };
 		012953FB24523A4D0067082D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 012953FA24523A4D0067082D /* README.md */; };
@@ -52,6 +51,7 @@
 		01B38B9F242CFB3E00180242 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01B38B9D242CFB3E00180242 /* LaunchScreen.storyboard */; };
 		01B38BAA242CFB3E00180242 /* RevampTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38BA9242CFB3E00180242 /* RevampTests.swift */; };
 		01B38BB5242CFB3E00180242 /* RevampUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B38BB4242CFB3E00180242 /* RevampUITests.swift */; };
+		01FB26EE246AC58200ABD6F8 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012953F22452196C0067082D /* opencv2.framework */; };
 		0BB249FEB40F86ACE9C40F39 /* Pods_Revamp_RevampUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAE91FE69825E16704B4D46 /* Pods_Revamp_RevampUITests.framework */; };
 		3CA359CAC90626D28A11C2C1 /* Pods_RevampTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8F844F8B4F11C3E86F3B67 /* Pods_RevampTests.framework */; };
 		988C639182DFF21A34B708BD /* Pods_Revamp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756E3C6BC6D8445B5FC08E2 /* Pods_Revamp.framework */; };
@@ -128,6 +128,7 @@
 		01B38BB0242CFB3E00180242 /* RevampUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RevampUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B38BB4242CFB3E00180242 /* RevampUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevampUITests.swift; sourceTree = "<group>"; };
 		01B38BB6242CFB3E00180242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01FB26ED246AC38000ABD6F8 /* Revamp.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Revamp.entitlements; sourceTree = "<group>"; };
 		1F8F844F8B4F11C3E86F3B67 /* Pods_RevampTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RevampTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C92042FAFC388C20CE1159 /* Pods-Revamp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revamp.release.xcconfig"; path = "Target Support Files/Pods-Revamp/Pods-Revamp.release.xcconfig"; sourceTree = "<group>"; };
 		6C8F2AA2B6B0972FC5A2DD2A /* Pods-RevampTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RevampTests.release.xcconfig"; path = "Target Support Files/Pods-RevampTests/Pods-RevampTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				012953F32452196C0067082D /* opencv2.framework in Frameworks */,
+				01FB26EE246AC58200ABD6F8 /* opencv2.framework in Frameworks */,
 				988C639182DFF21A34B708BD /* Pods_Revamp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +277,7 @@
 				01B38B91242CFB3D00180242 /* SceneDelegate.swift */,
 				01B38BA0242CFB3E00180242 /* Info.plist */,
 				01B38B98242CFB3D00180242 /* Revamp.xcdatamodeld */,
+				01FB26ED246AC38000ABD6F8 /* Revamp.entitlements */,
 				012953F4245219E80067082D /* Revamp-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
@@ -813,8 +815,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Revamp/Revamp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -828,6 +831,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Andrew11US.Revamp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Revamp/Revamp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -841,8 +845,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Revamp/Revamp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = PTRW36GG78;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -856,6 +861,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Andrew11US.Revamp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Revamp/Revamp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
